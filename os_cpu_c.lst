@@ -1,0 +1,1012 @@
+   1               		.file	"os_cpu_c.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               	.global	OSTaskStkInit
+  20               	OSTaskStkInit:
+  21               	.LFB2:
+  22               	.LM1:
+  23               	.LVL0:
+  24               	/* prologue: function */
+  25               	/* frame size = 0 */
+  26 0000 FA01      		movw r30,r20
+  27               	.LM2:
+  28 0002 8083      		st Z,r24
+  29               	.LM3:
+  30 0004 9293      		st -Z,r25
+  31               	.LVL1:
+  32               	.LM4:
+  33 0006 1292      		st -Z,__zero_reg__
+  34               	.LM5:
+  35 0008 1292      		st -Z,__zero_reg__
+  36               	.LM6:
+  37 000a 80E8      		ldi r24,lo8(-128)
+  38               	.LVL2:
+  39 000c 8293      		st -Z,r24
+  40               	.LM7:
+  41 000e 1292      		st -Z,__zero_reg__
+  42               	.LM8:
+  43 0010 1292      		st -Z,__zero_reg__
+  44               	.LM9:
+  45 0012 1292      		st -Z,__zero_reg__
+  46               	.LM10:
+  47 0014 1292      		st -Z,__zero_reg__
+  48               	.LM11:
+  49 0016 1292      		st -Z,__zero_reg__
+  50               	.LM12:
+  51 0018 1292      		st -Z,__zero_reg__
+  52               	.LM13:
+  53 001a 6293      		st -Z,r22
+  54               	.LM14:
+  55 001c 7293      		st -Z,r23
+  56               	.LVL3:
+  57               	.LM15:
+  58 001e 1292      		st -Z,__zero_reg__
+  59               	.LM16:
+  60 0020 1292      		st -Z,__zero_reg__
+  61               	.LM17:
+  62 0022 1292      		st -Z,__zero_reg__
+  63               	.LM18:
+  64 0024 1292      		st -Z,__zero_reg__
+  65               	.LM19:
+  66 0026 1292      		st -Z,__zero_reg__
+  67               	.LM20:
+  68 0028 1292      		st -Z,__zero_reg__
+  69               	.LM21:
+  70 002a 1292      		st -Z,__zero_reg__
+  71               	.LM22:
+  72 002c 1292      		st -Z,__zero_reg__
+  73               	.LM23:
+  74 002e 1292      		st -Z,__zero_reg__
+  75               	.LM24:
+  76 0030 1292      		st -Z,__zero_reg__
+  77               	.LM25:
+  78 0032 1292      		st -Z,__zero_reg__
+  79               	.LM26:
+  80 0034 1292      		st -Z,__zero_reg__
+  81               	.LM27:
+  82 0036 1292      		st -Z,__zero_reg__
+  83               	.LM28:
+  84 0038 1292      		st -Z,__zero_reg__
+  85               	.LM29:
+  86 003a 1292      		st -Z,__zero_reg__
+  87               	.LM30:
+  88 003c 1292      		st -Z,__zero_reg__
+  89               	.LM31:
+  90 003e 1292      		st -Z,__zero_reg__
+  91               	.LM32:
+  92 0040 1292      		st -Z,__zero_reg__
+  93               	.LM33:
+  94 0042 1292      		st -Z,__zero_reg__
+  95               	.LM34:
+  96 0044 1292      		st -Z,__zero_reg__
+  97               	.LM35:
+  98 0046 1292      		st -Z,__zero_reg__
+  99               	.LM36:
+ 100 0048 1292      		st -Z,__zero_reg__
+ 101 004a 3197      		sbiw r30,1
+ 102               	.LVL4:
+ 103               	.LM37:
+ 104 004c CF01      		movw r24,r30
+ 105               	/* epilogue start */
+ 106 004e 0895      		ret
+ 107               	.LFE2:
+ 109               	.global	OSStartHighRdy
+ 111               	OSStartHighRdy:
+ 112               	.LFB3:
+ 113               	.LM38:
+ 114               	/* prologue: function */
+ 115               	/* frame size = 0 */
+ 116               	.LM39:
+ 117 0050 8091 0000 		lds r24,OSRunning
+ 118 0054 8F5F      		subi r24,lo8(-(1))
+ 119 0056 8093 0000 		sts OSRunning,r24
+ 120               	.LM40:
+ 121 005a E091 0000 		lds r30,OSTCBHighRdy
+ 122 005e F091 0000 		lds r31,(OSTCBHighRdy)+1
+ 123 0062 8081      		ld r24,Z
+ 124 0064 9181      		ldd r25,Z+1
+ 125 0066 9EBF      		out (93)+1-32,r25
+ 126 0068 8DBF      		out 93-32,r24
+ 127               	.LM41:
+ 128               	/* #APP */
+ 129               	 ;  218 "os_cpu_c.c" 1
+ 130 006a DF91      		POP  R29
+ 131               	 ;  0 "" 2
+ 132               	 ;  218 "os_cpu_c.c" 1
+ 133 006c CF91      		POP  R28
+ 134               	 ;  0 "" 2
+ 135               	 ;  218 "os_cpu_c.c" 1
+ 136 006e 1F91      		POP  R17
+ 137               	 ;  0 "" 2
+ 138               	 ;  218 "os_cpu_c.c" 1
+ 139 0070 0F91      		POP  R16
+ 140               	 ;  0 "" 2
+ 141               	 ;  218 "os_cpu_c.c" 1
+ 142 0072 FF90      		POP  R15
+ 143               	 ;  0 "" 2
+ 144               	 ;  218 "os_cpu_c.c" 1
+ 145 0074 EF90      		POP  R14
+ 146               	 ;  0 "" 2
+ 147               	 ;  218 "os_cpu_c.c" 1
+ 148 0076 DF90      		POP  R13
+ 149               	 ;  0 "" 2
+ 150               	 ;  218 "os_cpu_c.c" 1
+ 151 0078 CF90      		POP  R12
+ 152               	 ;  0 "" 2
+ 153               	 ;  218 "os_cpu_c.c" 1
+ 154 007a BF90      		POP  R11
+ 155               	 ;  0 "" 2
+ 156               	 ;  218 "os_cpu_c.c" 1
+ 157 007c AF90      		POP  R10
+ 158               	 ;  0 "" 2
+ 159               	 ;  218 "os_cpu_c.c" 1
+ 160 007e 9F90      		POP  R9
+ 161               	 ;  0 "" 2
+ 162               	 ;  218 "os_cpu_c.c" 1
+ 163 0080 8F90      		POP  R8
+ 164               	 ;  0 "" 2
+ 165               	 ;  218 "os_cpu_c.c" 1
+ 166 0082 7F90      		POP  R7
+ 167               	 ;  0 "" 2
+ 168               	 ;  218 "os_cpu_c.c" 1
+ 169 0084 6F90      		POP  R6
+ 170               	 ;  0 "" 2
+ 171               	 ;  218 "os_cpu_c.c" 1
+ 172 0086 5F90      		POP  R5
+ 173               	 ;  0 "" 2
+ 174               	 ;  218 "os_cpu_c.c" 1
+ 175 0088 4F90      		POP  R4
+ 176               	 ;  0 "" 2
+ 177               	 ;  218 "os_cpu_c.c" 1
+ 178 008a 3F90      		POP  R3
+ 179               	 ;  0 "" 2
+ 180               	 ;  218 "os_cpu_c.c" 1
+ 181 008c 2F90      		POP  R2
+ 182               	 ;  0 "" 2
+ 183               	 ;  218 "os_cpu_c.c" 1
+ 184 008e FF91      		POP  R31
+ 185               	 ;  0 "" 2
+ 186               	 ;  218 "os_cpu_c.c" 1
+ 187 0090 EF91      		POP  R30
+ 188               	 ;  0 "" 2
+ 189               	 ;  218 "os_cpu_c.c" 1
+ 190 0092 BF91      		POP  R27
+ 191               	 ;  0 "" 2
+ 192               	 ;  218 "os_cpu_c.c" 1
+ 193 0094 AF91      		POP  R26
+ 194               	 ;  0 "" 2
+ 195               	 ;  218 "os_cpu_c.c" 1
+ 196 0096 9F91      		POP  R25
+ 197               	 ;  0 "" 2
+ 198               	 ;  218 "os_cpu_c.c" 1
+ 199 0098 8F91      		POP  R24
+ 200               	 ;  0 "" 2
+ 201               	 ;  218 "os_cpu_c.c" 1
+ 202 009a 7F91      		POP  R23
+ 203               	 ;  0 "" 2
+ 204               	 ;  218 "os_cpu_c.c" 1
+ 205 009c 6F91      		POP  R22
+ 206               	 ;  0 "" 2
+ 207               	 ;  218 "os_cpu_c.c" 1
+ 208 009e 5F91      		POP  R21
+ 209               	 ;  0 "" 2
+ 210               	 ;  218 "os_cpu_c.c" 1
+ 211 00a0 4F91      		POP  R20
+ 212               	 ;  0 "" 2
+ 213               	 ;  218 "os_cpu_c.c" 1
+ 214 00a2 1F90      		POP  R1
+ 215               	 ;  0 "" 2
+ 216               	 ;  218 "os_cpu_c.c" 1
+ 217 00a4 0F90      		POP  R0
+ 218               	 ;  0 "" 2
+ 219               	 ;  218 "os_cpu_c.c" 1
+ 220 00a6 2F91      		POP  R18
+ 221               	 ;  0 "" 2
+ 222               	 ;  218 "os_cpu_c.c" 1
+ 223 00a8 2FBF      		OUT  0x3F,R18
+ 224               	 ;  0 "" 2
+ 225               	 ;  218 "os_cpu_c.c" 1
+ 226 00aa 3F91      		POP  R19
+ 227               	 ;  0 "" 2
+ 228               	 ;  218 "os_cpu_c.c" 1
+ 229 00ac 2F91      		POP  R18
+ 230               	 ;  0 "" 2
+ 231               	/* epilogue start */
+ 232               	.LM42:
+ 233               	/* #NOAPP */
+ 234 00ae 0895      		ret
+ 235               	.LFE3:
+ 237               	.global	OSCtxSw
+ 239               	OSCtxSw:
+ 240               	.LFB4:
+ 241               	.LM43:
+ 242               	/* prologue: function */
+ 243               	/* frame size = 0 */
+ 244               	.LM44:
+ 245               	/* #APP */
+ 246               	 ;  254 "os_cpu_c.c" 1
+ 247 00b0 2F93      		PUSH  R18
+ 248               	 ;  0 "" 2
+ 249               	 ;  254 "os_cpu_c.c" 1
+ 250 00b2 3F93      		PUSH  R19
+ 251               	 ;  0 "" 2
+ 252               	 ;  254 "os_cpu_c.c" 1
+ 253 00b4 2FB7      		IN    R18,0x3F
+ 254               	 ;  0 "" 2
+ 255               	 ;  254 "os_cpu_c.c" 1
+ 256 00b6 2F93      		PUSH  R18
+ 257               	 ;  0 "" 2
+ 258               	 ;  254 "os_cpu_c.c" 1
+ 259 00b8 0F92      		PUSH  R0
+ 260               	 ;  0 "" 2
+ 261               	 ;  254 "os_cpu_c.c" 1
+ 262 00ba 1F92      		PUSH  R1
+ 263               	 ;  0 "" 2
+ 264               	 ;  254 "os_cpu_c.c" 1
+ 265 00bc 4F93      		PUSH  R20
+ 266               	 ;  0 "" 2
+ 267               	 ;  254 "os_cpu_c.c" 1
+ 268 00be 5F93      		PUSH  R21
+ 269               	 ;  0 "" 2
+ 270               	 ;  254 "os_cpu_c.c" 1
+ 271 00c0 6F93      		PUSH  R22
+ 272               	 ;  0 "" 2
+ 273               	 ;  254 "os_cpu_c.c" 1
+ 274 00c2 7F93      		PUSH  R23
+ 275               	 ;  0 "" 2
+ 276               	 ;  254 "os_cpu_c.c" 1
+ 277 00c4 8F93      		PUSH  R24
+ 278               	 ;  0 "" 2
+ 279               	 ;  254 "os_cpu_c.c" 1
+ 280 00c6 9F93      		PUSH  R25
+ 281               	 ;  0 "" 2
+ 282               	 ;  254 "os_cpu_c.c" 1
+ 283 00c8 AF93      		PUSH  R26
+ 284               	 ;  0 "" 2
+ 285               	 ;  254 "os_cpu_c.c" 1
+ 286 00ca BF93      		PUSH  R27
+ 287               	 ;  0 "" 2
+ 288               	 ;  254 "os_cpu_c.c" 1
+ 289 00cc EF93      		PUSH  R30
+ 290               	 ;  0 "" 2
+ 291               	 ;  254 "os_cpu_c.c" 1
+ 292 00ce FF93      		PUSH  R31
+ 293               	 ;  0 "" 2
+ 294               	 ;  254 "os_cpu_c.c" 1
+ 295 00d0 2F92      		PUSH  R2
+ 296               	 ;  0 "" 2
+ 297               	 ;  254 "os_cpu_c.c" 1
+ 298 00d2 3F92      		PUSH  R3
+ 299               	 ;  0 "" 2
+ 300               	 ;  254 "os_cpu_c.c" 1
+ 301 00d4 4F92      		PUSH  R4
+ 302               	 ;  0 "" 2
+ 303               	 ;  254 "os_cpu_c.c" 1
+ 304 00d6 5F92      		PUSH  R5
+ 305               	 ;  0 "" 2
+ 306               	 ;  254 "os_cpu_c.c" 1
+ 307 00d8 6F92      		PUSH  R6
+ 308               	 ;  0 "" 2
+ 309               	 ;  254 "os_cpu_c.c" 1
+ 310 00da 7F92      		PUSH  R7
+ 311               	 ;  0 "" 2
+ 312               	 ;  254 "os_cpu_c.c" 1
+ 313 00dc 8F92      		PUSH  R8
+ 314               	 ;  0 "" 2
+ 315               	 ;  254 "os_cpu_c.c" 1
+ 316 00de 9F92      		PUSH  R9
+ 317               	 ;  0 "" 2
+ 318               	 ;  254 "os_cpu_c.c" 1
+ 319 00e0 AF92      		PUSH  R10
+ 320               	 ;  0 "" 2
+ 321               	 ;  254 "os_cpu_c.c" 1
+ 322 00e2 BF92      		PUSH  R11
+ 323               	 ;  0 "" 2
+ 324               	 ;  254 "os_cpu_c.c" 1
+ 325 00e4 CF92      		PUSH  R12
+ 326               	 ;  0 "" 2
+ 327               	 ;  254 "os_cpu_c.c" 1
+ 328 00e6 DF92      		PUSH  R13
+ 329               	 ;  0 "" 2
+ 330               	 ;  254 "os_cpu_c.c" 1
+ 331 00e8 EF92      		PUSH  R14
+ 332               	 ;  0 "" 2
+ 333               	 ;  254 "os_cpu_c.c" 1
+ 334 00ea FF92      		PUSH  R15
+ 335               	 ;  0 "" 2
+ 336               	 ;  254 "os_cpu_c.c" 1
+ 337 00ec 0F93      		PUSH  R16
+ 338               	 ;  0 "" 2
+ 339               	 ;  254 "os_cpu_c.c" 1
+ 340 00ee 1F93      		PUSH  R17
+ 341               	 ;  0 "" 2
+ 342               	 ;  254 "os_cpu_c.c" 1
+ 343 00f0 CF93      		PUSH  R28
+ 344               	 ;  0 "" 2
+ 345               	 ;  254 "os_cpu_c.c" 1
+ 346 00f2 DF93      		PUSH  R29
+ 347               	 ;  0 "" 2
+ 348               	.LM45:
+ 349               	/* #NOAPP */
+ 350 00f4 8DB7      		in r24,93-32
+ 351 00f6 9EB7      		in r25,(93)+1-32
+ 352 00f8 E091 0000 		lds r30,OSTCBCur
+ 353 00fc F091 0000 		lds r31,(OSTCBCur)+1
+ 354 0100 9183      		std Z+1,r25
+ 355 0102 8083      		st Z,r24
+ 356               	.LM46:
+ 357 0104 8091 0000 		lds r24,OSPrioHighRdy
+ 358 0108 8093 0000 		sts OSPrioCur,r24
+ 359               	.LM47:
+ 360 010c E091 0000 		lds r30,OSTCBHighRdy
+ 361 0110 F091 0000 		lds r31,(OSTCBHighRdy)+1
+ 362               	.LVL5:
+ 363 0114 F093 0000 		sts (OSTCBCur)+1,r31
+ 364 0118 E093 0000 		sts OSTCBCur,r30
+ 365               	.LM48:
+ 366 011c 8081      		ld r24,Z
+ 367 011e 9181      		ldd r25,Z+1
+ 368 0120 9EBF      		out (93)+1-32,r25
+ 369 0122 8DBF      		out 93-32,r24
+ 370               	.LM49:
+ 371               	/* #APP */
+ 372               	 ;  262 "os_cpu_c.c" 1
+ 373 0124 DF91      		POP  R29
+ 374               	 ;  0 "" 2
+ 375               	 ;  262 "os_cpu_c.c" 1
+ 376 0126 CF91      		POP  R28
+ 377               	 ;  0 "" 2
+ 378               	 ;  262 "os_cpu_c.c" 1
+ 379 0128 1F91      		POP  R17
+ 380               	 ;  0 "" 2
+ 381               	 ;  262 "os_cpu_c.c" 1
+ 382 012a 0F91      		POP  R16
+ 383               	 ;  0 "" 2
+ 384               	 ;  262 "os_cpu_c.c" 1
+ 385 012c FF90      		POP  R15
+ 386               	 ;  0 "" 2
+ 387               	 ;  262 "os_cpu_c.c" 1
+ 388 012e EF90      		POP  R14
+ 389               	 ;  0 "" 2
+ 390               	 ;  262 "os_cpu_c.c" 1
+ 391 0130 DF90      		POP  R13
+ 392               	 ;  0 "" 2
+ 393               	 ;  262 "os_cpu_c.c" 1
+ 394 0132 CF90      		POP  R12
+ 395               	 ;  0 "" 2
+ 396               	 ;  262 "os_cpu_c.c" 1
+ 397 0134 BF90      		POP  R11
+ 398               	 ;  0 "" 2
+ 399               	 ;  262 "os_cpu_c.c" 1
+ 400 0136 AF90      		POP  R10
+ 401               	 ;  0 "" 2
+ 402               	 ;  262 "os_cpu_c.c" 1
+ 403 0138 9F90      		POP  R9
+ 404               	 ;  0 "" 2
+ 405               	 ;  262 "os_cpu_c.c" 1
+ 406 013a 8F90      		POP  R8
+ 407               	 ;  0 "" 2
+ 408               	 ;  262 "os_cpu_c.c" 1
+ 409 013c 7F90      		POP  R7
+ 410               	 ;  0 "" 2
+ 411               	 ;  262 "os_cpu_c.c" 1
+ 412 013e 6F90      		POP  R6
+ 413               	 ;  0 "" 2
+ 414               	 ;  262 "os_cpu_c.c" 1
+ 415 0140 5F90      		POP  R5
+ 416               	 ;  0 "" 2
+ 417               	 ;  262 "os_cpu_c.c" 1
+ 418 0142 4F90      		POP  R4
+ 419               	 ;  0 "" 2
+ 420               	 ;  262 "os_cpu_c.c" 1
+ 421 0144 3F90      		POP  R3
+ 422               	 ;  0 "" 2
+ 423               	 ;  262 "os_cpu_c.c" 1
+ 424 0146 2F90      		POP  R2
+ 425               	 ;  0 "" 2
+ 426               	 ;  262 "os_cpu_c.c" 1
+ 427 0148 FF91      		POP  R31
+ 428               	 ;  0 "" 2
+ 429               	 ;  262 "os_cpu_c.c" 1
+ 430 014a EF91      		POP  R30
+ 431               	 ;  0 "" 2
+ 432               	 ;  262 "os_cpu_c.c" 1
+ 433 014c BF91      		POP  R27
+ 434               	 ;  0 "" 2
+ 435               	 ;  262 "os_cpu_c.c" 1
+ 436 014e AF91      		POP  R26
+ 437               	 ;  0 "" 2
+ 438               	 ;  262 "os_cpu_c.c" 1
+ 439 0150 9F91      		POP  R25
+ 440               	 ;  0 "" 2
+ 441               	 ;  262 "os_cpu_c.c" 1
+ 442 0152 8F91      		POP  R24
+ 443               	 ;  0 "" 2
+ 444               	 ;  262 "os_cpu_c.c" 1
+ 445 0154 7F91      		POP  R23
+ 446               	 ;  0 "" 2
+ 447               	 ;  262 "os_cpu_c.c" 1
+ 448 0156 6F91      		POP  R22
+ 449               	 ;  0 "" 2
+ 450               	 ;  262 "os_cpu_c.c" 1
+ 451 0158 5F91      		POP  R21
+ 452               	 ;  0 "" 2
+ 453               	 ;  262 "os_cpu_c.c" 1
+ 454 015a 4F91      		POP  R20
+ 455               	 ;  0 "" 2
+ 456               	 ;  262 "os_cpu_c.c" 1
+ 457 015c 1F90      		POP  R1
+ 458               	 ;  0 "" 2
+ 459               	 ;  262 "os_cpu_c.c" 1
+ 460 015e 0F90      		POP  R0
+ 461               	 ;  0 "" 2
+ 462               	 ;  262 "os_cpu_c.c" 1
+ 463 0160 2F91      		POP  R18
+ 464               	 ;  0 "" 2
+ 465               	 ;  262 "os_cpu_c.c" 1
+ 466 0162 2FBF      		OUT  0x3F,R18
+ 467               	 ;  0 "" 2
+ 468               	 ;  262 "os_cpu_c.c" 1
+ 469 0164 3F91      		POP  R19
+ 470               	 ;  0 "" 2
+ 471               	 ;  262 "os_cpu_c.c" 1
+ 472 0166 2F91      		POP  R18
+ 473               	 ;  0 "" 2
+ 474               	/* epilogue start */
+ 475               	.LM50:
+ 476               	/* #NOAPP */
+ 477 0168 0895      		ret
+ 478               	.LFE4:
+ 480               	.global	OSIntCtxSw
+ 482               	OSIntCtxSw:
+ 483               	.LFB5:
+ 484               	.LM51:
+ 485               	/* prologue: function */
+ 486               	/* frame size = 0 */
+ 487               	.LM52:
+ 488 016a 8DB7      		in r24,93-32
+ 489 016c 9EB7      		in r25,(93)+1-32
+ 490 016e E091 0000 		lds r30,OSTCBCur
+ 491 0172 F091 0000 		lds r31,(OSTCBCur)+1
+ 492 0176 0696      		adiw r24,6
+ 493 0178 9183      		std Z+1,r25
+ 494 017a 8083      		st Z,r24
+ 495               	.LM53:
+ 496 017c 8091 0000 		lds r24,OSPrioHighRdy
+ 497 0180 8093 0000 		sts OSPrioCur,r24
+ 498               	.LM54:
+ 499 0184 E091 0000 		lds r30,OSTCBHighRdy
+ 500 0188 F091 0000 		lds r31,(OSTCBHighRdy)+1
+ 501               	.LVL6:
+ 502 018c F093 0000 		sts (OSTCBCur)+1,r31
+ 503 0190 E093 0000 		sts OSTCBCur,r30
+ 504               	.LM55:
+ 505 0194 8081      		ld r24,Z
+ 506 0196 9181      		ldd r25,Z+1
+ 507 0198 9EBF      		out (93)+1-32,r25
+ 508 019a 8DBF      		out 93-32,r24
+ 509               	.LM56:
+ 510               	/* #APP */
+ 511               	 ;  321 "os_cpu_c.c" 1
+ 512 019c DF91      		POP  R29
+ 513               	 ;  0 "" 2
+ 514               	 ;  321 "os_cpu_c.c" 1
+ 515 019e CF91      		POP  R28
+ 516               	 ;  0 "" 2
+ 517               	 ;  321 "os_cpu_c.c" 1
+ 518 01a0 1F91      		POP  R17
+ 519               	 ;  0 "" 2
+ 520               	 ;  321 "os_cpu_c.c" 1
+ 521 01a2 0F91      		POP  R16
+ 522               	 ;  0 "" 2
+ 523               	 ;  321 "os_cpu_c.c" 1
+ 524 01a4 FF90      		POP  R15
+ 525               	 ;  0 "" 2
+ 526               	 ;  321 "os_cpu_c.c" 1
+ 527 01a6 EF90      		POP  R14
+ 528               	 ;  0 "" 2
+ 529               	 ;  321 "os_cpu_c.c" 1
+ 530 01a8 DF90      		POP  R13
+ 531               	 ;  0 "" 2
+ 532               	 ;  321 "os_cpu_c.c" 1
+ 533 01aa CF90      		POP  R12
+ 534               	 ;  0 "" 2
+ 535               	 ;  321 "os_cpu_c.c" 1
+ 536 01ac BF90      		POP  R11
+ 537               	 ;  0 "" 2
+ 538               	 ;  321 "os_cpu_c.c" 1
+ 539 01ae AF90      		POP  R10
+ 540               	 ;  0 "" 2
+ 541               	 ;  321 "os_cpu_c.c" 1
+ 542 01b0 9F90      		POP  R9
+ 543               	 ;  0 "" 2
+ 544               	 ;  321 "os_cpu_c.c" 1
+ 545 01b2 8F90      		POP  R8
+ 546               	 ;  0 "" 2
+ 547               	 ;  321 "os_cpu_c.c" 1
+ 548 01b4 7F90      		POP  R7
+ 549               	 ;  0 "" 2
+ 550               	 ;  321 "os_cpu_c.c" 1
+ 551 01b6 6F90      		POP  R6
+ 552               	 ;  0 "" 2
+ 553               	 ;  321 "os_cpu_c.c" 1
+ 554 01b8 5F90      		POP  R5
+ 555               	 ;  0 "" 2
+ 556               	 ;  321 "os_cpu_c.c" 1
+ 557 01ba 4F90      		POP  R4
+ 558               	 ;  0 "" 2
+ 559               	 ;  321 "os_cpu_c.c" 1
+ 560 01bc 3F90      		POP  R3
+ 561               	 ;  0 "" 2
+ 562               	 ;  321 "os_cpu_c.c" 1
+ 563 01be 2F90      		POP  R2
+ 564               	 ;  0 "" 2
+ 565               	 ;  321 "os_cpu_c.c" 1
+ 566 01c0 FF91      		POP  R31
+ 567               	 ;  0 "" 2
+ 568               	 ;  321 "os_cpu_c.c" 1
+ 569 01c2 EF91      		POP  R30
+ 570               	 ;  0 "" 2
+ 571               	 ;  321 "os_cpu_c.c" 1
+ 572 01c4 BF91      		POP  R27
+ 573               	 ;  0 "" 2
+ 574               	 ;  321 "os_cpu_c.c" 1
+ 575 01c6 AF91      		POP  R26
+ 576               	 ;  0 "" 2
+ 577               	 ;  321 "os_cpu_c.c" 1
+ 578 01c8 9F91      		POP  R25
+ 579               	 ;  0 "" 2
+ 580               	 ;  321 "os_cpu_c.c" 1
+ 581 01ca 8F91      		POP  R24
+ 582               	 ;  0 "" 2
+ 583               	 ;  321 "os_cpu_c.c" 1
+ 584 01cc 7F91      		POP  R23
+ 585               	 ;  0 "" 2
+ 586               	 ;  321 "os_cpu_c.c" 1
+ 587 01ce 6F91      		POP  R22
+ 588               	 ;  0 "" 2
+ 589               	 ;  321 "os_cpu_c.c" 1
+ 590 01d0 5F91      		POP  R21
+ 591               	 ;  0 "" 2
+ 592               	 ;  321 "os_cpu_c.c" 1
+ 593 01d2 4F91      		POP  R20
+ 594               	 ;  0 "" 2
+ 595               	 ;  321 "os_cpu_c.c" 1
+ 596 01d4 1F90      		POP  R1
+ 597               	 ;  0 "" 2
+ 598               	 ;  321 "os_cpu_c.c" 1
+ 599 01d6 0F90      		POP  R0
+ 600               	 ;  0 "" 2
+ 601               	 ;  321 "os_cpu_c.c" 1
+ 602 01d8 2F91      		POP  R18
+ 603               	 ;  0 "" 2
+ 604               	 ;  321 "os_cpu_c.c" 1
+ 605 01da 2FBF      		OUT  0x3F,R18
+ 606               	 ;  0 "" 2
+ 607               	 ;  321 "os_cpu_c.c" 1
+ 608 01dc 3F91      		POP  R19
+ 609               	 ;  0 "" 2
+ 610               	 ;  321 "os_cpu_c.c" 1
+ 611 01de 2F91      		POP  R18
+ 612               	 ;  0 "" 2
+ 613               	/* epilogue start */
+ 614               	.LM57:
+ 615               	/* #NOAPP */
+ 616 01e0 0895      		ret
+ 617               	.LFE5:
+ 619               	.global	InitOSTimer
+ 621               	InitOSTimer:
+ 622               	.LFB7:
+ 623               	.LM58:
+ 624               	/* prologue: function */
+ 625               	/* frame size = 0 */
+ 626               	.LM59:
+ 627 01e2 89B7      		in r24,89-32
+ 628 01e4 8F73      		andi r24,lo8(63)
+ 629 01e6 89BF      		out 89-32,r24
+ 630               	.LM60:
+ 631 01e8 8DE0      		ldi r24,lo8(13)
+ 632 01ea 85BD      		out 69-32,r24
+ 633               	.LM61:
+ 634 01ec 14BC      		out 68-32,__zero_reg__
+ 635               	.LM62:
+ 636 01ee 8CE7      		ldi r24,lo8(124)
+ 637 01f0 83BD      		out 67-32,r24
+ 638               	.LM63:
+ 639 01f2 88B7      		in r24,88-32
+ 640 01f4 806C      		ori r24,lo8(-64)
+ 641 01f6 88BF      		out 88-32,r24
+ 642               	.LM64:
+ 643 01f8 89B7      		in r24,89-32
+ 644 01fa 8068      		ori r24,lo8(-128)
+ 645 01fc 89BF      		out 89-32,r24
+ 646               	/* epilogue start */
+ 647               	.LM65:
+ 648 01fe 0895      		ret
+ 649               	.LFE7:
+ 651               	.global	OSInitHookBegin
+ 653               	OSInitHookBegin:
+ 654               	.LFB8:
+ 655               	.LM66:
+ 656               	/* prologue: function */
+ 657               	/* frame size = 0 */
+ 658               	/* epilogue start */
+ 659               	.LM67:
+ 660 0200 0895      		ret
+ 661               	.LFE8:
+ 663               	.global	OSInitHookEnd
+ 665               	OSInitHookEnd:
+ 666               	.LFB9:
+ 667               	.LM68:
+ 668               	/* prologue: function */
+ 669               	/* frame size = 0 */
+ 670               	/* epilogue start */
+ 671               	.LM69:
+ 672 0202 0895      		ret
+ 673               	.LFE9:
+ 675               	.global	OSTaskCreateHook
+ 677               	OSTaskCreateHook:
+ 678               	.LFB10:
+ 679               	.LM70:
+ 680               	.LVL7:
+ 681               	/* prologue: function */
+ 682               	/* frame size = 0 */
+ 683               	/* epilogue start */
+ 684               	.LM71:
+ 685 0204 0895      		ret
+ 686               	.LFE10:
+ 688               	.global	OSTaskDelHook
+ 690               	OSTaskDelHook:
+ 691               	.LFB11:
+ 692               	.LM72:
+ 693               	.LVL8:
+ 694               	/* prologue: function */
+ 695               	/* frame size = 0 */
+ 696               	/* epilogue start */
+ 697               	.LM73:
+ 698 0206 0895      		ret
+ 699               	.LFE11:
+ 701               	.global	OSTaskIdleHook
+ 703               	OSTaskIdleHook:
+ 704               	.LFB12:
+ 705               	.LM74:
+ 706               	/* prologue: function */
+ 707               	/* frame size = 0 */
+ 708               	/* epilogue start */
+ 709               	.LM75:
+ 710 0208 0895      		ret
+ 711               	.LFE12:
+ 713               	.global	OSTaskStatHook
+ 715               	OSTaskStatHook:
+ 716               	.LFB13:
+ 717               	.LM76:
+ 718               	/* prologue: function */
+ 719               	/* frame size = 0 */
+ 720               	/* epilogue start */
+ 721               	.LM77:
+ 722 020a 0895      		ret
+ 723               	.LFE13:
+ 725               	.global	OSTaskSwHook
+ 727               	OSTaskSwHook:
+ 728               	.LFB14:
+ 729               	.LM78:
+ 730               	/* prologue: function */
+ 731               	/* frame size = 0 */
+ 732               	/* epilogue start */
+ 733               	.LM79:
+ 734 020c 0895      		ret
+ 735               	.LFE14:
+ 737               	.global	OSTCBInitHook
+ 739               	OSTCBInitHook:
+ 740               	.LFB15:
+ 741               	.LM80:
+ 742               	.LVL9:
+ 743               	/* prologue: function */
+ 744               	/* frame size = 0 */
+ 745               	/* epilogue start */
+ 746               	.LM81:
+ 747 020e 0895      		ret
+ 748               	.LFE15:
+ 750               	.global	OSTimeTickHook
+ 752               	OSTimeTickHook:
+ 753               	.LFB16:
+ 754               	.LM82:
+ 755               	/* prologue: function */
+ 756               	/* frame size = 0 */
+ 757               	/* epilogue start */
+ 758               	.LM83:
+ 759 0210 0895      		ret
+ 760               	.LFE16:
+ 762               	.global	__vector_4
+ 764               	__vector_4:
+ 765               	.LFB6:
+ 766               	.LM84:
+ 767               	/* prologue: naked */
+ 768               	/* frame size = 0 */
+ 769               	.LM85:
+ 770               	/* #APP */
+ 771               	 ;  352 "os_cpu_c.c" 1
+ 772 0212 2F93      		PUSH  R18
+ 773               	 ;  0 "" 2
+ 774               	 ;  352 "os_cpu_c.c" 1
+ 775 0214 3F93      		PUSH  R19
+ 776               	 ;  0 "" 2
+ 777               	 ;  352 "os_cpu_c.c" 1
+ 778 0216 2FB7      		IN    R18,0x3F
+ 779               	 ;  0 "" 2
+ 780               	 ;  352 "os_cpu_c.c" 1
+ 781 0218 2068      		ORI   R18,0x80
+ 782               	 ;  0 "" 2
+ 783               	 ;  352 "os_cpu_c.c" 1
+ 784 021a 2F93      		PUSH  R18
+ 785               	 ;  0 "" 2
+ 786               	 ;  352 "os_cpu_c.c" 1
+ 787 021c 0F92      		PUSH  R0
+ 788               	 ;  0 "" 2
+ 789               	 ;  352 "os_cpu_c.c" 1
+ 790 021e 1F92      		PUSH  R1
+ 791               	 ;  0 "" 2
+ 792               	 ;  352 "os_cpu_c.c" 1
+ 793 0220 4F93      		PUSH  R20
+ 794               	 ;  0 "" 2
+ 795               	 ;  352 "os_cpu_c.c" 1
+ 796 0222 5F93      		PUSH  R21
+ 797               	 ;  0 "" 2
+ 798               	 ;  352 "os_cpu_c.c" 1
+ 799 0224 6F93      		PUSH  R22
+ 800               	 ;  0 "" 2
+ 801               	 ;  352 "os_cpu_c.c" 1
+ 802 0226 7F93      		PUSH  R23
+ 803               	 ;  0 "" 2
+ 804               	 ;  352 "os_cpu_c.c" 1
+ 805 0228 8F93      		PUSH  R24
+ 806               	 ;  0 "" 2
+ 807               	 ;  352 "os_cpu_c.c" 1
+ 808 022a 9F93      		PUSH  R25
+ 809               	 ;  0 "" 2
+ 810               	 ;  352 "os_cpu_c.c" 1
+ 811 022c AF93      		PUSH  R26
+ 812               	 ;  0 "" 2
+ 813               	 ;  352 "os_cpu_c.c" 1
+ 814 022e BF93      		PUSH  R27
+ 815               	 ;  0 "" 2
+ 816               	 ;  352 "os_cpu_c.c" 1
+ 817 0230 EF93      		PUSH  R30
+ 818               	 ;  0 "" 2
+ 819               	 ;  352 "os_cpu_c.c" 1
+ 820 0232 FF93      		PUSH  R31
+ 821               	 ;  0 "" 2
+ 822               	/* #NOAPP */
+ 823 0234 8091 0000 		lds r24,OSIntNesting
+ 824 0238 8823      		tst r24
+ 825 023a 01F4      		brne .L30
+ 826               	/* #APP */
+ 827               	 ;  352 "os_cpu_c.c" 1
+ 828 023c 2F92      		PUSH  R2
+ 829               	 ;  0 "" 2
+ 830               	 ;  352 "os_cpu_c.c" 1
+ 831 023e 3F92      		PUSH  R3
+ 832               	 ;  0 "" 2
+ 833               	 ;  352 "os_cpu_c.c" 1
+ 834 0240 4F92      		PUSH  R4
+ 835               	 ;  0 "" 2
+ 836               	 ;  352 "os_cpu_c.c" 1
+ 837 0242 5F92      		PUSH  R5
+ 838               	 ;  0 "" 2
+ 839               	 ;  352 "os_cpu_c.c" 1
+ 840 0244 6F92      		PUSH  R6
+ 841               	 ;  0 "" 2
+ 842               	 ;  352 "os_cpu_c.c" 1
+ 843 0246 7F92      		PUSH  R7
+ 844               	 ;  0 "" 2
+ 845               	 ;  352 "os_cpu_c.c" 1
+ 846 0248 8F92      		PUSH  R8
+ 847               	 ;  0 "" 2
+ 848               	 ;  352 "os_cpu_c.c" 1
+ 849 024a 9F92      		PUSH  R9
+ 850               	 ;  0 "" 2
+ 851               	 ;  352 "os_cpu_c.c" 1
+ 852 024c AF92      		PUSH  R10
+ 853               	 ;  0 "" 2
+ 854               	 ;  352 "os_cpu_c.c" 1
+ 855 024e BF92      		PUSH  R11
+ 856               	 ;  0 "" 2
+ 857               	 ;  352 "os_cpu_c.c" 1
+ 858 0250 CF92      		PUSH  R12
+ 859               	 ;  0 "" 2
+ 860               	 ;  352 "os_cpu_c.c" 1
+ 861 0252 DF92      		PUSH  R13
+ 862               	 ;  0 "" 2
+ 863               	 ;  352 "os_cpu_c.c" 1
+ 864 0254 EF92      		PUSH  R14
+ 865               	 ;  0 "" 2
+ 866               	 ;  352 "os_cpu_c.c" 1
+ 867 0256 FF92      		PUSH  R15
+ 868               	 ;  0 "" 2
+ 869               	 ;  352 "os_cpu_c.c" 1
+ 870 0258 0F93      		PUSH  R16
+ 871               	 ;  0 "" 2
+ 872               	 ;  352 "os_cpu_c.c" 1
+ 873 025a 1F93      		PUSH  R17
+ 874               	 ;  0 "" 2
+ 875               	 ;  352 "os_cpu_c.c" 1
+ 876 025c CF93      		PUSH  R28
+ 877               	 ;  0 "" 2
+ 878               	 ;  352 "os_cpu_c.c" 1
+ 879 025e DF93      		PUSH  R29
+ 880               	 ;  0 "" 2
+ 881               	/* #NOAPP */
+ 882               	.L30:
+ 883 0260 8F5F      		subi r24,lo8(-(1))
+ 884 0262 8093 0000 		sts OSIntNesting,r24
+ 885               	.LM86:
+ 886 0266 0E94 0000 		call OSTimeTick
+ 887               	.LM87:
+ 888               	/* #APP */
+ 889               	 ;  354 "os_cpu_c.c" 1
+ 890 026a F894      		cli
+ 891               	 ;  0 "" 2
+ 892               	/* #NOAPP */
+ 893 026c 0E94 0000 		call OSIntExit
+ 894 0270 8091 0000 		lds r24,OSIntNesting
+ 895 0274 8823      		tst r24
+ 896 0276 01F4      		brne .L31
+ 897               	/* #APP */
+ 898               	 ;  354 "os_cpu_c.c" 1
+ 899 0278 DF91      		POP  R29
+ 900               	 ;  0 "" 2
+ 901               	 ;  354 "os_cpu_c.c" 1
+ 902 027a CF91      		POP  R28
+ 903               	 ;  0 "" 2
+ 904               	 ;  354 "os_cpu_c.c" 1
+ 905 027c 1F91      		POP  R17
+ 906               	 ;  0 "" 2
+ 907               	 ;  354 "os_cpu_c.c" 1
+ 908 027e 0F91      		POP  R16
+ 909               	 ;  0 "" 2
+ 910               	 ;  354 "os_cpu_c.c" 1
+ 911 0280 FF90      		POP  R15
+ 912               	 ;  0 "" 2
+ 913               	 ;  354 "os_cpu_c.c" 1
+ 914 0282 EF90      		POP  R14
+ 915               	 ;  0 "" 2
+ 916               	 ;  354 "os_cpu_c.c" 1
+ 917 0284 DF90      		POP  R13
+ 918               	 ;  0 "" 2
+ 919               	 ;  354 "os_cpu_c.c" 1
+ 920 0286 CF90      		POP  R12
+ 921               	 ;  0 "" 2
+ 922               	 ;  354 "os_cpu_c.c" 1
+ 923 0288 BF90      		POP  R11
+ 924               	 ;  0 "" 2
+ 925               	 ;  354 "os_cpu_c.c" 1
+ 926 028a AF90      		POP  R10
+ 927               	 ;  0 "" 2
+ 928               	 ;  354 "os_cpu_c.c" 1
+ 929 028c 9F90      		POP  R9
+ 930               	 ;  0 "" 2
+ 931               	 ;  354 "os_cpu_c.c" 1
+ 932 028e 8F90      		POP  R8
+ 933               	 ;  0 "" 2
+ 934               	 ;  354 "os_cpu_c.c" 1
+ 935 0290 7F90      		POP  R7
+ 936               	 ;  0 "" 2
+ 937               	 ;  354 "os_cpu_c.c" 1
+ 938 0292 6F90      		POP  R6
+ 939               	 ;  0 "" 2
+ 940               	 ;  354 "os_cpu_c.c" 1
+ 941 0294 5F90      		POP  R5
+ 942               	 ;  0 "" 2
+ 943               	 ;  354 "os_cpu_c.c" 1
+ 944 0296 4F90      		POP  R4
+ 945               	 ;  0 "" 2
+ 946               	 ;  354 "os_cpu_c.c" 1
+ 947 0298 3F90      		POP  R3
+ 948               	 ;  0 "" 2
+ 949               	 ;  354 "os_cpu_c.c" 1
+ 950 029a 2F90      		POP  R2
+ 951               	 ;  0 "" 2
+ 952               	/* #NOAPP */
+ 953               	.L31:
+ 954               	/* #APP */
+ 955               	 ;  354 "os_cpu_c.c" 1
+ 956 029c FF91      		POP  R31
+ 957               	 ;  0 "" 2
+ 958               	 ;  354 "os_cpu_c.c" 1
+ 959 029e EF91      		POP  R30
+ 960               	 ;  0 "" 2
+ 961               	 ;  354 "os_cpu_c.c" 1
+ 962 02a0 BF91      		POP  R27
+ 963               	 ;  0 "" 2
+ 964               	 ;  354 "os_cpu_c.c" 1
+ 965 02a2 AF91      		POP  R26
+ 966               	 ;  0 "" 2
+ 967               	 ;  354 "os_cpu_c.c" 1
+ 968 02a4 9F91      		POP  R25
+ 969               	 ;  0 "" 2
+ 970               	 ;  354 "os_cpu_c.c" 1
+ 971 02a6 8F91      		POP  R24
+ 972               	 ;  0 "" 2
+ 973               	 ;  354 "os_cpu_c.c" 1
+ 974 02a8 7F91      		POP  R23
+ 975               	 ;  0 "" 2
+ 976               	 ;  354 "os_cpu_c.c" 1
+ 977 02aa 6F91      		POP  R22
+ 978               	 ;  0 "" 2
+ 979               	 ;  354 "os_cpu_c.c" 1
+ 980 02ac 5F91      		POP  R21
+ 981               	 ;  0 "" 2
+ 982               	 ;  354 "os_cpu_c.c" 1
+ 983 02ae 4F91      		POP  R20
+ 984               	 ;  0 "" 2
+ 985               	 ;  354 "os_cpu_c.c" 1
+ 986 02b0 1F90      		POP  R1
+ 987               	 ;  0 "" 2
+ 988               	 ;  354 "os_cpu_c.c" 1
+ 989 02b2 0F90      		POP  R0
+ 990               	 ;  0 "" 2
+ 991               	 ;  354 "os_cpu_c.c" 1
+ 992 02b4 2F91      		POP  R18
+ 993               	 ;  0 "" 2
+ 994               	 ;  354 "os_cpu_c.c" 1
+ 995 02b6 2F77      		ANDI R18,0x7F
+ 996               	 ;  0 "" 2
+ 997               	 ;  354 "os_cpu_c.c" 1
+ 998 02b8 2FBF      		OUT  0x3F,R18
+ 999               	 ;  0 "" 2
+ 1000               	 ;  354 "os_cpu_c.c" 1
+ 1001 02ba 3F91      		POP  R19
+ 1002               	 ;  0 "" 2
+ 1003               	 ;  354 "os_cpu_c.c" 1
+ 1004 02bc 2F91      		POP  R18
+ 1005               	 ;  0 "" 2
+ 1006               	 ;  354 "os_cpu_c.c" 1
+ 1007 02be 1895      		RETI
+ 1008               	 ;  0 "" 2
+ 1009               	/* epilogue start */
+ 1010               	.LM88:
+ 1011               	/* #NOAPP */
+ 1012               	.LFE6:
+ 1150               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 os_cpu_c.c
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:2      *ABS*:0000003f __SREG__
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:5      *ABS*:00000034 __CCP__
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:20     .text:00000000 OSTaskStkInit
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:111    .text:00000050 OSStartHighRdy
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:239    .text:000000b0 OSCtxSw
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:482    .text:0000016a OSIntCtxSw
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:621    .text:000001e2 InitOSTimer
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:653    .text:00000200 OSInitHookBegin
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:665    .text:00000202 OSInitHookEnd
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:677    .text:00000204 OSTaskCreateHook
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:690    .text:00000206 OSTaskDelHook
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:703    .text:00000208 OSTaskIdleHook
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:715    .text:0000020a OSTaskStatHook
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:727    .text:0000020c OSTaskSwHook
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:739    .text:0000020e OSTCBInitHook
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:752    .text:00000210 OSTimeTickHook
+C:\Users\Jonathan\AppData\Local\Temp/ccEHKMjd.s:764    .text:00000212 __vector_4
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+OSRunning
+OSTCBHighRdy
+OSTCBCur
+OSPrioHighRdy
+OSPrioCur
+OSIntNesting
+OSTimeTick
+OSIntExit

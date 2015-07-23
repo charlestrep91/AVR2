@@ -1,0 +1,865 @@
+   1               		.file	"robot2.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               	.global	InitUART
+  20               	InitUART:
+  21               	.LFB5:
+  22               	.LM1:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	.LM2:
+  26 0000 1AB8      		out 42-32,__zero_reg__
+  27               	.LM3:
+  28 0002 10BC      		out 64-32,__zero_reg__
+  29               	.LM4:
+  30 0004 87E6      		ldi r24,lo8(103)
+  31 0006 89B9      		out 41-32,r24
+  32               	.LM5:
+  33 0008 1BB8      		out 43-32,__zero_reg__
+  34               	.LM6:
+  35 000a 86E8      		ldi r24,lo8(-122)
+  36 000c 80BD      		out 64-32,r24
+  37               	.LM7:
+  38 000e 88ED      		ldi r24,lo8(-40)
+  39 0010 8AB9      		out 42-32,r24
+  40               	/* epilogue start */
+  41               	.LM8:
+  42 0012 0895      		ret
+  43               	.LFE5:
+  45               	.global	main
+  47               	main:
+  48               	.LFB6:
+  49               	.LM9:
+  50               	/* prologue: function */
+  51               	/* frame size = 0 */
+  52               	.LM10:
+  53               	/* #APP */
+  54               	 ;  73 "robot2.c" 1
+  55 0014 F894      		cli
+  56               	 ;  0 "" 2
+  57               	.LM11:
+  58               	/* #NOAPP */
+  59 0016 0E94 0000 		call OSInit
+  60               	.LBB4:
+  61               	.LBB5:
+  62               	.LM12:
+  63 001a 1AB8      		out 42-32,__zero_reg__
+  64               	.LM13:
+  65 001c 10BC      		out 64-32,__zero_reg__
+  66               	.LM14:
+  67 001e 87E6      		ldi r24,lo8(103)
+  68 0020 89B9      		out 41-32,r24
+  69               	.LM15:
+  70 0022 1BB8      		out 43-32,__zero_reg__
+  71               	.LM16:
+  72 0024 86E8      		ldi r24,lo8(-122)
+  73 0026 80BD      		out 64-32,r24
+  74               	.LM17:
+  75 0028 88ED      		ldi r24,lo8(-40)
+  76 002a 8AB9      		out 42-32,r24
+  77               	.LBE5:
+  78               	.LBE4:
+  79               	.LM18:
+  80 002c 0E94 0000 		call pwmInit
+  81               	.LM19:
+  82 0030 80E0      		ldi r24,lo8(0)
+  83 0032 0E94 0000 		call moteurSetMode
+  84               	.LM20:
+  85 0036 0E94 0000 		call hwInit
+  86               	.LM21:
+  87 003a 0E94 0000 		call adcInit
+  88               	.LM22:
+  89 003e 0E94 0000 		call adcStartConversion
+  90               	.LM23:
+  91 0042 80E0      		ldi r24,lo8(gs(MoteurTask))
+  92 0044 90E0      		ldi r25,hi8(gs(MoteurTask))
+  93 0046 60E0      		ldi r22,lo8(0)
+  94 0048 70E0      		ldi r23,hi8(0)
+  95 004a 40E0      		ldi r20,lo8(MoteurTask_Stk+199)
+  96 004c 50E0      		ldi r21,hi8(MoteurTask_Stk+199)
+  97 004e 21E0      		ldi r18,lo8(1)
+  98 0050 0E94 0000 		call OSTaskCreate
+  99               	.LM24:
+ 100 0054 80E0      		ldi r24,lo8(gs(CmdTeleTask))
+ 101 0056 90E0      		ldi r25,hi8(gs(CmdTeleTask))
+ 102 0058 60E0      		ldi r22,lo8(0)
+ 103 005a 70E0      		ldi r23,hi8(0)
+ 104 005c 40E0      		ldi r20,lo8(CmdTele_Stk+149)
+ 105 005e 50E0      		ldi r21,hi8(CmdTele_Stk+149)
+ 106 0060 22E0      		ldi r18,lo8(2)
+ 107 0062 0E94 0000 		call OSTaskCreate
+ 108               	.LM25:
+ 109 0066 81E0      		ldi r24,lo8(1)
+ 110 0068 90E0      		ldi r25,hi8(1)
+ 111 006a 0E94 0000 		call OSSemCreate
+ 112 006e 9093 0000 		sts (UARTTxSem)+1,r25
+ 113 0072 8093 0000 		sts UARTTxSem,r24
+ 114               	.LM26:
+ 115 0076 81E0      		ldi r24,lo8(1)
+ 116 0078 90E0      		ldi r25,hi8(1)
+ 117 007a 0E94 0000 		call OSSemCreate
+ 118 007e 9093 0000 		sts (UARTEchoSem)+1,r25
+ 119 0082 8093 0000 		sts UARTEchoSem,r24
+ 120               	.LM27:
+ 121 0086 81E0      		ldi r24,lo8(1)
+ 122 0088 90E0      		ldi r25,hi8(1)
+ 123 008a 0E94 0000 		call OSSemCreate
+ 124 008e 9093 0000 		sts (MoteurUpdateSem)+1,r25
+ 125 0092 8093 0000 		sts MoteurUpdateSem,r24
+ 126               	.LM28:
+ 127 0096 81E0      		ldi r24,lo8(1)
+ 128 0098 90E0      		ldi r25,hi8(1)
+ 129 009a 0E94 0000 		call OSSemCreate
+ 130 009e 9093 0000 		sts (CmdTeleSem)+1,r25
+ 131 00a2 8093 0000 		sts CmdTeleSem,r24
+ 132               	.LM29:
+ 133 00a6 80E0      		ldi r24,lo8(DebugMessage)
+ 134 00a8 90E0      		ldi r25,hi8(DebugMessage)
+ 135 00aa 6AE0      		ldi r22,lo8(10)
+ 136 00ac 70E0      		ldi r23,hi8(10)
+ 137 00ae 0E94 0000 		call OSQCreate
+ 138 00b2 9093 0000 		sts (DebugMessageQ)+1,r25
+ 139 00b6 8093 0000 		sts DebugMessageQ,r24
+ 140               	.LM30:
+ 141 00ba 0E94 0000 		call OSStart
+ 142               	.LM31:
+ 143 00be 80E0      		ldi r24,lo8(0)
+ 144 00c0 90E0      		ldi r25,hi8(0)
+ 145               	/* epilogue start */
+ 146 00c2 0895      		ret
+ 147               	.LFE6:
+ 150               	CmdTeleTask:
+ 151               	.LFB7:
+ 152               	.LM32:
+ 153               	.LVL0:
+ 154 00c4 EF92      		push r14
+ 155 00c6 FF92      		push r15
+ 156 00c8 1F93      		push r17
+ 157 00ca DF93      		push r29
+ 158 00cc CF93      		push r28
+ 159 00ce 0F92      		push __tmp_reg__
+ 160 00d0 CDB7      		in r28,__SP_L__
+ 161 00d2 DEB7      		in r29,__SP_H__
+ 162               	/* prologue: function */
+ 163               	/* frame size = 1 */
+ 164               	.LM33:
+ 165 00d4 10E0      		ldi r17,lo8(0)
+ 166               	.LVL1:
+ 167               	.LM34:
+ 168 00d6 7E01      		movw r14,r28
+ 169 00d8 0894      		sec
+ 170 00da E11C      		adc r14,__zero_reg__
+ 171 00dc F11C      		adc r15,__zero_reg__
+ 172               	.L15:
+ 173 00de 8091 0000 		lds r24,UARTRxBox
+ 174 00e2 9091 0000 		lds r25,(UARTRxBox)+1
+ 175               	.LVL2:
+ 176 00e6 60E0      		ldi r22,lo8(0)
+ 177 00e8 70E0      		ldi r23,hi8(0)
+ 178 00ea A701      		movw r20,r14
+ 179 00ec 0E94 0000 		call OSMboxPend
+ 180               	.LM35:
+ 181 00f0 8091 0000 		lds r24,UARTEchoSem
+ 182 00f4 9091 0000 		lds r25,(UARTEchoSem)+1
+ 183 00f8 0E94 0000 		call OSSemAccept
+ 184 00fc 892B      		or r24,r25
+ 185 00fe 01F0      		breq .L7
+ 186               	.LM36:
+ 187 0100 8091 0000 		lds r24,UARTTxSem
+ 188 0104 9091 0000 		lds r25,(UARTTxSem)+1
+ 189 0108 60E0      		ldi r22,lo8(0)
+ 190 010a 70E0      		ldi r23,hi8(0)
+ 191 010c A701      		movw r20,r14
+ 192 010e 0E94 0000 		call OSSemPend
+ 193               	.LM37:
+ 194 0112 8091 0000 		lds r24,tpRx
+ 195 0116 8CB9      		out 44-32,r24
+ 196               	.LM38:
+ 197 0118 8091 0000 		lds r24,UARTEchoSem
+ 198 011c 9091 0000 		lds r25,(UARTEchoSem)+1
+ 199 0120 0E94 0000 		call OSSemPost
+ 200               	.L7:
+ 201               	.LM39:
+ 202 0124 1130      		cpi r17,lo8(1)
+ 203 0126 01F0      		breq .L9
+ 204 0128 1130      		cpi r17,lo8(1)
+ 205 012a 00F0      		brlo .L8
+ 206 012c 1230      		cpi r17,lo8(2)
+ 207 012e 01F4      		brne .L15
+ 208 0130 00C0      		rjmp .L16
+ 209               	.L8:
+ 210               	.LM40:
+ 211 0132 8091 0000 		lds r24,tpRx
+ 212 0136 803F      		cpi r24,lo8(-16)
+ 213 0138 01F4      		brne .L11
+ 214               	.LM41:
+ 215 013a 1092 0000 		sts VitesseD,__zero_reg__
+ 216 013e 00C0      		rjmp .L15
+ 217               	.L11:
+ 218               	.LM42:
+ 219 0140 813F      		cpi r24,lo8(-15)
+ 220 0142 01F4      		brne .L15
+ 221 0144 11E0      		ldi r17,lo8(1)
+ 222 0146 00C0      		rjmp .L15
+ 223               	.L9:
+ 224               	.LM43:
+ 225 0148 8091 0000 		lds r24,tpRx
+ 226 014c 8093 0000 		sts VitesseD,r24
+ 227 0150 12E0      		ldi r17,lo8(2)
+ 228 0152 00C0      		rjmp .L15
+ 229               	.L16:
+ 230               	.LM44:
+ 231 0154 6091 0000 		lds r22,tpRx
+ 232 0158 6093 0000 		sts AngleD,r22
+ 233               	.LM45:
+ 234 015c 8091 0000 		lds r24,VitesseD
+ 235 0160 0E94 0000 		call moteurControl
+ 236 0164 10E0      		ldi r17,lo8(0)
+ 237 0166 00C0      		rjmp .L15
+ 238               	.LFE7:
+ 241               	MoteurTask:
+ 242               	.LFB8:
+ 243               	.LM46:
+ 244               	.LVL3:
+ 245 0168 0F93      		push r16
+ 246 016a 1F93      		push r17
+ 247 016c DF93      		push r29
+ 248 016e CF93      		push r28
+ 249 0170 0F92      		push __tmp_reg__
+ 250 0172 CDB7      		in r28,__SP_L__
+ 251 0174 DEB7      		in r29,__SP_H__
+ 252               	/* prologue: function */
+ 253               	/* frame size = 1 */
+ 254               	.LM47:
+ 255               	/* #APP */
+ 256               	 ;  189 "robot2.c" 1
+ 257 0176 F894      		cli
+ 258               	 ;  0 "" 2
+ 259               	.LM48:
+ 260               	/* #NOAPP */
+ 261 0178 0E94 0000 		call InitOSTimer
+ 262               	.LVL4:
+ 263               	.LM49:
+ 264               	/* #APP */
+ 265               	 ;  191 "robot2.c" 1
+ 266 017c 7894      		sei
+ 267               	 ;  0 "" 2
+ 268               	.LM50:
+ 269               	/* #NOAPP */
+ 270 017e 0E94 0000 		call adcCalibSeq
+ 271               	.LM51:
+ 272 0182 8E01      		movw r16,r28
+ 273 0184 0F5F      		subi r16,lo8(-(1))
+ 274 0186 1F4F      		sbci r17,hi8(-(1))
+ 275               	.L18:
+ 276 0188 8091 0000 		lds r24,MoteurUpdateSem
+ 277 018c 9091 0000 		lds r25,(MoteurUpdateSem)+1
+ 278 0190 60E0      		ldi r22,lo8(0)
+ 279 0192 70E0      		ldi r23,hi8(0)
+ 280 0194 A801      		movw r20,r16
+ 281 0196 0E94 0000 		call OSSemPend
+ 282               	.LM52:
+ 283 019a 0E94 0000 		call CalculMoteur
+ 284 019e 00C0      		rjmp .L18
+ 285               	.LFE8:
+ 287               	.global	__vector_15
+ 289               	__vector_15:
+ 290               	.LFB4:
+ 291               	.LM53:
+ 292               	/* prologue: naked */
+ 293               	/* frame size = 0 */
+ 294               	.LM54:
+ 295               	/* #APP */
+ 296               	 ;  56 "robot2.c" 1
+ 297 01a0 2F93      		PUSH  R18
+ 298               	 ;  0 "" 2
+ 299               	 ;  56 "robot2.c" 1
+ 300 01a2 3F93      		PUSH  R19
+ 301               	 ;  0 "" 2
+ 302               	 ;  56 "robot2.c" 1
+ 303 01a4 2FB7      		IN    R18,0x3F
+ 304               	 ;  0 "" 2
+ 305               	 ;  56 "robot2.c" 1
+ 306 01a6 2068      		ORI   R18,0x80
+ 307               	 ;  0 "" 2
+ 308               	 ;  56 "robot2.c" 1
+ 309 01a8 2F93      		PUSH  R18
+ 310               	 ;  0 "" 2
+ 311               	 ;  56 "robot2.c" 1
+ 312 01aa 0F92      		PUSH  R0
+ 313               	 ;  0 "" 2
+ 314               	 ;  56 "robot2.c" 1
+ 315 01ac 1F92      		PUSH  R1
+ 316               	 ;  0 "" 2
+ 317               	 ;  56 "robot2.c" 1
+ 318 01ae 4F93      		PUSH  R20
+ 319               	 ;  0 "" 2
+ 320               	 ;  56 "robot2.c" 1
+ 321 01b0 5F93      		PUSH  R21
+ 322               	 ;  0 "" 2
+ 323               	 ;  56 "robot2.c" 1
+ 324 01b2 6F93      		PUSH  R22
+ 325               	 ;  0 "" 2
+ 326               	 ;  56 "robot2.c" 1
+ 327 01b4 7F93      		PUSH  R23
+ 328               	 ;  0 "" 2
+ 329               	 ;  56 "robot2.c" 1
+ 330 01b6 8F93      		PUSH  R24
+ 331               	 ;  0 "" 2
+ 332               	 ;  56 "robot2.c" 1
+ 333 01b8 9F93      		PUSH  R25
+ 334               	 ;  0 "" 2
+ 335               	 ;  56 "robot2.c" 1
+ 336 01ba AF93      		PUSH  R26
+ 337               	 ;  0 "" 2
+ 338               	 ;  56 "robot2.c" 1
+ 339 01bc BF93      		PUSH  R27
+ 340               	 ;  0 "" 2
+ 341               	 ;  56 "robot2.c" 1
+ 342 01be EF93      		PUSH  R30
+ 343               	 ;  0 "" 2
+ 344               	 ;  56 "robot2.c" 1
+ 345 01c0 FF93      		PUSH  R31
+ 346               	 ;  0 "" 2
+ 347               	/* #NOAPP */
+ 348 01c2 8091 0000 		lds r24,OSIntNesting
+ 349 01c6 8823      		tst r24
+ 350 01c8 01F4      		brne .L21
+ 351               	/* #APP */
+ 352               	 ;  56 "robot2.c" 1
+ 353 01ca 2F92      		PUSH  R2
+ 354               	 ;  0 "" 2
+ 355               	 ;  56 "robot2.c" 1
+ 356 01cc 3F92      		PUSH  R3
+ 357               	 ;  0 "" 2
+ 358               	 ;  56 "robot2.c" 1
+ 359 01ce 4F92      		PUSH  R4
+ 360               	 ;  0 "" 2
+ 361               	 ;  56 "robot2.c" 1
+ 362 01d0 5F92      		PUSH  R5
+ 363               	 ;  0 "" 2
+ 364               	 ;  56 "robot2.c" 1
+ 365 01d2 6F92      		PUSH  R6
+ 366               	 ;  0 "" 2
+ 367               	 ;  56 "robot2.c" 1
+ 368 01d4 7F92      		PUSH  R7
+ 369               	 ;  0 "" 2
+ 370               	 ;  56 "robot2.c" 1
+ 371 01d6 8F92      		PUSH  R8
+ 372               	 ;  0 "" 2
+ 373               	 ;  56 "robot2.c" 1
+ 374 01d8 9F92      		PUSH  R9
+ 375               	 ;  0 "" 2
+ 376               	 ;  56 "robot2.c" 1
+ 377 01da AF92      		PUSH  R10
+ 378               	 ;  0 "" 2
+ 379               	 ;  56 "robot2.c" 1
+ 380 01dc BF92      		PUSH  R11
+ 381               	 ;  0 "" 2
+ 382               	 ;  56 "robot2.c" 1
+ 383 01de CF92      		PUSH  R12
+ 384               	 ;  0 "" 2
+ 385               	 ;  56 "robot2.c" 1
+ 386 01e0 DF92      		PUSH  R13
+ 387               	 ;  0 "" 2
+ 388               	 ;  56 "robot2.c" 1
+ 389 01e2 EF92      		PUSH  R14
+ 390               	 ;  0 "" 2
+ 391               	 ;  56 "robot2.c" 1
+ 392 01e4 FF92      		PUSH  R15
+ 393               	 ;  0 "" 2
+ 394               	 ;  56 "robot2.c" 1
+ 395 01e6 0F93      		PUSH  R16
+ 396               	 ;  0 "" 2
+ 397               	 ;  56 "robot2.c" 1
+ 398 01e8 1F93      		PUSH  R17
+ 399               	 ;  0 "" 2
+ 400               	 ;  56 "robot2.c" 1
+ 401 01ea CF93      		PUSH  R28
+ 402               	 ;  0 "" 2
+ 403               	 ;  56 "robot2.c" 1
+ 404 01ec DF93      		PUSH  R29
+ 405               	 ;  0 "" 2
+ 406               	/* #NOAPP */
+ 407               	.L21:
+ 408 01ee 8F5F      		subi r24,lo8(-(1))
+ 409 01f0 8093 0000 		sts OSIntNesting,r24
+ 410               	.LM55:
+ 411 01f4 8091 0000 		lds r24,UARTTxSem
+ 412 01f8 9091 0000 		lds r25,(UARTTxSem)+1
+ 413 01fc 0E94 0000 		call OSSemPost
+ 414               	.LM56:
+ 415               	/* #APP */
+ 416               	 ;  58 "robot2.c" 1
+ 417 0200 F894      		cli
+ 418               	 ;  0 "" 2
+ 419               	/* #NOAPP */
+ 420 0202 0E94 0000 		call OSIntExit
+ 421 0206 8091 0000 		lds r24,OSIntNesting
+ 422 020a 8823      		tst r24
+ 423 020c 01F4      		brne .L22
+ 424               	/* #APP */
+ 425               	 ;  58 "robot2.c" 1
+ 426 020e DF91      		POP  R29
+ 427               	 ;  0 "" 2
+ 428               	 ;  58 "robot2.c" 1
+ 429 0210 CF91      		POP  R28
+ 430               	 ;  0 "" 2
+ 431               	 ;  58 "robot2.c" 1
+ 432 0212 1F91      		POP  R17
+ 433               	 ;  0 "" 2
+ 434               	 ;  58 "robot2.c" 1
+ 435 0214 0F91      		POP  R16
+ 436               	 ;  0 "" 2
+ 437               	 ;  58 "robot2.c" 1
+ 438 0216 FF90      		POP  R15
+ 439               	 ;  0 "" 2
+ 440               	 ;  58 "robot2.c" 1
+ 441 0218 EF90      		POP  R14
+ 442               	 ;  0 "" 2
+ 443               	 ;  58 "robot2.c" 1
+ 444 021a DF90      		POP  R13
+ 445               	 ;  0 "" 2
+ 446               	 ;  58 "robot2.c" 1
+ 447 021c CF90      		POP  R12
+ 448               	 ;  0 "" 2
+ 449               	 ;  58 "robot2.c" 1
+ 450 021e BF90      		POP  R11
+ 451               	 ;  0 "" 2
+ 452               	 ;  58 "robot2.c" 1
+ 453 0220 AF90      		POP  R10
+ 454               	 ;  0 "" 2
+ 455               	 ;  58 "robot2.c" 1
+ 456 0222 9F90      		POP  R9
+ 457               	 ;  0 "" 2
+ 458               	 ;  58 "robot2.c" 1
+ 459 0224 8F90      		POP  R8
+ 460               	 ;  0 "" 2
+ 461               	 ;  58 "robot2.c" 1
+ 462 0226 7F90      		POP  R7
+ 463               	 ;  0 "" 2
+ 464               	 ;  58 "robot2.c" 1
+ 465 0228 6F90      		POP  R6
+ 466               	 ;  0 "" 2
+ 467               	 ;  58 "robot2.c" 1
+ 468 022a 5F90      		POP  R5
+ 469               	 ;  0 "" 2
+ 470               	 ;  58 "robot2.c" 1
+ 471 022c 4F90      		POP  R4
+ 472               	 ;  0 "" 2
+ 473               	 ;  58 "robot2.c" 1
+ 474 022e 3F90      		POP  R3
+ 475               	 ;  0 "" 2
+ 476               	 ;  58 "robot2.c" 1
+ 477 0230 2F90      		POP  R2
+ 478               	 ;  0 "" 2
+ 479               	/* #NOAPP */
+ 480               	.L22:
+ 481               	/* #APP */
+ 482               	 ;  58 "robot2.c" 1
+ 483 0232 FF91      		POP  R31
+ 484               	 ;  0 "" 2
+ 485               	 ;  58 "robot2.c" 1
+ 486 0234 EF91      		POP  R30
+ 487               	 ;  0 "" 2
+ 488               	 ;  58 "robot2.c" 1
+ 489 0236 BF91      		POP  R27
+ 490               	 ;  0 "" 2
+ 491               	 ;  58 "robot2.c" 1
+ 492 0238 AF91      		POP  R26
+ 493               	 ;  0 "" 2
+ 494               	 ;  58 "robot2.c" 1
+ 495 023a 9F91      		POP  R25
+ 496               	 ;  0 "" 2
+ 497               	 ;  58 "robot2.c" 1
+ 498 023c 8F91      		POP  R24
+ 499               	 ;  0 "" 2
+ 500               	 ;  58 "robot2.c" 1
+ 501 023e 7F91      		POP  R23
+ 502               	 ;  0 "" 2
+ 503               	 ;  58 "robot2.c" 1
+ 504 0240 6F91      		POP  R22
+ 505               	 ;  0 "" 2
+ 506               	 ;  58 "robot2.c" 1
+ 507 0242 5F91      		POP  R21
+ 508               	 ;  0 "" 2
+ 509               	 ;  58 "robot2.c" 1
+ 510 0244 4F91      		POP  R20
+ 511               	 ;  0 "" 2
+ 512               	 ;  58 "robot2.c" 1
+ 513 0246 1F90      		POP  R1
+ 514               	 ;  0 "" 2
+ 515               	 ;  58 "robot2.c" 1
+ 516 0248 0F90      		POP  R0
+ 517               	 ;  0 "" 2
+ 518               	 ;  58 "robot2.c" 1
+ 519 024a 2F91      		POP  R18
+ 520               	 ;  0 "" 2
+ 521               	 ;  58 "robot2.c" 1
+ 522 024c 2F77      		ANDI R18,0x7F
+ 523               	 ;  0 "" 2
+ 524               	 ;  58 "robot2.c" 1
+ 525 024e 2FBF      		OUT  0x3F,R18
+ 526               	 ;  0 "" 2
+ 527               	 ;  58 "robot2.c" 1
+ 528 0250 3F91      		POP  R19
+ 529               	 ;  0 "" 2
+ 530               	 ;  58 "robot2.c" 1
+ 531 0252 2F91      		POP  R18
+ 532               	 ;  0 "" 2
+ 533               	 ;  58 "robot2.c" 1
+ 534 0254 1895      		RETI
+ 535               	 ;  0 "" 2
+ 536               	/* epilogue start */
+ 537               	.LM57:
+ 538               	/* #NOAPP */
+ 539               	.LFE4:
+ 541               	.global	__vector_13
+ 543               	__vector_13:
+ 544               	.LFB3:
+ 545               	.LM58:
+ 546               	/* prologue: naked */
+ 547               	/* frame size = 0 */
+ 548               	.LM59:
+ 549               	/* #APP */
+ 550               	 ;  49 "robot2.c" 1
+ 551 0256 2F93      		PUSH  R18
+ 552               	 ;  0 "" 2
+ 553               	 ;  49 "robot2.c" 1
+ 554 0258 3F93      		PUSH  R19
+ 555               	 ;  0 "" 2
+ 556               	 ;  49 "robot2.c" 1
+ 557 025a 2FB7      		IN    R18,0x3F
+ 558               	 ;  0 "" 2
+ 559               	 ;  49 "robot2.c" 1
+ 560 025c 2068      		ORI   R18,0x80
+ 561               	 ;  0 "" 2
+ 562               	 ;  49 "robot2.c" 1
+ 563 025e 2F93      		PUSH  R18
+ 564               	 ;  0 "" 2
+ 565               	 ;  49 "robot2.c" 1
+ 566 0260 0F92      		PUSH  R0
+ 567               	 ;  0 "" 2
+ 568               	 ;  49 "robot2.c" 1
+ 569 0262 1F92      		PUSH  R1
+ 570               	 ;  0 "" 2
+ 571               	 ;  49 "robot2.c" 1
+ 572 0264 4F93      		PUSH  R20
+ 573               	 ;  0 "" 2
+ 574               	 ;  49 "robot2.c" 1
+ 575 0266 5F93      		PUSH  R21
+ 576               	 ;  0 "" 2
+ 577               	 ;  49 "robot2.c" 1
+ 578 0268 6F93      		PUSH  R22
+ 579               	 ;  0 "" 2
+ 580               	 ;  49 "robot2.c" 1
+ 581 026a 7F93      		PUSH  R23
+ 582               	 ;  0 "" 2
+ 583               	 ;  49 "robot2.c" 1
+ 584 026c 8F93      		PUSH  R24
+ 585               	 ;  0 "" 2
+ 586               	 ;  49 "robot2.c" 1
+ 587 026e 9F93      		PUSH  R25
+ 588               	 ;  0 "" 2
+ 589               	 ;  49 "robot2.c" 1
+ 590 0270 AF93      		PUSH  R26
+ 591               	 ;  0 "" 2
+ 592               	 ;  49 "robot2.c" 1
+ 593 0272 BF93      		PUSH  R27
+ 594               	 ;  0 "" 2
+ 595               	 ;  49 "robot2.c" 1
+ 596 0274 EF93      		PUSH  R30
+ 597               	 ;  0 "" 2
+ 598               	 ;  49 "robot2.c" 1
+ 599 0276 FF93      		PUSH  R31
+ 600               	 ;  0 "" 2
+ 601               	/* #NOAPP */
+ 602 0278 8091 0000 		lds r24,OSIntNesting
+ 603 027c 8823      		tst r24
+ 604 027e 01F4      		brne .L25
+ 605               	/* #APP */
+ 606               	 ;  49 "robot2.c" 1
+ 607 0280 2F92      		PUSH  R2
+ 608               	 ;  0 "" 2
+ 609               	 ;  49 "robot2.c" 1
+ 610 0282 3F92      		PUSH  R3
+ 611               	 ;  0 "" 2
+ 612               	 ;  49 "robot2.c" 1
+ 613 0284 4F92      		PUSH  R4
+ 614               	 ;  0 "" 2
+ 615               	 ;  49 "robot2.c" 1
+ 616 0286 5F92      		PUSH  R5
+ 617               	 ;  0 "" 2
+ 618               	 ;  49 "robot2.c" 1
+ 619 0288 6F92      		PUSH  R6
+ 620               	 ;  0 "" 2
+ 621               	 ;  49 "robot2.c" 1
+ 622 028a 7F92      		PUSH  R7
+ 623               	 ;  0 "" 2
+ 624               	 ;  49 "robot2.c" 1
+ 625 028c 8F92      		PUSH  R8
+ 626               	 ;  0 "" 2
+ 627               	 ;  49 "robot2.c" 1
+ 628 028e 9F92      		PUSH  R9
+ 629               	 ;  0 "" 2
+ 630               	 ;  49 "robot2.c" 1
+ 631 0290 AF92      		PUSH  R10
+ 632               	 ;  0 "" 2
+ 633               	 ;  49 "robot2.c" 1
+ 634 0292 BF92      		PUSH  R11
+ 635               	 ;  0 "" 2
+ 636               	 ;  49 "robot2.c" 1
+ 637 0294 CF92      		PUSH  R12
+ 638               	 ;  0 "" 2
+ 639               	 ;  49 "robot2.c" 1
+ 640 0296 DF92      		PUSH  R13
+ 641               	 ;  0 "" 2
+ 642               	 ;  49 "robot2.c" 1
+ 643 0298 EF92      		PUSH  R14
+ 644               	 ;  0 "" 2
+ 645               	 ;  49 "robot2.c" 1
+ 646 029a FF92      		PUSH  R15
+ 647               	 ;  0 "" 2
+ 648               	 ;  49 "robot2.c" 1
+ 649 029c 0F93      		PUSH  R16
+ 650               	 ;  0 "" 2
+ 651               	 ;  49 "robot2.c" 1
+ 652 029e 1F93      		PUSH  R17
+ 653               	 ;  0 "" 2
+ 654               	 ;  49 "robot2.c" 1
+ 655 02a0 CF93      		PUSH  R28
+ 656               	 ;  0 "" 2
+ 657               	 ;  49 "robot2.c" 1
+ 658 02a2 DF93      		PUSH  R29
+ 659               	 ;  0 "" 2
+ 660               	/* #NOAPP */
+ 661               	.L25:
+ 662 02a4 8F5F      		subi r24,lo8(-(1))
+ 663 02a6 8093 0000 		sts OSIntNesting,r24
+ 664               	.LM60:
+ 665 02aa 8CB1      		in r24,44-32
+ 666 02ac 8093 0000 		sts tpRx,r24
+ 667               	.LM61:
+ 668 02b0 8091 0000 		lds r24,UARTRxBox
+ 669 02b4 9091 0000 		lds r25,(UARTRxBox)+1
+ 670 02b8 60E0      		ldi r22,lo8(tpRx)
+ 671 02ba 70E0      		ldi r23,hi8(tpRx)
+ 672 02bc 0E94 0000 		call OSMboxPost
+ 673               	.LM62:
+ 674               	/* #APP */
+ 675               	 ;  52 "robot2.c" 1
+ 676 02c0 F894      		cli
+ 677               	 ;  0 "" 2
+ 678               	/* #NOAPP */
+ 679 02c2 0E94 0000 		call OSIntExit
+ 680 02c6 8091 0000 		lds r24,OSIntNesting
+ 681 02ca 8823      		tst r24
+ 682 02cc 01F4      		brne .L26
+ 683               	/* #APP */
+ 684               	 ;  52 "robot2.c" 1
+ 685 02ce DF91      		POP  R29
+ 686               	 ;  0 "" 2
+ 687               	 ;  52 "robot2.c" 1
+ 688 02d0 CF91      		POP  R28
+ 689               	 ;  0 "" 2
+ 690               	 ;  52 "robot2.c" 1
+ 691 02d2 1F91      		POP  R17
+ 692               	 ;  0 "" 2
+ 693               	 ;  52 "robot2.c" 1
+ 694 02d4 0F91      		POP  R16
+ 695               	 ;  0 "" 2
+ 696               	 ;  52 "robot2.c" 1
+ 697 02d6 FF90      		POP  R15
+ 698               	 ;  0 "" 2
+ 699               	 ;  52 "robot2.c" 1
+ 700 02d8 EF90      		POP  R14
+ 701               	 ;  0 "" 2
+ 702               	 ;  52 "robot2.c" 1
+ 703 02da DF90      		POP  R13
+ 704               	 ;  0 "" 2
+ 705               	 ;  52 "robot2.c" 1
+ 706 02dc CF90      		POP  R12
+ 707               	 ;  0 "" 2
+ 708               	 ;  52 "robot2.c" 1
+ 709 02de BF90      		POP  R11
+ 710               	 ;  0 "" 2
+ 711               	 ;  52 "robot2.c" 1
+ 712 02e0 AF90      		POP  R10
+ 713               	 ;  0 "" 2
+ 714               	 ;  52 "robot2.c" 1
+ 715 02e2 9F90      		POP  R9
+ 716               	 ;  0 "" 2
+ 717               	 ;  52 "robot2.c" 1
+ 718 02e4 8F90      		POP  R8
+ 719               	 ;  0 "" 2
+ 720               	 ;  52 "robot2.c" 1
+ 721 02e6 7F90      		POP  R7
+ 722               	 ;  0 "" 2
+ 723               	 ;  52 "robot2.c" 1
+ 724 02e8 6F90      		POP  R6
+ 725               	 ;  0 "" 2
+ 726               	 ;  52 "robot2.c" 1
+ 727 02ea 5F90      		POP  R5
+ 728               	 ;  0 "" 2
+ 729               	 ;  52 "robot2.c" 1
+ 730 02ec 4F90      		POP  R4
+ 731               	 ;  0 "" 2
+ 732               	 ;  52 "robot2.c" 1
+ 733 02ee 3F90      		POP  R3
+ 734               	 ;  0 "" 2
+ 735               	 ;  52 "robot2.c" 1
+ 736 02f0 2F90      		POP  R2
+ 737               	 ;  0 "" 2
+ 738               	/* #NOAPP */
+ 739               	.L26:
+ 740               	/* #APP */
+ 741               	 ;  52 "robot2.c" 1
+ 742 02f2 FF91      		POP  R31
+ 743               	 ;  0 "" 2
+ 744               	 ;  52 "robot2.c" 1
+ 745 02f4 EF91      		POP  R30
+ 746               	 ;  0 "" 2
+ 747               	 ;  52 "robot2.c" 1
+ 748 02f6 BF91      		POP  R27
+ 749               	 ;  0 "" 2
+ 750               	 ;  52 "robot2.c" 1
+ 751 02f8 AF91      		POP  R26
+ 752               	 ;  0 "" 2
+ 753               	 ;  52 "robot2.c" 1
+ 754 02fa 9F91      		POP  R25
+ 755               	 ;  0 "" 2
+ 756               	 ;  52 "robot2.c" 1
+ 757 02fc 8F91      		POP  R24
+ 758               	 ;  0 "" 2
+ 759               	 ;  52 "robot2.c" 1
+ 760 02fe 7F91      		POP  R23
+ 761               	 ;  0 "" 2
+ 762               	 ;  52 "robot2.c" 1
+ 763 0300 6F91      		POP  R22
+ 764               	 ;  0 "" 2
+ 765               	 ;  52 "robot2.c" 1
+ 766 0302 5F91      		POP  R21
+ 767               	 ;  0 "" 2
+ 768               	 ;  52 "robot2.c" 1
+ 769 0304 4F91      		POP  R20
+ 770               	 ;  0 "" 2
+ 771               	 ;  52 "robot2.c" 1
+ 772 0306 1F90      		POP  R1
+ 773               	 ;  0 "" 2
+ 774               	 ;  52 "robot2.c" 1
+ 775 0308 0F90      		POP  R0
+ 776               	 ;  0 "" 2
+ 777               	 ;  52 "robot2.c" 1
+ 778 030a 2F91      		POP  R18
+ 779               	 ;  0 "" 2
+ 780               	 ;  52 "robot2.c" 1
+ 781 030c 2F77      		ANDI R18,0x7F
+ 782               	 ;  0 "" 2
+ 783               	 ;  52 "robot2.c" 1
+ 784 030e 2FBF      		OUT  0x3F,R18
+ 785               	 ;  0 "" 2
+ 786               	 ;  52 "robot2.c" 1
+ 787 0310 3F91      		POP  R19
+ 788               	 ;  0 "" 2
+ 789               	 ;  52 "robot2.c" 1
+ 790 0312 2F91      		POP  R18
+ 791               	 ;  0 "" 2
+ 792               	 ;  52 "robot2.c" 1
+ 793 0314 1895      		RETI
+ 794               	 ;  0 "" 2
+ 795               	/* epilogue start */
+ 796               	.LM63:
+ 797               	/* #NOAPP */
+ 798               	.LFE3:
+ 800               	.global	AngleD
+ 801               	.global	AngleD
+ 802               		.section .bss
+ 805               	AngleD:
+ 806 0000 00        		.skip 1,0
+ 807               	.global	VitesseD
+ 808               	.global	VitesseD
+ 811               	VitesseD:
+ 812 0001 00        		.skip 1,0
+ 813               	.global	Data
+ 814               	.global	Data
+ 817               	Data:
+ 818 0002 00        		.skip 1,0
+ 819               	.global	tpRx
+ 820               	.global	tpRx
+ 823               	tpRx:
+ 824 0003 00        		.skip 1,0
+ 825               		.comm CmdTele_Stk,150,1
+ 826               		.comm MoteurTask_Stk,200,1
+ 827               		.comm IOTask_Stk,150,1
+ 828               		.comm SendDbg_Stk,150,1
+ 829               		.comm MaTache_Stk,150,1
+ 830               		.comm UARTRxBox,2,1
+ 831               		.comm UARTTxSem,2,1
+ 832               		.comm UARTEchoSem,2,1
+ 833               		.comm DebugMessageQ,2,1
+ 834               		.comm MoteurUpdateSem,2,1
+ 835               		.comm CmdTeleSem,2,1
+ 836               		.comm DebugMessage,20,1
+ 901               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 robot2.c
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:2      *ABS*:0000003f __SREG__
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:5      *ABS*:00000034 __CCP__
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:20     .text:00000000 InitUART
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:47     .text:00000014 main
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:241    .text:00000168 MoteurTask
+                            *COM*:000000c8 MoteurTask_Stk
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:150    .text:000000c4 CmdTeleTask
+                            *COM*:00000096 CmdTele_Stk
+                            *COM*:00000002 UARTTxSem
+                            *COM*:00000002 UARTEchoSem
+                            *COM*:00000002 MoteurUpdateSem
+                            *COM*:00000002 CmdTeleSem
+                            *COM*:00000014 DebugMessage
+                            *COM*:00000002 DebugMessageQ
+                            *COM*:00000002 UARTRxBox
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:823    .bss:00000003 tpRx
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:811    .bss:00000001 VitesseD
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:805    .bss:00000000 AngleD
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:289    .text:000001a0 __vector_15
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:543    .text:00000256 __vector_13
+C:\Users\Jonathan\AppData\Local\Temp/ccWnxn8R.s:817    .bss:00000002 Data
+                            *COM*:00000096 IOTask_Stk
+                            *COM*:00000096 SendDbg_Stk
+                            *COM*:00000096 MaTache_Stk
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+OSInit
+pwmInit
+moteurSetMode
+hwInit
+adcInit
+adcStartConversion
+OSTaskCreate
+OSSemCreate
+OSQCreate
+OSStart
+OSMboxPend
+OSSemAccept
+OSSemPend
+OSSemPost
+moteurControl
+InitOSTimer
+adcCalibSeq
+CalculMoteur
+OSIntNesting
+OSIntExit
+OSMboxPost

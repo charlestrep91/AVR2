@@ -1,0 +1,1172 @@
+   1               		.file	"adc.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               	.global	adcInit
+  20               	adcInit:
+  21               	.LFB2:
+  22               	.LM1:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	.LM2:
+  26 0000 91E0      		ldi r25,lo8(1)
+  27 0002 97B9      		out 39-32,r25
+  28               	.LM3:
+  29 0004 8FEA      		ldi r24,lo8(-81)
+  30 0006 86B9      		out 38-32,r24
+  31               	.LM4:
+  32 0008 9093 0000 		sts adcMuxState,r25
+  33               	.LM5:
+  34 000c 80B7      		in r24,80-32
+  35 000e 8F70      		andi r24,lo8(15)
+  36 0010 80BF      		out 80-32,r24
+  37               	/* epilogue start */
+  38               	.LM6:
+  39 0012 0895      		ret
+  40               	.LFE2:
+  42               	.global	adcStartConversion
+  44               	adcStartConversion:
+  45               	.LFB3:
+  46               	.LM7:
+  47               	/* prologue: function */
+  48               	/* frame size = 0 */
+  49               	.LM8:
+  50 0014 369A      		sbi 38-32,6
+  51               	/* epilogue start */
+  52               	.LM9:
+  53 0016 0895      		ret
+  54               	.LFE3:
+  56               	.global	adcCalculateAvg
+  58               	adcCalculateAvg:
+  59               	.LFB5:
+  60               	.LM10:
+  61               	.LVL0:
+  62 0018 4F92      		push r4
+  63 001a 5F92      		push r5
+  64 001c 6F92      		push r6
+  65 001e 7F92      		push r7
+  66 0020 8F92      		push r8
+  67 0022 9F92      		push r9
+  68 0024 AF92      		push r10
+  69 0026 BF92      		push r11
+  70 0028 CF92      		push r12
+  71 002a DF92      		push r13
+  72 002c EF92      		push r14
+  73 002e FF92      		push r15
+  74 0030 0F93      		push r16
+  75 0032 1F93      		push r17
+  76 0034 CF93      		push r28
+  77 0036 DF93      		push r29
+  78               	/* prologue: function */
+  79               	/* frame size = 0 */
+  80 0038 EC01      		movw r28,r24
+  81 003a 2B01      		movw r4,r22
+  82               	.LM11:
+  83               	/* #APP */
+  84               	 ;  119 "adc.c" 1
+  85 003c F894      		cli
+  86               	 ;  0 "" 2
+  87               	.LM12:
+  88               	/* #NOAPP */
+  89 003e 2091 0000 		lds r18,adcNbSamplesD
+  90 0042 3091 0000 		lds r19,(adcNbSamplesD)+1
+  91 0046 4091 0000 		lds r20,(adcNbSamplesD)+2
+  92 004a 5091 0000 		lds r21,(adcNbSamplesD)+3
+  93               	.LVL1:
+  94               	.LM13:
+  95 004e 6090 0000 		lds r6,adcNbSamplesG
+  96 0052 7090 0000 		lds r7,(adcNbSamplesG)+1
+  97 0056 8090 0000 		lds r8,(adcNbSamplesG)+2
+  98 005a 9090 0000 		lds r9,(adcNbSamplesG)+3
+  99               	.LVL2:
+ 100               	.LM14:
+ 101 005e 6091 0000 		lds r22,adcMoteurDAvg
+ 102 0062 7091 0000 		lds r23,(adcMoteurDAvg)+1
+ 103 0066 8091 0000 		lds r24,(adcMoteurDAvg)+2
+ 104 006a 9091 0000 		lds r25,(adcMoteurDAvg)+3
+ 105               	.LVL3:
+ 106               	.LM15:
+ 107 006e A090 0000 		lds r10,adcMoteurGAvg
+ 108 0072 B090 0000 		lds r11,(adcMoteurGAvg)+1
+ 109 0076 C090 0000 		lds r12,(adcMoteurGAvg)+2
+ 110 007a D090 0000 		lds r13,(adcMoteurGAvg)+3
+ 111               	.LVL4:
+ 112               	.LM16:
+ 113               	/* #APP */
+ 114               	 ;  124 "adc.c" 1
+ 115 007e 7894      		sei
+ 116               	 ;  0 "" 2
+ 117               	.LM17:
+ 118               	/* #NOAPP */
+ 119 0080 97FF      		sbrs r25,7
+ 120 0082 00C0      		rjmp .L6
+ 121               	.LVL5:
+ 122 0084 0E94 0000 		call __divmodsi4
+ 123               	.LVL6:
+ 124 0088 6091 0000 		lds r22,adcCalibMinValDM
+ 125 008c 7091 0000 		lds r23,(adcCalibMinValDM)+1
+ 126 0090 8091 0000 		lds r24,(adcCalibMinValDM)+2
+ 127 0094 9091 0000 		lds r25,(adcCalibMinValDM)+3
+ 128 0098 620F      		add r22,r18
+ 129 009a 731F      		adc r23,r19
+ 130 009c 841F      		adc r24,r20
+ 131 009e 951F      		adc r25,r21
+ 132 00a0 0E94 0000 		call __floatsisf
+ 133 00a4 7B01      		movw r14,r22
+ 134 00a6 8C01      		movw r16,r24
+ 135 00a8 6091 0000 		lds r22,adcCalibMaxValDM
+ 136 00ac 7091 0000 		lds r23,(adcCalibMaxValDM)+1
+ 137 00b0 8091 0000 		lds r24,(adcCalibMaxValDM)+2
+ 138 00b4 9091 0000 		lds r25,(adcCalibMaxValDM)+3
+ 139 00b8 00C0      		rjmp .L11
+ 140               	.LVL7:
+ 141               	.L6:
+ 142 00ba 0E94 0000 		call __divmodsi4
+ 143               	.LVL8:
+ 144 00be 8091 0000 		lds r24,adcCalibMinValDP
+ 145 00c2 9091 0000 		lds r25,(adcCalibMinValDP)+1
+ 146 00c6 A091 0000 		lds r26,(adcCalibMinValDP)+2
+ 147 00ca B091 0000 		lds r27,(adcCalibMinValDP)+3
+ 148 00ce 281B      		sub r18,r24
+ 149 00d0 390B      		sbc r19,r25
+ 150 00d2 4A0B      		sbc r20,r26
+ 151 00d4 5B0B      		sbc r21,r27
+ 152 00d6 CA01      		movw r24,r20
+ 153 00d8 B901      		movw r22,r18
+ 154 00da 0E94 0000 		call __floatsisf
+ 155 00de 7B01      		movw r14,r22
+ 156 00e0 8C01      		movw r16,r24
+ 157 00e2 6091 0000 		lds r22,adcCalibMaxValDP
+ 158 00e6 7091 0000 		lds r23,(adcCalibMaxValDP)+1
+ 159 00ea 8091 0000 		lds r24,(adcCalibMaxValDP)+2
+ 160 00ee 9091 0000 		lds r25,(adcCalibMaxValDP)+3
+ 161               	.L11:
+ 162 00f2 0E94 0000 		call __floatsisf
+ 163 00f6 9B01      		movw r18,r22
+ 164 00f8 AC01      		movw r20,r24
+ 165 00fa C801      		movw r24,r16
+ 166 00fc B701      		movw r22,r14
+ 167 00fe 0E94 0000 		call __divsf3
+ 168 0102 E62F      		mov r30,r22
+ 169 0104 2E2F      		mov r18,r30
+ 170 0106 372F      		mov r19,r23
+ 171 0108 482F      		mov r20,r24
+ 172 010a 592F      		mov r21,r25
+ 173 010c C901      		movw r24,r18
+ 174 010e DA01      		movw r26,r20
+ 175 0110 8883      		st Y,r24
+ 176 0112 9983      		std Y+1,r25
+ 177 0114 AA83      		std Y+2,r26
+ 178 0116 BB83      		std Y+3,r27
+ 179               	.LM18:
+ 180 0118 D7FE      		sbrs r13,7
+ 181 011a 00C0      		rjmp .L8
+ 182 011c C601      		movw r24,r12
+ 183 011e B501      		movw r22,r10
+ 184 0120 A401      		movw r20,r8
+ 185 0122 9301      		movw r18,r6
+ 186 0124 0E94 0000 		call __divmodsi4
+ 187 0128 6091 0000 		lds r22,adcCalibMinValGM
+ 188 012c 7091 0000 		lds r23,(adcCalibMinValGM)+1
+ 189 0130 8091 0000 		lds r24,(adcCalibMinValGM)+2
+ 190 0134 9091 0000 		lds r25,(adcCalibMinValGM)+3
+ 191 0138 620F      		add r22,r18
+ 192 013a 731F      		adc r23,r19
+ 193 013c 841F      		adc r24,r20
+ 194 013e 951F      		adc r25,r21
+ 195 0140 0E94 0000 		call __floatsisf
+ 196 0144 7B01      		movw r14,r22
+ 197 0146 8C01      		movw r16,r24
+ 198 0148 6091 0000 		lds r22,adcCalibMaxValGM
+ 199 014c 7091 0000 		lds r23,(adcCalibMaxValGM)+1
+ 200 0150 8091 0000 		lds r24,(adcCalibMaxValGM)+2
+ 201 0154 9091 0000 		lds r25,(adcCalibMaxValGM)+3
+ 202 0158 00C0      		rjmp .L12
+ 203               	.L8:
+ 204 015a C601      		movw r24,r12
+ 205 015c B501      		movw r22,r10
+ 206 015e A401      		movw r20,r8
+ 207 0160 9301      		movw r18,r6
+ 208 0162 0E94 0000 		call __divmodsi4
+ 209 0166 8091 0000 		lds r24,adcCalibMinValGP
+ 210 016a 9091 0000 		lds r25,(adcCalibMinValGP)+1
+ 211 016e A091 0000 		lds r26,(adcCalibMinValGP)+2
+ 212 0172 B091 0000 		lds r27,(adcCalibMinValGP)+3
+ 213 0176 281B      		sub r18,r24
+ 214 0178 390B      		sbc r19,r25
+ 215 017a 4A0B      		sbc r20,r26
+ 216 017c 5B0B      		sbc r21,r27
+ 217 017e CA01      		movw r24,r20
+ 218 0180 B901      		movw r22,r18
+ 219 0182 0E94 0000 		call __floatsisf
+ 220 0186 7B01      		movw r14,r22
+ 221 0188 8C01      		movw r16,r24
+ 222 018a 6091 0000 		lds r22,adcCalibMaxValGP
+ 223 018e 7091 0000 		lds r23,(adcCalibMaxValGP)+1
+ 224 0192 8091 0000 		lds r24,(adcCalibMaxValGP)+2
+ 225 0196 9091 0000 		lds r25,(adcCalibMaxValGP)+3
+ 226               	.L12:
+ 227 019a 0E94 0000 		call __floatsisf
+ 228 019e 9B01      		movw r18,r22
+ 229 01a0 AC01      		movw r20,r24
+ 230 01a2 C801      		movw r24,r16
+ 231 01a4 B701      		movw r22,r14
+ 232 01a6 0E94 0000 		call __divsf3
+ 233 01aa E62F      		mov r30,r22
+ 234 01ac 2E2F      		mov r18,r30
+ 235 01ae 372F      		mov r19,r23
+ 236 01b0 482F      		mov r20,r24
+ 237 01b2 592F      		mov r21,r25
+ 238 01b4 C901      		movw r24,r18
+ 239 01b6 DA01      		movw r26,r20
+ 240 01b8 F201      		movw r30,r4
+ 241 01ba 8083      		st Z,r24
+ 242 01bc 9183      		std Z+1,r25
+ 243 01be A283      		std Z+2,r26
+ 244 01c0 B383      		std Z+3,r27
+ 245               	.LM19:
+ 246 01c2 1092 0000 		sts adcMoteurDAvg,__zero_reg__
+ 247 01c6 1092 0000 		sts (adcMoteurDAvg)+1,__zero_reg__
+ 248 01ca 1092 0000 		sts (adcMoteurDAvg)+2,__zero_reg__
+ 249 01ce 1092 0000 		sts (adcMoteurDAvg)+3,__zero_reg__
+ 250               	.LM20:
+ 251 01d2 1092 0000 		sts adcMoteurGAvg,__zero_reg__
+ 252 01d6 1092 0000 		sts (adcMoteurGAvg)+1,__zero_reg__
+ 253 01da 1092 0000 		sts (adcMoteurGAvg)+2,__zero_reg__
+ 254 01de 1092 0000 		sts (adcMoteurGAvg)+3,__zero_reg__
+ 255               	.LM21:
+ 256 01e2 1092 0000 		sts adcNbSamplesG,__zero_reg__
+ 257 01e6 1092 0000 		sts (adcNbSamplesG)+1,__zero_reg__
+ 258 01ea 1092 0000 		sts (adcNbSamplesG)+2,__zero_reg__
+ 259 01ee 1092 0000 		sts (adcNbSamplesG)+3,__zero_reg__
+ 260               	.LM22:
+ 261 01f2 1092 0000 		sts adcNbSamplesD,__zero_reg__
+ 262 01f6 1092 0000 		sts (adcNbSamplesD)+1,__zero_reg__
+ 263 01fa 1092 0000 		sts (adcNbSamplesD)+2,__zero_reg__
+ 264 01fe 1092 0000 		sts (adcNbSamplesD)+3,__zero_reg__
+ 265               	/* epilogue start */
+ 266               	.LM23:
+ 267 0202 DF91      		pop r29
+ 268 0204 CF91      		pop r28
+ 269               	.LVL9:
+ 270 0206 1F91      		pop r17
+ 271 0208 0F91      		pop r16
+ 272 020a FF90      		pop r15
+ 273 020c EF90      		pop r14
+ 274 020e DF90      		pop r13
+ 275 0210 CF90      		pop r12
+ 276 0212 BF90      		pop r11
+ 277 0214 AF90      		pop r10
+ 278               	.LVL10:
+ 279 0216 9F90      		pop r9
+ 280 0218 8F90      		pop r8
+ 281 021a 7F90      		pop r7
+ 282 021c 6F90      		pop r6
+ 283               	.LVL11:
+ 284 021e 5F90      		pop r5
+ 285 0220 4F90      		pop r4
+ 286               	.LVL12:
+ 287 0222 0895      		ret
+ 288               	.LFE5:
+ 290               	.global	adcReadCalibValue
+ 292               	adcReadCalibValue:
+ 293               	.LFB6:
+ 294               	.LM24:
+ 295               	.LVL13:
+ 296 0224 6F92      		push r6
+ 297 0226 7F92      		push r7
+ 298 0228 8F92      		push r8
+ 299 022a 9F92      		push r9
+ 300 022c AF92      		push r10
+ 301 022e BF92      		push r11
+ 302 0230 CF92      		push r12
+ 303 0232 DF92      		push r13
+ 304 0234 EF92      		push r14
+ 305 0236 FF92      		push r15
+ 306 0238 0F93      		push r16
+ 307 023a 1F93      		push r17
+ 308               	/* prologue: function */
+ 309               	/* frame size = 0 */
+ 310 023c 4C01      		movw r8,r24
+ 311 023e 3B01      		movw r6,r22
+ 312               	.LM25:
+ 313               	/* #APP */
+ 314               	 ;  148 "adc.c" 1
+ 315 0240 F894      		cli
+ 316               	 ;  0 "" 2
+ 317               	.LM26:
+ 318               	/* #NOAPP */
+ 319 0242 2091 0000 		lds r18,adcNbSamplesD
+ 320 0246 3091 0000 		lds r19,(adcNbSamplesD)+1
+ 321 024a 4091 0000 		lds r20,(adcNbSamplesD)+2
+ 322 024e 5091 0000 		lds r21,(adcNbSamplesD)+3
+ 323               	.LVL14:
+ 324               	.LM27:
+ 325 0252 A090 0000 		lds r10,adcNbSamplesG
+ 326 0256 B090 0000 		lds r11,(adcNbSamplesG)+1
+ 327 025a C090 0000 		lds r12,(adcNbSamplesG)+2
+ 328 025e D090 0000 		lds r13,(adcNbSamplesG)+3
+ 329               	.LVL15:
+ 330               	.LM28:
+ 331 0262 6091 0000 		lds r22,adcMoteurDAvg
+ 332 0266 7091 0000 		lds r23,(adcMoteurDAvg)+1
+ 333 026a 8091 0000 		lds r24,(adcMoteurDAvg)+2
+ 334 026e 9091 0000 		lds r25,(adcMoteurDAvg)+3
+ 335               	.LVL16:
+ 336               	.LM29:
+ 337 0272 E090 0000 		lds r14,adcMoteurGAvg
+ 338 0276 F090 0000 		lds r15,(adcMoteurGAvg)+1
+ 339 027a 0091 0000 		lds r16,(adcMoteurGAvg)+2
+ 340 027e 1091 0000 		lds r17,(adcMoteurGAvg)+3
+ 341               	.LVL17:
+ 342               	.LM30:
+ 343               	/* #APP */
+ 344               	 ;  153 "adc.c" 1
+ 345 0282 7894      		sei
+ 346               	 ;  0 "" 2
+ 347               	.LM31:
+ 348               	/* #NOAPP */
+ 349 0284 0E94 0000 		call __divmodsi4
+ 350               	.LVL18:
+ 351 0288 F401      		movw r30,r8
+ 352 028a 2083      		st Z,r18
+ 353 028c 3183      		std Z+1,r19
+ 354 028e 4283      		std Z+2,r20
+ 355 0290 5383      		std Z+3,r21
+ 356               	.LM32:
+ 357 0292 C801      		movw r24,r16
+ 358 0294 B701      		movw r22,r14
+ 359 0296 A601      		movw r20,r12
+ 360 0298 9501      		movw r18,r10
+ 361 029a 0E94 0000 		call __divmodsi4
+ 362 029e F301      		movw r30,r6
+ 363 02a0 2083      		st Z,r18
+ 364 02a2 3183      		std Z+1,r19
+ 365 02a4 4283      		std Z+2,r20
+ 366 02a6 5383      		std Z+3,r21
+ 367               	.LM33:
+ 368 02a8 1092 0000 		sts adcMoteurDAvg,__zero_reg__
+ 369 02ac 1092 0000 		sts (adcMoteurDAvg)+1,__zero_reg__
+ 370 02b0 1092 0000 		sts (adcMoteurDAvg)+2,__zero_reg__
+ 371 02b4 1092 0000 		sts (adcMoteurDAvg)+3,__zero_reg__
+ 372               	.LM34:
+ 373 02b8 1092 0000 		sts adcMoteurGAvg,__zero_reg__
+ 374 02bc 1092 0000 		sts (adcMoteurGAvg)+1,__zero_reg__
+ 375 02c0 1092 0000 		sts (adcMoteurGAvg)+2,__zero_reg__
+ 376 02c4 1092 0000 		sts (adcMoteurGAvg)+3,__zero_reg__
+ 377               	.LM35:
+ 378 02c8 1092 0000 		sts adcNbSamplesG,__zero_reg__
+ 379 02cc 1092 0000 		sts (adcNbSamplesG)+1,__zero_reg__
+ 380 02d0 1092 0000 		sts (adcNbSamplesG)+2,__zero_reg__
+ 381 02d4 1092 0000 		sts (adcNbSamplesG)+3,__zero_reg__
+ 382               	.LM36:
+ 383 02d8 1092 0000 		sts adcNbSamplesD,__zero_reg__
+ 384 02dc 1092 0000 		sts (adcNbSamplesD)+1,__zero_reg__
+ 385 02e0 1092 0000 		sts (adcNbSamplesD)+2,__zero_reg__
+ 386 02e4 1092 0000 		sts (adcNbSamplesD)+3,__zero_reg__
+ 387               	/* epilogue start */
+ 388               	.LM37:
+ 389 02e8 1F91      		pop r17
+ 390 02ea 0F91      		pop r16
+ 391 02ec FF90      		pop r15
+ 392 02ee EF90      		pop r14
+ 393               	.LVL19:
+ 394 02f0 DF90      		pop r13
+ 395 02f2 CF90      		pop r12
+ 396 02f4 BF90      		pop r11
+ 397 02f6 AF90      		pop r10
+ 398               	.LVL20:
+ 399 02f8 9F90      		pop r9
+ 400 02fa 8F90      		pop r8
+ 401 02fc 7F90      		pop r7
+ 402 02fe 6F90      		pop r6
+ 403               	.LVL21:
+ 404 0300 0895      		ret
+ 405               	.LFE6:
+ 407               	.global	adcCalibSeq
+ 409               	adcCalibSeq:
+ 410               	.LFB7:
+ 411               	.LM38:
+ 412 0302 1F93      		push r17
+ 413               	/* prologue: function */
+ 414               	/* frame size = 0 */
+ 415               	.LM39:
+ 416 0304 19BE      		out 89-32,__zero_reg__
+ 417               	.LM40:
+ 418 0306 1092 0000 		sts adcMotMskVarD,__zero_reg__
+ 419               	.LM41:
+ 420 030a 1092 0000 		sts adcMotMskVarG,__zero_reg__
+ 421               	.LM42:
+ 422 030e DC9A      		sbi 59-32,4
+ 423               	.LM43:
+ 424 0310 14E4      		ldi r17,lo8(68)
+ 425               	.LVL22:
+ 426               	.LM44:
+ 427 0312 12BB      		out 50-32,r17
+ 428               	.L16:
+ 429               	.LM45:
+ 430 0314 8091 0000 		lds r24,adcNbSamplesG
+ 431 0318 9091 0000 		lds r25,(adcNbSamplesG)+1
+ 432 031c A091 0000 		lds r26,(adcNbSamplesG)+2
+ 433 0320 B091 0000 		lds r27,(adcNbSamplesG)+3
+ 434 0324 8097      		sbiw r24,32
+ 435 0326 A105      		cpc r26,__zero_reg__
+ 436 0328 B105      		cpc r27,__zero_reg__
+ 437 032a 04F0      		brlt .L16
+ 438               	.LM46:
+ 439 032c 1BBC      		out (74)+1-32,__zero_reg__
+ 440 032e 1ABC      		out 74-32,__zero_reg__
+ 441               	.LM47:
+ 442 0330 19BC      		out (72)+1-32,__zero_reg__
+ 443 0332 18BC      		out 72-32,__zero_reg__
+ 444               	.LM48:
+ 445 0334 80E0      		ldi r24,lo8(adcCalibMaxValDP)
+ 446 0336 90E0      		ldi r25,hi8(adcCalibMaxValDP)
+ 447 0338 60E0      		ldi r22,lo8(adcCalibMaxValGP)
+ 448 033a 70E0      		ldi r23,hi8(adcCalibMaxValGP)
+ 449 033c 0E94 0000 		call adcReadCalibValue
+ 450               	.L17:
+ 451               	.LM49:
+ 452 0340 8091 0000 		lds r24,adcNbSamplesG
+ 453 0344 9091 0000 		lds r25,(adcNbSamplesG)+1
+ 454 0348 A091 0000 		lds r26,(adcNbSamplesG)+2
+ 455 034c B091 0000 		lds r27,(adcNbSamplesG)+3
+ 456 0350 CC97      		sbiw r24,60
+ 457 0352 A105      		cpc r26,__zero_reg__
+ 458 0354 B105      		cpc r27,__zero_reg__
+ 459 0356 04F0      		brlt .L17
+ 460               	.LM50:
+ 461 0358 80E0      		ldi r24,lo8(adcCalibMaxValDP)
+ 462 035a 90E0      		ldi r25,hi8(adcCalibMaxValDP)
+ 463 035c 60E0      		ldi r22,lo8(adcCalibMaxValGP)
+ 464 035e 70E0      		ldi r23,hi8(adcCalibMaxValGP)
+ 465 0360 0E94 0000 		call adcReadCalibValue
+ 466               	.LM51:
+ 467 0364 DC98      		cbi 59-32,4
+ 468               	.LM52:
+ 469 0366 1774      		andi r17,lo8(71)
+ 470               	.LM53:
+ 471 0368 1464      		ori r17,lo8(68)
+ 472               	.LM54:
+ 473 036a 12BB      		out 50-32,r17
+ 474               	.LM55:
+ 475 036c 1BBC      		out (74)+1-32,__zero_reg__
+ 476 036e 1ABC      		out 74-32,__zero_reg__
+ 477               	.LM56:
+ 478 0370 19BC      		out (72)+1-32,__zero_reg__
+ 479 0372 18BC      		out 72-32,__zero_reg__
+ 480               	.L18:
+ 481               	.LM57:
+ 482 0374 8091 0000 		lds r24,adcNbSamplesG
+ 483 0378 9091 0000 		lds r25,(adcNbSamplesG)+1
+ 484 037c A091 0000 		lds r26,(adcNbSamplesG)+2
+ 485 0380 B091 0000 		lds r27,(adcNbSamplesG)+3
+ 486 0384 8097      		sbiw r24,32
+ 487 0386 A105      		cpc r26,__zero_reg__
+ 488 0388 B105      		cpc r27,__zero_reg__
+ 489 038a 04F0      		brlt .L18
+ 490               	.LM58:
+ 491 038c 80E0      		ldi r24,lo8(adcCalibMinValDP)
+ 492 038e 90E0      		ldi r25,hi8(adcCalibMinValDP)
+ 493 0390 60E0      		ldi r22,lo8(adcCalibMinValGP)
+ 494 0392 70E0      		ldi r23,hi8(adcCalibMinValGP)
+ 495 0394 0E94 0000 		call adcReadCalibValue
+ 496               	.L19:
+ 497               	.LM59:
+ 498 0398 8091 0000 		lds r24,adcNbSamplesG
+ 499 039c 9091 0000 		lds r25,(adcNbSamplesG)+1
+ 500 03a0 A091 0000 		lds r26,(adcNbSamplesG)+2
+ 501 03a4 B091 0000 		lds r27,(adcNbSamplesG)+3
+ 502 03a8 CC97      		sbiw r24,60
+ 503 03aa A105      		cpc r26,__zero_reg__
+ 504 03ac B105      		cpc r27,__zero_reg__
+ 505 03ae 04F0      		brlt .L19
+ 506               	.LM60:
+ 507 03b0 80E0      		ldi r24,lo8(adcCalibMinValDP)
+ 508 03b2 90E0      		ldi r25,hi8(adcCalibMinValDP)
+ 509 03b4 60E0      		ldi r22,lo8(adcCalibMinValGP)
+ 510 03b6 70E0      		ldi r23,hi8(adcCalibMinValGP)
+ 511 03b8 0E94 0000 		call adcReadCalibValue
+ 512               	.LM61:
+ 513 03bc DC9A      		sbi 59-32,4
+ 514               	.LM62:
+ 515 03be 1F7C      		andi r17,lo8(-49)
+ 516               	.LM63:
+ 517 03c0 1868      		ori r17,lo8(-120)
+ 518               	.LM64:
+ 519 03c2 1B7A      		andi r17,lo8(-85)
+ 520               	.LM65:
+ 521 03c4 12BB      		out 50-32,r17
+ 522               	.L20:
+ 523               	.LM66:
+ 524 03c6 8091 0000 		lds r24,adcNbSamplesG
+ 525 03ca 9091 0000 		lds r25,(adcNbSamplesG)+1
+ 526 03ce A091 0000 		lds r26,(adcNbSamplesG)+2
+ 527 03d2 B091 0000 		lds r27,(adcNbSamplesG)+3
+ 528 03d6 8097      		sbiw r24,32
+ 529 03d8 A105      		cpc r26,__zero_reg__
+ 530 03da B105      		cpc r27,__zero_reg__
+ 531 03dc 04F0      		brlt .L20
+ 532               	.LM67:
+ 533 03de 1BBC      		out (74)+1-32,__zero_reg__
+ 534 03e0 1ABC      		out 74-32,__zero_reg__
+ 535               	.LM68:
+ 536 03e2 19BC      		out (72)+1-32,__zero_reg__
+ 537 03e4 18BC      		out 72-32,__zero_reg__
+ 538               	.LM69:
+ 539 03e6 80E0      		ldi r24,lo8(adcCalibMaxValDM)
+ 540 03e8 90E0      		ldi r25,hi8(adcCalibMaxValDM)
+ 541 03ea 60E0      		ldi r22,lo8(adcCalibMaxValGM)
+ 542 03ec 70E0      		ldi r23,hi8(adcCalibMaxValGM)
+ 543 03ee 0E94 0000 		call adcReadCalibValue
+ 544               	.L21:
+ 545               	.LM70:
+ 546 03f2 8091 0000 		lds r24,adcNbSamplesG
+ 547 03f6 9091 0000 		lds r25,(adcNbSamplesG)+1
+ 548 03fa A091 0000 		lds r26,(adcNbSamplesG)+2
+ 549 03fe B091 0000 		lds r27,(adcNbSamplesG)+3
+ 550 0402 CC97      		sbiw r24,60
+ 551 0404 A105      		cpc r26,__zero_reg__
+ 552 0406 B105      		cpc r27,__zero_reg__
+ 553 0408 04F0      		brlt .L21
+ 554               	.LM71:
+ 555 040a 80E0      		ldi r24,lo8(adcCalibMaxValDM)
+ 556 040c 90E0      		ldi r25,hi8(adcCalibMaxValDM)
+ 557 040e 60E0      		ldi r22,lo8(adcCalibMaxValGM)
+ 558 0410 70E0      		ldi r23,hi8(adcCalibMaxValGM)
+ 559 0412 0E94 0000 		call adcReadCalibValue
+ 560               	.LM72:
+ 561 0416 DC98      		cbi 59-32,4
+ 562               	.LM73:
+ 563 0418 1F7C      		andi r17,lo8(-49)
+ 564               	.LM74:
+ 565 041a 1868      		ori r17,lo8(-120)
+ 566               	.LM75:
+ 567 041c 1B7A      		andi r17,lo8(-85)
+ 568               	.LM76:
+ 569 041e 12BB      		out 50-32,r17
+ 570               	.LM77:
+ 571 0420 1BBC      		out (74)+1-32,__zero_reg__
+ 572 0422 1ABC      		out 74-32,__zero_reg__
+ 573               	.LM78:
+ 574 0424 19BC      		out (72)+1-32,__zero_reg__
+ 575 0426 18BC      		out 72-32,__zero_reg__
+ 576               	.L22:
+ 577               	.LM79:
+ 578 0428 8091 0000 		lds r24,adcNbSamplesG
+ 579 042c 9091 0000 		lds r25,(adcNbSamplesG)+1
+ 580 0430 A091 0000 		lds r26,(adcNbSamplesG)+2
+ 581 0434 B091 0000 		lds r27,(adcNbSamplesG)+3
+ 582 0438 8097      		sbiw r24,32
+ 583 043a A105      		cpc r26,__zero_reg__
+ 584 043c B105      		cpc r27,__zero_reg__
+ 585 043e 04F0      		brlt .L22
+ 586               	.LM80:
+ 587 0440 80E0      		ldi r24,lo8(adcCalibMinValDM)
+ 588 0442 90E0      		ldi r25,hi8(adcCalibMinValDM)
+ 589 0444 60E0      		ldi r22,lo8(adcCalibMinValGM)
+ 590 0446 70E0      		ldi r23,hi8(adcCalibMinValGM)
+ 591 0448 0E94 0000 		call adcReadCalibValue
+ 592               	.L23:
+ 593               	.LM81:
+ 594 044c 8091 0000 		lds r24,adcNbSamplesG
+ 595 0450 9091 0000 		lds r25,(adcNbSamplesG)+1
+ 596 0454 A091 0000 		lds r26,(adcNbSamplesG)+2
+ 597 0458 B091 0000 		lds r27,(adcNbSamplesG)+3
+ 598 045c CC97      		sbiw r24,60
+ 599 045e A105      		cpc r26,__zero_reg__
+ 600 0460 B105      		cpc r27,__zero_reg__
+ 601 0462 04F0      		brlt .L23
+ 602               	.LM82:
+ 603 0464 80E0      		ldi r24,lo8(adcCalibMinValDM)
+ 604 0466 90E0      		ldi r25,hi8(adcCalibMinValDM)
+ 605 0468 60E0      		ldi r22,lo8(adcCalibMinValGM)
+ 606 046a 70E0      		ldi r23,hi8(adcCalibMinValGM)
+ 607 046c 0E94 0000 		call adcReadCalibValue
+ 608               	.LM83:
+ 609 0470 94E0      		ldi r25,lo8(4)
+ 610 0472 99BF      		out 89-32,r25
+ 611               	.LM84:
+ 612 0474 DC98      		cbi 59-32,4
+ 613               	.LM85:
+ 614 0476 88E0      		ldi r24,lo8(8)
+ 615 0478 8093 0000 		sts adcMotMskVarD,r24
+ 616               	.LM86:
+ 617 047c 9093 0000 		sts adcMotMskVarG,r25
+ 618               	.LM87:
+ 619 0480 8091 0000 		lds r24,adcCalibMaxValDP
+ 620 0484 9091 0000 		lds r25,(adcCalibMaxValDP)+1
+ 621 0488 A091 0000 		lds r26,(adcCalibMaxValDP)+2
+ 622 048c B091 0000 		lds r27,(adcCalibMaxValDP)+3
+ 623 0490 2091 0000 		lds r18,adcCalibMinValDP
+ 624 0494 3091 0000 		lds r19,(adcCalibMinValDP)+1
+ 625 0498 4091 0000 		lds r20,(adcCalibMinValDP)+2
+ 626 049c 5091 0000 		lds r21,(adcCalibMinValDP)+3
+ 627 04a0 821B      		sub r24,r18
+ 628 04a2 930B      		sbc r25,r19
+ 629 04a4 A40B      		sbc r26,r20
+ 630 04a6 B50B      		sbc r27,r21
+ 631 04a8 8093 0000 		sts adcCalibMaxValDP,r24
+ 632 04ac 9093 0000 		sts (adcCalibMaxValDP)+1,r25
+ 633 04b0 A093 0000 		sts (adcCalibMaxValDP)+2,r26
+ 634 04b4 B093 0000 		sts (adcCalibMaxValDP)+3,r27
+ 635               	.LM88:
+ 636 04b8 8091 0000 		lds r24,adcCalibMaxValGP
+ 637 04bc 9091 0000 		lds r25,(adcCalibMaxValGP)+1
+ 638 04c0 A091 0000 		lds r26,(adcCalibMaxValGP)+2
+ 639 04c4 B091 0000 		lds r27,(adcCalibMaxValGP)+3
+ 640 04c8 2091 0000 		lds r18,adcCalibMinValGP
+ 641 04cc 3091 0000 		lds r19,(adcCalibMinValGP)+1
+ 642 04d0 4091 0000 		lds r20,(adcCalibMinValGP)+2
+ 643 04d4 5091 0000 		lds r21,(adcCalibMinValGP)+3
+ 644 04d8 821B      		sub r24,r18
+ 645 04da 930B      		sbc r25,r19
+ 646 04dc A40B      		sbc r26,r20
+ 647 04de B50B      		sbc r27,r21
+ 648 04e0 8093 0000 		sts adcCalibMaxValGP,r24
+ 649 04e4 9093 0000 		sts (adcCalibMaxValGP)+1,r25
+ 650 04e8 A093 0000 		sts (adcCalibMaxValGP)+2,r26
+ 651 04ec B093 0000 		sts (adcCalibMaxValGP)+3,r27
+ 652               	.LM89:
+ 653 04f0 8091 0000 		lds r24,adcCalibMaxValDM
+ 654 04f4 9091 0000 		lds r25,(adcCalibMaxValDM)+1
+ 655 04f8 A091 0000 		lds r26,(adcCalibMaxValDM)+2
+ 656 04fc B091 0000 		lds r27,(adcCalibMaxValDM)+3
+ 657 0500 2091 0000 		lds r18,adcCalibMinValDM
+ 658 0504 3091 0000 		lds r19,(adcCalibMinValDM)+1
+ 659 0508 4091 0000 		lds r20,(adcCalibMinValDM)+2
+ 660 050c 5091 0000 		lds r21,(adcCalibMinValDM)+3
+ 661 0510 821B      		sub r24,r18
+ 662 0512 930B      		sbc r25,r19
+ 663 0514 A40B      		sbc r26,r20
+ 664 0516 B50B      		sbc r27,r21
+ 665 0518 8093 0000 		sts adcCalibMaxValDM,r24
+ 666 051c 9093 0000 		sts (adcCalibMaxValDM)+1,r25
+ 667 0520 A093 0000 		sts (adcCalibMaxValDM)+2,r26
+ 668 0524 B093 0000 		sts (adcCalibMaxValDM)+3,r27
+ 669               	.LM90:
+ 670 0528 8091 0000 		lds r24,adcCalibMaxValGM
+ 671 052c 9091 0000 		lds r25,(adcCalibMaxValGM)+1
+ 672 0530 A091 0000 		lds r26,(adcCalibMaxValGM)+2
+ 673 0534 B091 0000 		lds r27,(adcCalibMaxValGM)+3
+ 674 0538 2091 0000 		lds r18,adcCalibMinValGM
+ 675 053c 3091 0000 		lds r19,(adcCalibMinValGM)+1
+ 676 0540 4091 0000 		lds r20,(adcCalibMinValGM)+2
+ 677 0544 5091 0000 		lds r21,(adcCalibMinValGM)+3
+ 678 0548 821B      		sub r24,r18
+ 679 054a 930B      		sbc r25,r19
+ 680 054c A40B      		sbc r26,r20
+ 681 054e B50B      		sbc r27,r21
+ 682 0550 8093 0000 		sts adcCalibMaxValGM,r24
+ 683 0554 9093 0000 		sts (adcCalibMaxValGM)+1,r25
+ 684 0558 A093 0000 		sts (adcCalibMaxValGM)+2,r26
+ 685 055c B093 0000 		sts (adcCalibMaxValGM)+3,r27
+ 686               	/* epilogue start */
+ 687               	.LM91:
+ 688 0560 1F91      		pop r17
+ 689               	.LVL23:
+ 690 0562 0895      		ret
+ 691               	.LFE7:
+ 693               	.global	__vector_16
+ 695               	__vector_16:
+ 696               	.LFB4:
+ 697               	.LM92:
+ 698               	/* prologue: naked */
+ 699               	/* frame size = 0 */
+ 700               	.LM93:
+ 701               	/* #APP */
+ 702               	 ;  89 "adc.c" 1
+ 703 0564 2F93      		PUSH  R18
+ 704               	 ;  0 "" 2
+ 705               	 ;  89 "adc.c" 1
+ 706 0566 3F93      		PUSH  R19
+ 707               	 ;  0 "" 2
+ 708               	 ;  89 "adc.c" 1
+ 709 0568 2FB7      		IN    R18,0x3F
+ 710               	 ;  0 "" 2
+ 711               	 ;  89 "adc.c" 1
+ 712 056a 2068      		ORI   R18,0x80
+ 713               	 ;  0 "" 2
+ 714               	 ;  89 "adc.c" 1
+ 715 056c 2F93      		PUSH  R18
+ 716               	 ;  0 "" 2
+ 717               	 ;  89 "adc.c" 1
+ 718 056e 0F92      		PUSH  R0
+ 719               	 ;  0 "" 2
+ 720               	 ;  89 "adc.c" 1
+ 721 0570 1F92      		PUSH  R1
+ 722               	 ;  0 "" 2
+ 723               	 ;  89 "adc.c" 1
+ 724 0572 4F93      		PUSH  R20
+ 725               	 ;  0 "" 2
+ 726               	 ;  89 "adc.c" 1
+ 727 0574 5F93      		PUSH  R21
+ 728               	 ;  0 "" 2
+ 729               	 ;  89 "adc.c" 1
+ 730 0576 6F93      		PUSH  R22
+ 731               	 ;  0 "" 2
+ 732               	 ;  89 "adc.c" 1
+ 733 0578 7F93      		PUSH  R23
+ 734               	 ;  0 "" 2
+ 735               	 ;  89 "adc.c" 1
+ 736 057a 8F93      		PUSH  R24
+ 737               	 ;  0 "" 2
+ 738               	 ;  89 "adc.c" 1
+ 739 057c 9F93      		PUSH  R25
+ 740               	 ;  0 "" 2
+ 741               	 ;  89 "adc.c" 1
+ 742 057e AF93      		PUSH  R26
+ 743               	 ;  0 "" 2
+ 744               	 ;  89 "adc.c" 1
+ 745 0580 BF93      		PUSH  R27
+ 746               	 ;  0 "" 2
+ 747               	 ;  89 "adc.c" 1
+ 748 0582 EF93      		PUSH  R30
+ 749               	 ;  0 "" 2
+ 750               	 ;  89 "adc.c" 1
+ 751 0584 FF93      		PUSH  R31
+ 752               	 ;  0 "" 2
+ 753               	/* #NOAPP */
+ 754 0586 8091 0000 		lds r24,OSIntNesting
+ 755 058a 8823      		tst r24
+ 756 058c 01F4      		brne .L34
+ 757               	/* #APP */
+ 758               	 ;  89 "adc.c" 1
+ 759 058e 2F92      		PUSH  R2
+ 760               	 ;  0 "" 2
+ 761               	 ;  89 "adc.c" 1
+ 762 0590 3F92      		PUSH  R3
+ 763               	 ;  0 "" 2
+ 764               	 ;  89 "adc.c" 1
+ 765 0592 4F92      		PUSH  R4
+ 766               	 ;  0 "" 2
+ 767               	 ;  89 "adc.c" 1
+ 768 0594 5F92      		PUSH  R5
+ 769               	 ;  0 "" 2
+ 770               	 ;  89 "adc.c" 1
+ 771 0596 6F92      		PUSH  R6
+ 772               	 ;  0 "" 2
+ 773               	 ;  89 "adc.c" 1
+ 774 0598 7F92      		PUSH  R7
+ 775               	 ;  0 "" 2
+ 776               	 ;  89 "adc.c" 1
+ 777 059a 8F92      		PUSH  R8
+ 778               	 ;  0 "" 2
+ 779               	 ;  89 "adc.c" 1
+ 780 059c 9F92      		PUSH  R9
+ 781               	 ;  0 "" 2
+ 782               	 ;  89 "adc.c" 1
+ 783 059e AF92      		PUSH  R10
+ 784               	 ;  0 "" 2
+ 785               	 ;  89 "adc.c" 1
+ 786 05a0 BF92      		PUSH  R11
+ 787               	 ;  0 "" 2
+ 788               	 ;  89 "adc.c" 1
+ 789 05a2 CF92      		PUSH  R12
+ 790               	 ;  0 "" 2
+ 791               	 ;  89 "adc.c" 1
+ 792 05a4 DF92      		PUSH  R13
+ 793               	 ;  0 "" 2
+ 794               	 ;  89 "adc.c" 1
+ 795 05a6 EF92      		PUSH  R14
+ 796               	 ;  0 "" 2
+ 797               	 ;  89 "adc.c" 1
+ 798 05a8 FF92      		PUSH  R15
+ 799               	 ;  0 "" 2
+ 800               	 ;  89 "adc.c" 1
+ 801 05aa 0F93      		PUSH  R16
+ 802               	 ;  0 "" 2
+ 803               	 ;  89 "adc.c" 1
+ 804 05ac 1F93      		PUSH  R17
+ 805               	 ;  0 "" 2
+ 806               	 ;  89 "adc.c" 1
+ 807 05ae CF93      		PUSH  R28
+ 808               	 ;  0 "" 2
+ 809               	 ;  89 "adc.c" 1
+ 810 05b0 DF93      		PUSH  R29
+ 811               	 ;  0 "" 2
+ 812               	/* #NOAPP */
+ 813               	.L34:
+ 814 05b2 8F5F      		subi r24,lo8(-(1))
+ 815 05b4 8093 0000 		sts OSIntNesting,r24
+ 816               	.LM94:
+ 817 05b8 87B1      		in r24,39-32
+ 818 05ba 8095      		com r24
+ 819 05bc 8170      		andi r24,lo8(1)
+ 820 05be 87B9      		out 39-32,r24
+ 821               	.LM95:
+ 822 05c0 389B      		sbis 39-32,0
+ 823 05c2 00C0      		rjmp .L35
+ 824               	.LM96:
+ 825 05c4 8091 0000 		lds r24,adcNbSamplesD
+ 826 05c8 9091 0000 		lds r25,(adcNbSamplesD)+1
+ 827 05cc A091 0000 		lds r26,(adcNbSamplesD)+2
+ 828 05d0 B091 0000 		lds r27,(adcNbSamplesD)+3
+ 829 05d4 0196      		adiw r24,1
+ 830 05d6 A11D      		adc r26,__zero_reg__
+ 831 05d8 B11D      		adc r27,__zero_reg__
+ 832 05da 8093 0000 		sts adcNbSamplesD,r24
+ 833 05de 9093 0000 		sts (adcNbSamplesD)+1,r25
+ 834 05e2 A093 0000 		sts (adcNbSamplesD)+2,r26
+ 835 05e6 B093 0000 		sts (adcNbSamplesD)+3,r27
+ 836               	.LM97:
+ 837 05ea E090 0000 		lds r14,adcMoteurDAvg
+ 838 05ee F090 0000 		lds r15,(adcMoteurDAvg)+1
+ 839 05f2 0091 0000 		lds r16,(adcMoteurDAvg)+2
+ 840 05f6 1091 0000 		lds r17,(adcMoteurDAvg)+3
+ 841 05fa 99B3      		in r25,57-32
+ 842 05fc 8091 0000 		lds r24,adcMotMskVarD
+ 843 0600 8923      		and r24,r25
+ 844 0602 01F4      		brne .L36
+ 845 0604 84B1      		in r24,36-32
+ 846 0606 95B1      		in r25,(36)+1-32
+ 847 0608 9C01      		movw r18,r24
+ 848 060a 40E0      		ldi r20,lo8(0)
+ 849 060c 50E0      		ldi r21,hi8(0)
+ 850 060e 3370      		andi r19,hi8(1023)
+ 851 0610 4070      		andi r20,hlo8(1023)
+ 852 0612 5070      		andi r21,hhi8(1023)
+ 853 0614 00C0      		rjmp .L37
+ 854               	.L36:
+ 855 0616 84B1      		in r24,36-32
+ 856 0618 95B1      		in r25,(36)+1-32
+ 857 061a A0E0      		ldi r26,lo8(0)
+ 858 061c B0E0      		ldi r27,hi8(0)
+ 859 061e 9370      		andi r25,hi8(1023)
+ 860 0620 A070      		andi r26,hlo8(1023)
+ 861 0622 B070      		andi r27,hhi8(1023)
+ 862 0624 2227      		clr r18
+ 863 0626 3327      		clr r19
+ 864 0628 A901      		movw r20,r18
+ 865 062a 281B      		sub r18,r24
+ 866 062c 390B      		sbc r19,r25
+ 867 062e 4A0B      		sbc r20,r26
+ 868 0630 5B0B      		sbc r21,r27
+ 869               	.L37:
+ 870 0632 2E0D      		add r18,r14
+ 871 0634 3F1D      		adc r19,r15
+ 872 0636 401F      		adc r20,r16
+ 873 0638 511F      		adc r21,r17
+ 874 063a 2093 0000 		sts adcMoteurDAvg,r18
+ 875 063e 3093 0000 		sts (adcMoteurDAvg)+1,r19
+ 876 0642 4093 0000 		sts (adcMoteurDAvg)+2,r20
+ 877 0646 5093 0000 		sts (adcMoteurDAvg)+3,r21
+ 878 064a 00C0      		rjmp .L38
+ 879               	.L35:
+ 880               	.LM98:
+ 881 064c 8091 0000 		lds r24,adcNbSamplesG
+ 882 0650 9091 0000 		lds r25,(adcNbSamplesG)+1
+ 883 0654 A091 0000 		lds r26,(adcNbSamplesG)+2
+ 884 0658 B091 0000 		lds r27,(adcNbSamplesG)+3
+ 885 065c 0196      		adiw r24,1
+ 886 065e A11D      		adc r26,__zero_reg__
+ 887 0660 B11D      		adc r27,__zero_reg__
+ 888 0662 8093 0000 		sts adcNbSamplesG,r24
+ 889 0666 9093 0000 		sts (adcNbSamplesG)+1,r25
+ 890 066a A093 0000 		sts (adcNbSamplesG)+2,r26
+ 891 066e B093 0000 		sts (adcNbSamplesG)+3,r27
+ 892               	.LM99:
+ 893 0672 E090 0000 		lds r14,adcMoteurGAvg
+ 894 0676 F090 0000 		lds r15,(adcMoteurGAvg)+1
+ 895 067a 0091 0000 		lds r16,(adcMoteurGAvg)+2
+ 896 067e 1091 0000 		lds r17,(adcMoteurGAvg)+3
+ 897 0682 99B3      		in r25,57-32
+ 898 0684 8091 0000 		lds r24,adcMotMskVarG
+ 899 0688 8923      		and r24,r25
+ 900 068a 01F4      		brne .L39
+ 901 068c 84B1      		in r24,36-32
+ 902 068e 95B1      		in r25,(36)+1-32
+ 903 0690 9C01      		movw r18,r24
+ 904 0692 40E0      		ldi r20,lo8(0)
+ 905 0694 50E0      		ldi r21,hi8(0)
+ 906 0696 3370      		andi r19,hi8(1023)
+ 907 0698 4070      		andi r20,hlo8(1023)
+ 908 069a 5070      		andi r21,hhi8(1023)
+ 909 069c 00C0      		rjmp .L40
+ 910               	.L39:
+ 911 069e 84B1      		in r24,36-32
+ 912 06a0 95B1      		in r25,(36)+1-32
+ 913 06a2 A0E0      		ldi r26,lo8(0)
+ 914 06a4 B0E0      		ldi r27,hi8(0)
+ 915 06a6 9370      		andi r25,hi8(1023)
+ 916 06a8 A070      		andi r26,hlo8(1023)
+ 917 06aa B070      		andi r27,hhi8(1023)
+ 918 06ac 2227      		clr r18
+ 919 06ae 3327      		clr r19
+ 920 06b0 A901      		movw r20,r18
+ 921 06b2 281B      		sub r18,r24
+ 922 06b4 390B      		sbc r19,r25
+ 923 06b6 4A0B      		sbc r20,r26
+ 924 06b8 5B0B      		sbc r21,r27
+ 925               	.L40:
+ 926 06ba 2E0D      		add r18,r14
+ 927 06bc 3F1D      		adc r19,r15
+ 928 06be 401F      		adc r20,r16
+ 929 06c0 511F      		adc r21,r17
+ 930 06c2 2093 0000 		sts adcMoteurGAvg,r18
+ 931 06c6 3093 0000 		sts (adcMoteurGAvg)+1,r19
+ 932 06ca 4093 0000 		sts (adcMoteurGAvg)+2,r20
+ 933 06ce 5093 0000 		sts (adcMoteurGAvg)+3,r21
+ 934               	.L38:
+ 935               	.LM100:
+ 936               	/* #APP */
+ 937               	 ;  105 "adc.c" 1
+ 938 06d2 F894      		cli
+ 939               	 ;  0 "" 2
+ 940               	/* #NOAPP */
+ 941 06d4 0E94 0000 		call OSIntExit
+ 942 06d8 8091 0000 		lds r24,OSIntNesting
+ 943 06dc 8823      		tst r24
+ 944 06de 01F4      		brne .L41
+ 945               	/* #APP */
+ 946               	 ;  105 "adc.c" 1
+ 947 06e0 DF91      		POP  R29
+ 948               	 ;  0 "" 2
+ 949               	 ;  105 "adc.c" 1
+ 950 06e2 CF91      		POP  R28
+ 951               	 ;  0 "" 2
+ 952               	 ;  105 "adc.c" 1
+ 953 06e4 1F91      		POP  R17
+ 954               	 ;  0 "" 2
+ 955               	 ;  105 "adc.c" 1
+ 956 06e6 0F91      		POP  R16
+ 957               	 ;  0 "" 2
+ 958               	 ;  105 "adc.c" 1
+ 959 06e8 FF90      		POP  R15
+ 960               	 ;  0 "" 2
+ 961               	 ;  105 "adc.c" 1
+ 962 06ea EF90      		POP  R14
+ 963               	 ;  0 "" 2
+ 964               	 ;  105 "adc.c" 1
+ 965 06ec DF90      		POP  R13
+ 966               	 ;  0 "" 2
+ 967               	 ;  105 "adc.c" 1
+ 968 06ee CF90      		POP  R12
+ 969               	 ;  0 "" 2
+ 970               	 ;  105 "adc.c" 1
+ 971 06f0 BF90      		POP  R11
+ 972               	 ;  0 "" 2
+ 973               	 ;  105 "adc.c" 1
+ 974 06f2 AF90      		POP  R10
+ 975               	 ;  0 "" 2
+ 976               	 ;  105 "adc.c" 1
+ 977 06f4 9F90      		POP  R9
+ 978               	 ;  0 "" 2
+ 979               	 ;  105 "adc.c" 1
+ 980 06f6 8F90      		POP  R8
+ 981               	 ;  0 "" 2
+ 982               	 ;  105 "adc.c" 1
+ 983 06f8 7F90      		POP  R7
+ 984               	 ;  0 "" 2
+ 985               	 ;  105 "adc.c" 1
+ 986 06fa 6F90      		POP  R6
+ 987               	 ;  0 "" 2
+ 988               	 ;  105 "adc.c" 1
+ 989 06fc 5F90      		POP  R5
+ 990               	 ;  0 "" 2
+ 991               	 ;  105 "adc.c" 1
+ 992 06fe 4F90      		POP  R4
+ 993               	 ;  0 "" 2
+ 994               	 ;  105 "adc.c" 1
+ 995 0700 3F90      		POP  R3
+ 996               	 ;  0 "" 2
+ 997               	 ;  105 "adc.c" 1
+ 998 0702 2F90      		POP  R2
+ 999               	 ;  0 "" 2
+ 1000               	/* #NOAPP */
+ 1001               	.L41:
+ 1002               	/* #APP */
+ 1003               	 ;  105 "adc.c" 1
+ 1004 0704 FF91      		POP  R31
+ 1005               	 ;  0 "" 2
+ 1006               	 ;  105 "adc.c" 1
+ 1007 0706 EF91      		POP  R30
+ 1008               	 ;  0 "" 2
+ 1009               	 ;  105 "adc.c" 1
+ 1010 0708 BF91      		POP  R27
+ 1011               	 ;  0 "" 2
+ 1012               	 ;  105 "adc.c" 1
+ 1013 070a AF91      		POP  R26
+ 1014               	 ;  0 "" 2
+ 1015               	 ;  105 "adc.c" 1
+ 1016 070c 9F91      		POP  R25
+ 1017               	 ;  0 "" 2
+ 1018               	 ;  105 "adc.c" 1
+ 1019 070e 8F91      		POP  R24
+ 1020               	 ;  0 "" 2
+ 1021               	 ;  105 "adc.c" 1
+ 1022 0710 7F91      		POP  R23
+ 1023               	 ;  0 "" 2
+ 1024               	 ;  105 "adc.c" 1
+ 1025 0712 6F91      		POP  R22
+ 1026               	 ;  0 "" 2
+ 1027               	 ;  105 "adc.c" 1
+ 1028 0714 5F91      		POP  R21
+ 1029               	 ;  0 "" 2
+ 1030               	 ;  105 "adc.c" 1
+ 1031 0716 4F91      		POP  R20
+ 1032               	 ;  0 "" 2
+ 1033               	 ;  105 "adc.c" 1
+ 1034 0718 1F90      		POP  R1
+ 1035               	 ;  0 "" 2
+ 1036               	 ;  105 "adc.c" 1
+ 1037 071a 0F90      		POP  R0
+ 1038               	 ;  0 "" 2
+ 1039               	 ;  105 "adc.c" 1
+ 1040 071c 2F91      		POP  R18
+ 1041               	 ;  0 "" 2
+ 1042               	 ;  105 "adc.c" 1
+ 1043 071e 2F77      		ANDI R18,0x7F
+ 1044               	 ;  0 "" 2
+ 1045               	 ;  105 "adc.c" 1
+ 1046 0720 2FBF      		OUT  0x3F,R18
+ 1047               	 ;  0 "" 2
+ 1048               	 ;  105 "adc.c" 1
+ 1049 0722 3F91      		POP  R19
+ 1050               	 ;  0 "" 2
+ 1051               	 ;  105 "adc.c" 1
+ 1052 0724 2F91      		POP  R18
+ 1053               	 ;  0 "" 2
+ 1054               	 ;  105 "adc.c" 1
+ 1055 0726 1895      		RETI
+ 1056               	 ;  0 "" 2
+ 1057               	/* epilogue start */
+ 1058               	.LM101:
+ 1059               	/* #NOAPP */
+ 1060               	.LFE4:
+ 1062               	.global	adcMuxState
+ 1063               	.global	adcMuxState
+ 1064               		.section .bss
+ 1067               	adcMuxState:
+ 1068 0000 00        		.skip 1,0
+ 1069               	.global	adcMoteurGAvg
+ 1070               	.global	adcMoteurGAvg
+ 1073               	adcMoteurGAvg:
+ 1074 0001 0000 0000 		.skip 4,0
+ 1075               	.global	adcMoteurDAvg
+ 1076               	.global	adcMoteurDAvg
+ 1079               	adcMoteurDAvg:
+ 1080 0005 0000 0000 		.skip 4,0
+ 1081               	.global	adcNbSamplesG
+ 1082               	.global	adcNbSamplesG
+ 1085               	adcNbSamplesG:
+ 1086 0009 0000 0000 		.skip 4,0
+ 1087               	.global	adcNbSamplesD
+ 1088               	.global	adcNbSamplesD
+ 1091               	adcNbSamplesD:
+ 1092 000d 0000 0000 		.skip 4,0
+ 1093               	.global	Mcounter
+ 1094               	.global	Mcounter
+ 1097               	Mcounter:
+ 1098 0011 0000      		.skip 2,0
+ 1099               	.global	adcValue
+ 1100               	.global	adcValue
+ 1103               	adcValue:
+ 1104 0013 0000      		.skip 2,0
+ 1105               	.global	adcUpdateSetting
+ 1106               	.global	adcUpdateSetting
+ 1109               	adcUpdateSetting:
+ 1110 0015 00        		.skip 1,0
+ 1111               	.global	adcMotMskVarD
+ 1112               	.global	adcMotMskVarD
+ 1115               	adcMotMskVarD:
+ 1116 0016 00        		.skip 1,0
+ 1117               	.global	adcMotMskVarG
+ 1118               	.global	adcMotMskVarG
+ 1121               	adcMotMskVarG:
+ 1122 0017 00        		.skip 1,0
+ 1123               	.global	adcCalibMinValGP
+ 1124               	.global	adcCalibMinValGP
+ 1127               	adcCalibMinValGP:
+ 1128 0018 0000 0000 		.skip 4,0
+ 1129               	.global	adcCalibMaxValGP
+ 1130               		.data
+ 1133               	adcCalibMaxValGP:
+ 1134 0000 00        		.byte	0
+ 1135 0001 04        		.byte	4
+ 1136 0002 00        		.byte	0
+ 1137 0003 00        		.byte	0
+ 1138               	.global	adcCalibMinValGM
+ 1139               	.global	adcCalibMinValGM
+ 1140               		.section .bss
+ 1143               	adcCalibMinValGM:
+ 1144 001c 0000 0000 		.skip 4,0
+ 1145               	.global	adcCalibMaxValGM
+ 1146               		.data
+ 1149               	adcCalibMaxValGM:
+ 1150 0004 00        		.byte	0
+ 1151 0005 04        		.byte	4
+ 1152 0006 00        		.byte	0
+ 1153 0007 00        		.byte	0
+ 1154               	.global	adcCalibMinValDP
+ 1155               	.global	adcCalibMinValDP
+ 1156               		.section .bss
+ 1159               	adcCalibMinValDP:
+ 1160 0020 0000 0000 		.skip 4,0
+ 1161               	.global	adcCalibMaxValDP
+ 1162               		.data
+ 1165               	adcCalibMaxValDP:
+ 1166 0008 00        		.byte	0
+ 1167 0009 04        		.byte	4
+ 1168 000a 00        		.byte	0
+ 1169 000b 00        		.byte	0
+ 1170               	.global	adcCalibMinValDM
+ 1171               	.global	adcCalibMinValDM
+ 1172               		.section .bss
+ 1175               	adcCalibMinValDM:
+ 1176 0024 0000 0000 		.skip 4,0
+ 1177               	.global	adcCalibMaxValDM
+ 1178               		.data
+ 1181               	adcCalibMaxValDM:
+ 1182 000c 00        		.byte	0
+ 1183 000d 04        		.byte	4
+ 1184 000e 00        		.byte	0
+ 1185 000f 00        		.byte	0
+ 1250               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc.c
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:2      *ABS*:0000003f __SREG__
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:5      *ABS*:00000034 __CCP__
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:20     .text:00000000 adcInit
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1067   .bss:00000000 adcMuxState
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:44     .text:00000014 adcStartConversion
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:58     .text:00000018 adcCalculateAvg
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1091   .bss:0000000d adcNbSamplesD
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1085   .bss:00000009 adcNbSamplesG
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1079   .bss:00000005 adcMoteurDAvg
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1073   .bss:00000001 adcMoteurGAvg
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1175   .bss:00000024 adcCalibMinValDM
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1181   .data:0000000c adcCalibMaxValDM
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1159   .bss:00000020 adcCalibMinValDP
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1165   .data:00000008 adcCalibMaxValDP
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1143   .bss:0000001c adcCalibMinValGM
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1149   .data:00000004 adcCalibMaxValGM
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1127   .bss:00000018 adcCalibMinValGP
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1133   .data:00000000 adcCalibMaxValGP
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:292    .text:00000224 adcReadCalibValue
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:409    .text:00000302 adcCalibSeq
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1115   .bss:00000016 adcMotMskVarD
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1121   .bss:00000017 adcMotMskVarG
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:695    .text:00000564 __vector_16
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1097   .bss:00000011 Mcounter
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1103   .bss:00000013 adcValue
+C:\Users\Jonathan\AppData\Local\Temp/ccz7cayH.s:1109   .bss:00000015 adcUpdateSetting
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+__divmodsi4
+__floatsisf
+__divsf3
+OSIntNesting
+OSIntExit

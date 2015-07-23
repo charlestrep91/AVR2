@@ -1,0 +1,45 @@
+   1               		.file	"hardware.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               	.global	hwInit
+  20               	hwInit:
+  21               	.LFB2:
+  22               	.LM1:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	.LM2:
+  26 0000 8FEF      		ldi r24,lo8(-1)
+  27 0002 87BB      		out 55-32,r24
+  28               	.LM3:
+  29 0004 9EEF      		ldi r25,lo8(-2)
+  30 0006 91BB      		out 49-32,r25
+  31               	.LM4:
+  32 0008 90E1      		ldi r25,lo8(16)
+  33 000a 9ABB      		out 58-32,r25
+  34               	.LM5:
+  35 000c 88BB      		out 56-32,r24
+  36               	/* epilogue start */
+  37               	.LM6:
+  38 000e 0895      		ret
+  39               	.LFE2:
+  65               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 hardware.c
+C:\Users\Jonathan\AppData\Local\Temp/cchmcAwZ.s:2      *ABS*:0000003f __SREG__
+C:\Users\Jonathan\AppData\Local\Temp/cchmcAwZ.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Jonathan\AppData\Local\Temp/cchmcAwZ.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Jonathan\AppData\Local\Temp/cchmcAwZ.s:5      *ABS*:00000034 __CCP__
+C:\Users\Jonathan\AppData\Local\Temp/cchmcAwZ.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Jonathan\AppData\Local\Temp/cchmcAwZ.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Jonathan\AppData\Local\Temp/cchmcAwZ.s:20     .text:00000000 hwInit
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

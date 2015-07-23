@@ -1,0 +1,376 @@
+   1               		.file	"pwm.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               	.global	pwmInit
+  20               	pwmInit:
+  21               	.LFB2:
+  22               	.LM1:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	.LM2:
+  26 0000 82EA      		ldi r24,lo8(-94)
+  27 0002 8FBD      		out 79-32,r24
+  28               	.LM3:
+  29 0004 8AE1      		ldi r24,lo8(26)
+  30 0006 8EBD      		out 78-32,r24
+  31               	.LM4:
+  32 0008 84E0      		ldi r24,lo8(4)
+  33 000a 89BF      		out 89-32,r24
+  34               	.LM5:
+  35 000c 80E1      		ldi r24,lo8(10000)
+  36 000e 97E2      		ldi r25,hi8(10000)
+  37 0010 97BD      		out (70)+1-32,r25
+  38 0012 86BD      		out 70-32,r24
+  39               	.LM6:
+  40 0014 1BBC      		out (74)+1-32,__zero_reg__
+  41 0016 1ABC      		out 74-32,__zero_reg__
+  42               	.LM7:
+  43 0018 19BC      		out (72)+1-32,__zero_reg__
+  44 001a 18BC      		out 72-32,__zero_reg__
+  45               	/* epilogue start */
+  46               	.LM8:
+  47 001c 0895      		ret
+  48               	.LFE2:
+  50               	.global	pwmSetDutyValue
+  52               	pwmSetDutyValue:
+  53               	.LFB3:
+  54               	.LM9:
+  55               	.LVL0:
+  56               	/* prologue: function */
+  57               	/* frame size = 0 */
+  58               	.LM10:
+  59 001e 7093 0000 		sts (pwmOCR1B_value)+1,r23
+  60 0022 6093 0000 		sts pwmOCR1B_value,r22
+  61               	.LM11:
+  62 0026 9093 0000 		sts (pwmOCR1A_value)+1,r25
+  63 002a 8093 0000 		sts pwmOCR1A_value,r24
+  64               	.LM12:
+  65 002e 4093 0000 		sts pwmPortDREG,r20
+  66               	/* epilogue start */
+  67               	.LM13:
+  68 0032 0895      		ret
+  69               	.LFE3:
+  71               	.global	__vector_9
+  73               	__vector_9:
+  74               	.LFB4:
+  75               	.LM14:
+  76               	/* prologue: naked */
+  77               	/* frame size = 0 */
+  78               	.LM15:
+  79               	/* #APP */
+  80               	 ;  57 "pwm.c" 1
+  81 0034 2F93      		PUSH  R18
+  82               	 ;  0 "" 2
+  83               	 ;  57 "pwm.c" 1
+  84 0036 3F93      		PUSH  R19
+  85               	 ;  0 "" 2
+  86               	 ;  57 "pwm.c" 1
+  87 0038 2FB7      		IN    R18,0x3F
+  88               	 ;  0 "" 2
+  89               	 ;  57 "pwm.c" 1
+  90 003a 2068      		ORI   R18,0x80
+  91               	 ;  0 "" 2
+  92               	 ;  57 "pwm.c" 1
+  93 003c 2F93      		PUSH  R18
+  94               	 ;  0 "" 2
+  95               	 ;  57 "pwm.c" 1
+  96 003e 0F92      		PUSH  R0
+  97               	 ;  0 "" 2
+  98               	 ;  57 "pwm.c" 1
+  99 0040 1F92      		PUSH  R1
+ 100               	 ;  0 "" 2
+ 101               	 ;  57 "pwm.c" 1
+ 102 0042 4F93      		PUSH  R20
+ 103               	 ;  0 "" 2
+ 104               	 ;  57 "pwm.c" 1
+ 105 0044 5F93      		PUSH  R21
+ 106               	 ;  0 "" 2
+ 107               	 ;  57 "pwm.c" 1
+ 108 0046 6F93      		PUSH  R22
+ 109               	 ;  0 "" 2
+ 110               	 ;  57 "pwm.c" 1
+ 111 0048 7F93      		PUSH  R23
+ 112               	 ;  0 "" 2
+ 113               	 ;  57 "pwm.c" 1
+ 114 004a 8F93      		PUSH  R24
+ 115               	 ;  0 "" 2
+ 116               	 ;  57 "pwm.c" 1
+ 117 004c 9F93      		PUSH  R25
+ 118               	 ;  0 "" 2
+ 119               	 ;  57 "pwm.c" 1
+ 120 004e AF93      		PUSH  R26
+ 121               	 ;  0 "" 2
+ 122               	 ;  57 "pwm.c" 1
+ 123 0050 BF93      		PUSH  R27
+ 124               	 ;  0 "" 2
+ 125               	 ;  57 "pwm.c" 1
+ 126 0052 EF93      		PUSH  R30
+ 127               	 ;  0 "" 2
+ 128               	 ;  57 "pwm.c" 1
+ 129 0054 FF93      		PUSH  R31
+ 130               	 ;  0 "" 2
+ 131               	/* #NOAPP */
+ 132 0056 8091 0000 		lds r24,OSIntNesting
+ 133 005a 8823      		tst r24
+ 134 005c 01F4      		brne .L6
+ 135               	/* #APP */
+ 136               	 ;  57 "pwm.c" 1
+ 137 005e 2F92      		PUSH  R2
+ 138               	 ;  0 "" 2
+ 139               	 ;  57 "pwm.c" 1
+ 140 0060 3F92      		PUSH  R3
+ 141               	 ;  0 "" 2
+ 142               	 ;  57 "pwm.c" 1
+ 143 0062 4F92      		PUSH  R4
+ 144               	 ;  0 "" 2
+ 145               	 ;  57 "pwm.c" 1
+ 146 0064 5F92      		PUSH  R5
+ 147               	 ;  0 "" 2
+ 148               	 ;  57 "pwm.c" 1
+ 149 0066 6F92      		PUSH  R6
+ 150               	 ;  0 "" 2
+ 151               	 ;  57 "pwm.c" 1
+ 152 0068 7F92      		PUSH  R7
+ 153               	 ;  0 "" 2
+ 154               	 ;  57 "pwm.c" 1
+ 155 006a 8F92      		PUSH  R8
+ 156               	 ;  0 "" 2
+ 157               	 ;  57 "pwm.c" 1
+ 158 006c 9F92      		PUSH  R9
+ 159               	 ;  0 "" 2
+ 160               	 ;  57 "pwm.c" 1
+ 161 006e AF92      		PUSH  R10
+ 162               	 ;  0 "" 2
+ 163               	 ;  57 "pwm.c" 1
+ 164 0070 BF92      		PUSH  R11
+ 165               	 ;  0 "" 2
+ 166               	 ;  57 "pwm.c" 1
+ 167 0072 CF92      		PUSH  R12
+ 168               	 ;  0 "" 2
+ 169               	 ;  57 "pwm.c" 1
+ 170 0074 DF92      		PUSH  R13
+ 171               	 ;  0 "" 2
+ 172               	 ;  57 "pwm.c" 1
+ 173 0076 EF92      		PUSH  R14
+ 174               	 ;  0 "" 2
+ 175               	 ;  57 "pwm.c" 1
+ 176 0078 FF92      		PUSH  R15
+ 177               	 ;  0 "" 2
+ 178               	 ;  57 "pwm.c" 1
+ 179 007a 0F93      		PUSH  R16
+ 180               	 ;  0 "" 2
+ 181               	 ;  57 "pwm.c" 1
+ 182 007c 1F93      		PUSH  R17
+ 183               	 ;  0 "" 2
+ 184               	 ;  57 "pwm.c" 1
+ 185 007e CF93      		PUSH  R28
+ 186               	 ;  0 "" 2
+ 187               	 ;  57 "pwm.c" 1
+ 188 0080 DF93      		PUSH  R29
+ 189               	 ;  0 "" 2
+ 190               	/* #NOAPP */
+ 191               	.L6:
+ 192 0082 8F5F      		subi r24,lo8(-(1))
+ 193 0084 8093 0000 		sts OSIntNesting,r24
+ 194               	.LM16:
+ 195 0088 8091 0000 		lds r24,pwmOCR1A_value
+ 196 008c 9091 0000 		lds r25,(pwmOCR1A_value)+1
+ 197 0090 9BBD      		out (74)+1-32,r25
+ 198 0092 8ABD      		out 74-32,r24
+ 199               	.LM17:
+ 200 0094 8091 0000 		lds r24,pwmOCR1B_value
+ 201 0098 9091 0000 		lds r25,(pwmOCR1B_value)+1
+ 202 009c 99BD      		out (72)+1-32,r25
+ 203 009e 88BD      		out 72-32,r24
+ 204               	.LM18:
+ 205 00a0 8091 0000 		lds r24,pwmPortDREG
+ 206 00a4 8061      		ori r24,lo8(16)
+ 207 00a6 8093 0000 		sts pwmPortDREG,r24
+ 208               	.LM19:
+ 209 00aa 8091 0000 		lds r24,pwmPortDREG
+ 210 00ae 8062      		ori r24,lo8(32)
+ 211 00b0 8093 0000 		sts pwmPortDREG,r24
+ 212               	.LM20:
+ 213 00b4 8091 0000 		lds r24,pwmPortDREG
+ 214 00b8 82BB      		out 50-32,r24
+ 215               	.LM21:
+ 216 00ba 8091 0000 		lds r24,MoteurUpdateSem
+ 217 00be 9091 0000 		lds r25,(MoteurUpdateSem)+1
+ 218 00c2 0E94 0000 		call OSSemPost
+ 219               	.LM22:
+ 220               	/* #APP */
+ 221               	 ;  64 "pwm.c" 1
+ 222 00c6 F894      		cli
+ 223               	 ;  0 "" 2
+ 224               	/* #NOAPP */
+ 225 00c8 0E94 0000 		call OSIntExit
+ 226 00cc 8091 0000 		lds r24,OSIntNesting
+ 227 00d0 8823      		tst r24
+ 228 00d2 01F4      		brne .L7
+ 229               	/* #APP */
+ 230               	 ;  64 "pwm.c" 1
+ 231 00d4 DF91      		POP  R29
+ 232               	 ;  0 "" 2
+ 233               	 ;  64 "pwm.c" 1
+ 234 00d6 CF91      		POP  R28
+ 235               	 ;  0 "" 2
+ 236               	 ;  64 "pwm.c" 1
+ 237 00d8 1F91      		POP  R17
+ 238               	 ;  0 "" 2
+ 239               	 ;  64 "pwm.c" 1
+ 240 00da 0F91      		POP  R16
+ 241               	 ;  0 "" 2
+ 242               	 ;  64 "pwm.c" 1
+ 243 00dc FF90      		POP  R15
+ 244               	 ;  0 "" 2
+ 245               	 ;  64 "pwm.c" 1
+ 246 00de EF90      		POP  R14
+ 247               	 ;  0 "" 2
+ 248               	 ;  64 "pwm.c" 1
+ 249 00e0 DF90      		POP  R13
+ 250               	 ;  0 "" 2
+ 251               	 ;  64 "pwm.c" 1
+ 252 00e2 CF90      		POP  R12
+ 253               	 ;  0 "" 2
+ 254               	 ;  64 "pwm.c" 1
+ 255 00e4 BF90      		POP  R11
+ 256               	 ;  0 "" 2
+ 257               	 ;  64 "pwm.c" 1
+ 258 00e6 AF90      		POP  R10
+ 259               	 ;  0 "" 2
+ 260               	 ;  64 "pwm.c" 1
+ 261 00e8 9F90      		POP  R9
+ 262               	 ;  0 "" 2
+ 263               	 ;  64 "pwm.c" 1
+ 264 00ea 8F90      		POP  R8
+ 265               	 ;  0 "" 2
+ 266               	 ;  64 "pwm.c" 1
+ 267 00ec 7F90      		POP  R7
+ 268               	 ;  0 "" 2
+ 269               	 ;  64 "pwm.c" 1
+ 270 00ee 6F90      		POP  R6
+ 271               	 ;  0 "" 2
+ 272               	 ;  64 "pwm.c" 1
+ 273 00f0 5F90      		POP  R5
+ 274               	 ;  0 "" 2
+ 275               	 ;  64 "pwm.c" 1
+ 276 00f2 4F90      		POP  R4
+ 277               	 ;  0 "" 2
+ 278               	 ;  64 "pwm.c" 1
+ 279 00f4 3F90      		POP  R3
+ 280               	 ;  0 "" 2
+ 281               	 ;  64 "pwm.c" 1
+ 282 00f6 2F90      		POP  R2
+ 283               	 ;  0 "" 2
+ 284               	/* #NOAPP */
+ 285               	.L7:
+ 286               	/* #APP */
+ 287               	 ;  64 "pwm.c" 1
+ 288 00f8 FF91      		POP  R31
+ 289               	 ;  0 "" 2
+ 290               	 ;  64 "pwm.c" 1
+ 291 00fa EF91      		POP  R30
+ 292               	 ;  0 "" 2
+ 293               	 ;  64 "pwm.c" 1
+ 294 00fc BF91      		POP  R27
+ 295               	 ;  0 "" 2
+ 296               	 ;  64 "pwm.c" 1
+ 297 00fe AF91      		POP  R26
+ 298               	 ;  0 "" 2
+ 299               	 ;  64 "pwm.c" 1
+ 300 0100 9F91      		POP  R25
+ 301               	 ;  0 "" 2
+ 302               	 ;  64 "pwm.c" 1
+ 303 0102 8F91      		POP  R24
+ 304               	 ;  0 "" 2
+ 305               	 ;  64 "pwm.c" 1
+ 306 0104 7F91      		POP  R23
+ 307               	 ;  0 "" 2
+ 308               	 ;  64 "pwm.c" 1
+ 309 0106 6F91      		POP  R22
+ 310               	 ;  0 "" 2
+ 311               	 ;  64 "pwm.c" 1
+ 312 0108 5F91      		POP  R21
+ 313               	 ;  0 "" 2
+ 314               	 ;  64 "pwm.c" 1
+ 315 010a 4F91      		POP  R20
+ 316               	 ;  0 "" 2
+ 317               	 ;  64 "pwm.c" 1
+ 318 010c 1F90      		POP  R1
+ 319               	 ;  0 "" 2
+ 320               	 ;  64 "pwm.c" 1
+ 321 010e 0F90      		POP  R0
+ 322               	 ;  0 "" 2
+ 323               	 ;  64 "pwm.c" 1
+ 324 0110 2F91      		POP  R18
+ 325               	 ;  0 "" 2
+ 326               	 ;  64 "pwm.c" 1
+ 327 0112 2F77      		ANDI R18,0x7F
+ 328               	 ;  0 "" 2
+ 329               	 ;  64 "pwm.c" 1
+ 330 0114 2FBF      		OUT  0x3F,R18
+ 331               	 ;  0 "" 2
+ 332               	 ;  64 "pwm.c" 1
+ 333 0116 3F91      		POP  R19
+ 334               	 ;  0 "" 2
+ 335               	 ;  64 "pwm.c" 1
+ 336 0118 2F91      		POP  R18
+ 337               	 ;  0 "" 2
+ 338               	 ;  64 "pwm.c" 1
+ 339 011a 1895      		RETI
+ 340               	 ;  0 "" 2
+ 341               	/* epilogue start */
+ 342               	.LM23:
+ 343               	/* #NOAPP */
+ 344               	.LFE4:
+ 346               	.global	pwmOCR1A_value
+ 347               	.global	pwmOCR1A_value
+ 348               		.section .bss
+ 351               	pwmOCR1A_value:
+ 352 0000 0000      		.skip 2,0
+ 353               	.global	pwmOCR1B_value
+ 354               	.global	pwmOCR1B_value
+ 357               	pwmOCR1B_value:
+ 358 0002 0000      		.skip 2,0
+ 359               	.global	period
+ 360               		.data
+ 363               	period:
+ 364 0000 1027      		.word	10000
+ 365               	.global	counter
+ 366               	.global	counter
+ 367               		.section .bss
+ 370               	counter:
+ 371 0004 00        		.skip 1,0
+ 372               		.comm pwmPortDREG,1,1
+ 413               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 pwm.c
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:2      *ABS*:0000003f __SREG__
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:5      *ABS*:00000034 __CCP__
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:20     .text:00000000 pwmInit
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:52     .text:0000001e pwmSetDutyValue
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:357    .bss:00000002 pwmOCR1B_value
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:351    .bss:00000000 pwmOCR1A_value
+                            *COM*:00000001 pwmPortDREG
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:73     .text:00000034 __vector_9
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:363    .data:00000000 period
+C:\Users\Jonathan\AppData\Local\Temp/ccrZ4dmn.s:370    .bss:00000004 counter
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss
+OSIntNesting
+MoteurUpdateSem
+OSSemPost
+OSIntExit
