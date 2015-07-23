@@ -18,9 +18,7 @@
 #include <avr/interrupt.h>
 #include "includes.h"
 
-//définir pour faire fonctionner la detection des collisions 
-//et corriger la direction du robot si objet detecté
-//#define __DETECTION_COLLISION 
+
 
 
 //Definition des type de var declarés dans le code

@@ -1,0 +1,56 @@
+   1               		.file	"watchdog.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.global __do_copy_data
+   9               		.global __do_clear_bss
+  17               	.Ltext0:
+  18               	.global	WdDisable
+  20               	WdDisable:
+  21               	.LFB2:
+  22               	.LM1:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	.LM2:
+  26 0000 81B5      		in r24,65-32
+  27 0002 8061      		ori r24,lo8(16)
+  28 0004 81BD      		out 65-32,r24
+  29               	.LM3:
+  30 0006 81B5      		in r24,65-32
+  31 0008 877F      		andi r24,lo8(-9)
+  32 000a 81BD      		out 65-32,r24
+  33               	/* epilogue start */
+  34               	.LM4:
+  35 000c 0895      		ret
+  36               	.LFE2:
+  38               	.global	WdInit
+  40               	WdInit:
+  41               	.LFB3:
+  42               	.LM5:
+  43               	/* prologue: function */
+  44               	/* frame size = 0 */
+  45               	.LM6:
+  46 000e 87E0      		ldi r24,lo8(7)
+  47 0010 81BD      		out 65-32,r24
+  48               	/* epilogue start */
+  49               	.LM7:
+  50 0012 0895      		ret
+  51               	.LFE3:
+  85               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 watchdog.c
+C:\Users\Jonathan\AppData\Local\Temp/ccritRb3.s:2      *ABS*:0000003f __SREG__
+C:\Users\Jonathan\AppData\Local\Temp/ccritRb3.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Jonathan\AppData\Local\Temp/ccritRb3.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Jonathan\AppData\Local\Temp/ccritRb3.s:5      *ABS*:00000034 __CCP__
+C:\Users\Jonathan\AppData\Local\Temp/ccritRb3.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccritRb3.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Jonathan\AppData\Local\Temp/ccritRb3.s:20     .text:00000000 WdDisable
+C:\Users\Jonathan\AppData\Local\Temp/ccritRb3.s:40     .text:0000000e WdInit
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

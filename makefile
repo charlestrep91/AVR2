@@ -62,7 +62,7 @@ TARGET = robot2
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c os_cpu_c.c pwm.c moteur.c adc.c hardware.c
+SRC = $(TARGET).c os_cpu_c.c pwm.c moteur.c adc.c hardware.c SwNLed.c watchdog.c
 
 
 # List Assembler source files here.

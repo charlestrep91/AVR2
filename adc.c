@@ -163,7 +163,6 @@ void adcReadCalibValue(S32 *adcValD,S32 *adcValG)
 /*
 	void adcCalibSeq(void)
 	@des sequence de calibration
-
 */	
 void adcCalibSeq(void)
 {

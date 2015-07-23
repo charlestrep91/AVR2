@@ -10,18 +10,27 @@
 #include "hardware.h"
 
 /*
-	void SLWaitForTheStartSw(void)
-	@des attends pour la switch de démarrage
+	U8 SLCheckSwStatusStop(void)
+	@des verifie le bouton stop
+	@return 1 si bouton appuyer sinon 0 
 */
-void SLCheckSwStatus(void);
+U8 SLCheckSwStatusStop(void);
+
 
 /*
-	void SLWaitForTheStartSw(void)
-	@des verifie letat de la switch d'arret d'urgence
-	et bloque le programme et desactive les interruptions si 
-	la switch est appuyer
+	U8 SLCheckSwStatusStart(void)
+	@des verifie le bouton start
+	@return 1 si bouton appuyer sinon 0
 */
-void SLWaitForTheStartSw(void);
+U8 SLCheckSwStatusStart(void);
+
+
+/*
+	void SLInit(void)
+	@des initialise les dels d'affichage
+	d'état du robot
+*/
+void SLInit(void);
 
 
 

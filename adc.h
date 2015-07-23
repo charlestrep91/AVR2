@@ -23,6 +23,7 @@ void adcInit(void);
 	@des demarre les lectures
 */
 void adcStartConversion(void);
+
 /*
 	void adcCalculateAvg(float * moteurD, float * moteurG)
 	@des calcul des valeurs moyennes 

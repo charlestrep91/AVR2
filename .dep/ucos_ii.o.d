@@ -1,4 +1,4 @@
-robot2.o: robot2.c includes.h \
+SOURCE/ucos_ii.o: SOURCE/ucos_ii.c includes.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/avr/io.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/avr/sfr_defs.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/inttypes.h \
@@ -12,10 +12,9 @@ robot2.o: robot2.c includes.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/avr/interrupt.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/string.h \
   c:\winavr-20081205\bin\../lib/gcc/avr/4.3.2/include/stddef.h os_cpu.h \
-  os_cfg.h SOURCE/ucos_ii.h \
-  c:/winavr-20081205/lib/gcc/../../avr/include/stdio.h \
-  c:\winavr-20081205\bin\../lib/gcc/avr/4.3.2/include/stdarg.h pwm.h \
-  hardware.h adc.h moteur.h SwNLed.h Watchdog.h
+  os_cfg.h SOURCE/ucos_ii.h SOURCE/os_core.c SOURCE/os_flag.c \
+  SOURCE/os_mbox.c SOURCE/os_mem.c SOURCE/os_mutex.c SOURCE/os_q.c \
+  SOURCE/os_sem.c SOURCE/os_task.c SOURCE/os_time.c
 
 includes.h:
 
@@ -51,18 +50,20 @@ os_cfg.h:
 
 SOURCE/ucos_ii.h:
 
-c:/winavr-20081205/lib/gcc/../../avr/include/stdio.h:
+SOURCE/os_core.c:
 
-c:\winavr-20081205\bin\../lib/gcc/avr/4.3.2/include/stdarg.h:
+SOURCE/os_flag.c:
 
-pwm.h:
+SOURCE/os_mbox.c:
 
-hardware.h:
+SOURCE/os_mem.c:
 
-adc.h:
+SOURCE/os_mutex.c:
 
-moteur.h:
+SOURCE/os_q.c:
 
-SwNLed.h:
+SOURCE/os_sem.c:
 
-Watchdog.h:
+SOURCE/os_task.c:
+
+SOURCE/os_time.c:

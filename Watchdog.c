@@ -17,7 +17,6 @@ void WdDisable(void)
 
 	WDTCR |= (1<<WDTOE); 
 	WDTCR &= ~(1<<WDE);
-
 }
 
 

@@ -5,8 +5,8 @@
 */
 
 
-#ifndef WATCHDOG
-#define WATCHDOG
+#ifndef WATCHDOG_H
+#define WATCHDOG_H
 
 #include "hardware.h"
 #include <avr/io.h>

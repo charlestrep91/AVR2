@@ -4,6 +4,7 @@
 	@author Bruno De Kelper et Louis-Bernard Lagueux
 	@date 13 Octobre 2006
 */
+
 /*
  ELE542 
  Jonathan Lapointe LAPJ05108303
@@ -61,6 +62,11 @@ void CalculMoteur(void);
 */
 void moteurUpdateDutys(void);
 
+
+/*
+	void moteurSetMode(U8 mode)
+	@des fn qui met le robot en mode :M_ARRET,M_MARCHE,M_NEUTRE
+*/
 void moteurSetMode(U8 mode);
 
 #endif

@@ -1,4 +1,4 @@
-robot2.o: robot2.c includes.h \
+watchdog.o: watchdog.c hardware.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/avr/io.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/avr/sfr_defs.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/inttypes.h \
@@ -9,15 +9,12 @@ robot2.o: robot2.c includes.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/avr/version.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/avr/fuse.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/avr/lock.h \
-  c:/winavr-20081205/lib/gcc/../../avr/include/avr/interrupt.h \
+  c:/winavr-20081205/lib/gcc/../../avr/include/avr/interrupt.h includes.h \
   c:/winavr-20081205/lib/gcc/../../avr/include/string.h \
   c:\winavr-20081205\bin\../lib/gcc/avr/4.3.2/include/stddef.h os_cpu.h \
-  os_cfg.h SOURCE/ucos_ii.h \
-  c:/winavr-20081205/lib/gcc/../../avr/include/stdio.h \
-  c:\winavr-20081205\bin\../lib/gcc/avr/4.3.2/include/stdarg.h pwm.h \
-  hardware.h adc.h moteur.h SwNLed.h Watchdog.h
+  os_cfg.h SOURCE/ucos_ii.h Watchdog.h
 
-includes.h:
+hardware.h:
 
 c:/winavr-20081205/lib/gcc/../../avr/include/avr/io.h:
 
@@ -41,6 +38,8 @@ c:/winavr-20081205/lib/gcc/../../avr/include/avr/lock.h:
 
 c:/winavr-20081205/lib/gcc/../../avr/include/avr/interrupt.h:
 
+includes.h:
+
 c:/winavr-20081205/lib/gcc/../../avr/include/string.h:
 
 c:\winavr-20081205\bin\../lib/gcc/avr/4.3.2/include/stddef.h:
@@ -50,19 +49,5 @@ os_cpu.h:
 os_cfg.h:
 
 SOURCE/ucos_ii.h:
-
-c:/winavr-20081205/lib/gcc/../../avr/include/stdio.h:
-
-c:\winavr-20081205\bin\../lib/gcc/avr/4.3.2/include/stdarg.h:
-
-pwm.h:
-
-hardware.h:
-
-adc.h:
-
-moteur.h:
-
-SwNLed.h:
 
 Watchdog.h:

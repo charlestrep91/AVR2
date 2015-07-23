@@ -3,6 +3,7 @@
  Jonathan Lapointe LAPJ05108303
  Charles Trépanier 
 */
+
 #include "moteur.h"
 #include "hardware.h"
 #include "pwm.h"
@@ -110,10 +111,16 @@ U8 moteurControl(U8 vitesse,U8 angle)
 	return 0;
 }
 
+
+/*
+	void moteurSetMode(U8 mode)
+	@des fn qui met le robot en mode :M_ARRET,M_MARCHE,M_NEUTRE
+*/
 void moteurSetMode(U8 mode)
 {
 	mMode=mode;
 }
+
 /*
 	void CalculMoteur(void)
 	@des Calcul des valeurs envoyé au moteur et asservissement 

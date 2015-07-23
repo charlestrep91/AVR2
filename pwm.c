@@ -15,10 +15,10 @@ volatile   tREG08 pwmPortDREG;
 
 
 extern OS_EVENT *MoteurUpdateSem;
+
 U16 period=10000;
 U8 counter=0;
 
-//extern U8 flag5ms;
 
 /*
 	void pwmInit(void)
@@ -37,6 +37,8 @@ void pwmInit(void)
   OCR1A=0;
   OCR1B=0;
 }
+
+
 /*
 	void pwmSetDutyValue(U16 valueD,U16 valueG,U8 portValue)
 	@des update les valeurs des variable qui seront passé dans l'interruption 
@@ -47,6 +49,7 @@ void pwmSetDutyValue(U16 valueD,U16 valueG,U8 portValue)
 	pwmOCR1A_value=valueD;
 	pwmPortDREG.byte=portValue;
 }
+
 
 /*
 	ISR(TIMER1_OVF_vect)
