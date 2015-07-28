@@ -1,8 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
 /*
- ELE542 
- Jonathan Lapointe LAPJ05108303
- Charles Trépanier 
+	moteur.c
+ 	ELE542 - ÉTÉ2015
+ 	Jonathan Lapointe LAPJ05108303
+ 	Charles Trépanier TREC07029107
+
+	Contains functions related to the robot's motors control.
 */
+///////////////////////////////////////////////////////////////////////////
 
 #include "moteur.h"
 #include "hardware.h"
@@ -96,15 +101,13 @@ U8 moteurControl(U8 vitesse,U8 angle)
 	{ 
 		if(vitesse!=lastVitesse)
 		{
-			mVitesse_D=(float)(vitesse-100)/100;
-			
+			mVitesse_D=(float)(vitesse-100)/100;	
 		}
 
 		if(angle!=lastAngle)
 		{
 			mAngle_D=((float) angle)*Pi/90.0;;
 		}
-
 		lastVitesse=vitesse;
 		lastAngle=angle;
 	}
@@ -127,77 +130,73 @@ void moteurSetMode(U8 mode)
 */
 void CalculMoteur(void)
 {
-tREG08 mPortDREG;		
-#define M_DIR_G1 mPortDREG.bit.b2
-#define M_DIR_G2 mPortDREG.bit.b3
-#define M_DIR_D1 mPortDREG.bit.b6
-#define M_DIR_D2 mPortDREG.bit.b7	  
+	tREG08 mPortDREG;		
+	#define M_DIR_G1 mPortDREG.bit.b2
+	#define M_DIR_G2 mPortDREG.bit.b3
+	#define M_DIR_D1 mPortDREG.bit.b6
+	#define M_DIR_D2 mPortDREG.bit.b7	  
  
-
-		//MODE AVANT
-		if(mMode!=M_MARCHE)
-		{	
-			switch(mMode)
-			{
-				case M_NEUTRE:
+	//MODE AVANT
+	if(mMode!=M_MARCHE)
+	{	
+		switch(mMode)
+		{
+			case M_NEUTRE:
 				M_DIR_G1=0;
 				M_DIR_G2=0;
 				M_DIR_D1=0;
 				M_DIR_D2=0;
+			break;
 
-				break;
-
-				//M_ARRET
-				default:  
+			//M_ARRET
+			default:  
 				M_DIR_G1=1;
 				M_DIR_G2=1;
 				M_DIR_D1=1;
 				M_DIR_D2=1;
-				break;
-				
-			}
-			mDuty_G=0;
-			mDuty_D=0;
-			dutyValD=0;
-			dutyValG=0;
+			break;	
 		}
+		mDuty_G=0;
+		mDuty_D=0;
+		dutyValD=0;
+		dutyValG=0;
+	}
+	else
+	{
+		adcCalculateAvg(&mVd,&mVg);	
+		CalculPWM(mVitesse_D,mAngle_D,mVg,mVd,&mDuty_G,&mDuty_D);
+		//MODE ARRIERE
+		if(mDuty_G<0)
+		{
+			M_DIR_G1=0;
+			M_DIR_G2=1;
+			mDuty_G=mDuty_G*(-1);
+		}
+		//MODE AVANT
 		else
 		{
-			adcCalculateAvg(&mVd,&mVg);	
-			CalculPWM(mVitesse_D,mAngle_D,mVg,mVd,&mDuty_G,&mDuty_D);
-			//MODE ARRIERE
-			if(mDuty_G<0)
-			{
-				M_DIR_G1=0;
-				M_DIR_G2=1;
-				mDuty_G=mDuty_G*(-1);
-			}
-			//MODE AVANT
-			else
-			{
-				M_DIR_G1=1;
-				M_DIR_G2=0;	
-			}	
+			M_DIR_G1=1;
+			M_DIR_G2=0;	
+		}	
 
-			//MODE ARRIERE
-			if(mDuty_D<0)
-			{
-				M_DIR_D1=0;
-				M_DIR_D2=1;
-				mDuty_D=mDuty_D*(-1);
-			}
-			//MODE AVANT
-			else
-			{
-				M_DIR_D1=1;
-				M_DIR_D2=0;	
-			}
-			
-			dutyValD=(U16)(mDuty_D*10000);
-			dutyValG=(U16)(mDuty_G*10000);		
+		//MODE ARRIERE
+		if(mDuty_D<0)
+		{
+			M_DIR_D1=0;
+			M_DIR_D2=1;
+			mDuty_D=mDuty_D*(-1);
 		}
-		pwmSetDutyValue(dutyValD,dutyValG,mPortDREG.byte);	
-
+		//MODE AVANT
+		else
+		{
+			M_DIR_D1=1;
+			M_DIR_D2=0;	
+		}
+		
+		dutyValD=(U16)(mDuty_D*10000);
+		dutyValG=(U16)(mDuty_G*10000);		
+	}
+	pwmSetDutyValue(dutyValD,dutyValG,mPortDREG.byte);	
 }
 
 

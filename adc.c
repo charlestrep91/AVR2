@@ -1,8 +1,14 @@
+///////////////////////////////////////////////////////////////////////////
 /*
- ELE542 
- Jonathan Lapointe LAPJ05108303
- Charles Trépanier 
+	adc.c
+ 	ELE542 - ÉTÉ2015
+ 	Jonathan Lapointe LAPJ05108303
+ 	Charles Trépanier TREC07029107
+
+	Contains the ISR and the functions used to process motor speed values 
+	read from the MCU's ADC.
 */
+///////////////////////////////////////////////////////////////////////////
 
 #include "adc.h"
 #include "moteur.h"

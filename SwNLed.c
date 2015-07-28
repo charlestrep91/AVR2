@@ -1,9 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
 /*
- ELE542 
- Jonathan Lapointe LAPJ05108303
- Charles Trépanier 
-*/
+	SwNLed.c
+ 	ELE542 - ÉTÉ2015
+ 	Jonathan Lapointe LAPJ05108303
+ 	Charles Trépanier TREC07029107
 
+	Contains functions related to the STK500's switches and LEDs.
+*/
+///////////////////////////////////////////////////////////////////////////
 
 #include "hardware.h"
 #include "SwNLed.h"
@@ -48,7 +52,6 @@ U8 SLCheckSwStatusStop(void)
 	}
 	else 
 		return 0;
-	
 }
 
 
@@ -69,5 +72,4 @@ U8 SLCheckSwStatusStart(void)
 	}
 	else
 		return 0;
-
 }

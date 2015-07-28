@@ -69,7 +69,7 @@
   81 003a 2B01      		movw r4,r22
   82               	.LM11:
   83               	/* #APP */
-  84               	 ;  119 "adc.c" 1
+  84               	 ;  125 "adc.c" 1
   85 003c F894      		cli
   86               	 ;  0 "" 2
   87               	.LM12:
@@ -99,7 +99,7 @@
  111               	.LVL4:
  112               	.LM16:
  113               	/* #APP */
- 114               	 ;  124 "adc.c" 1
+ 114               	 ;  130 "adc.c" 1
  115 007e 7894      		sei
  116               	 ;  0 "" 2
  117               	.LM17:
@@ -297,7 +297,7 @@
  311 023e 3B01      		movw r6,r22
  312               	.LM25:
  313               	/* #APP */
- 314               	 ;  148 "adc.c" 1
+ 314               	 ;  154 "adc.c" 1
  315 0240 F894      		cli
  316               	 ;  0 "" 2
  317               	.LM26:
@@ -327,7 +327,7 @@
  341               	.LVL17:
  342               	.LM30:
  343               	/* #APP */
- 344               	 ;  153 "adc.c" 1
+ 344               	 ;  159 "adc.c" 1
  345 0282 7894      		sei
  346               	 ;  0 "" 2
  347               	.LM31:
@@ -681,55 +681,55 @@
  699               	/* frame size = 0 */
  700               	.LM93:
  701               	/* #APP */
- 702               	 ;  89 "adc.c" 1
+ 702               	 ;  95 "adc.c" 1
  703 0564 2F93      		PUSH  R18
  704               	 ;  0 "" 2
- 705               	 ;  89 "adc.c" 1
+ 705               	 ;  95 "adc.c" 1
  706 0566 3F93      		PUSH  R19
  707               	 ;  0 "" 2
- 708               	 ;  89 "adc.c" 1
+ 708               	 ;  95 "adc.c" 1
  709 0568 2FB7      		IN    R18,0x3F
  710               	 ;  0 "" 2
- 711               	 ;  89 "adc.c" 1
+ 711               	 ;  95 "adc.c" 1
  712 056a 2068      		ORI   R18,0x80
  713               	 ;  0 "" 2
- 714               	 ;  89 "adc.c" 1
+ 714               	 ;  95 "adc.c" 1
  715 056c 2F93      		PUSH  R18
  716               	 ;  0 "" 2
- 717               	 ;  89 "adc.c" 1
+ 717               	 ;  95 "adc.c" 1
  718 056e 0F92      		PUSH  R0
  719               	 ;  0 "" 2
- 720               	 ;  89 "adc.c" 1
+ 720               	 ;  95 "adc.c" 1
  721 0570 1F92      		PUSH  R1
  722               	 ;  0 "" 2
- 723               	 ;  89 "adc.c" 1
+ 723               	 ;  95 "adc.c" 1
  724 0572 4F93      		PUSH  R20
  725               	 ;  0 "" 2
- 726               	 ;  89 "adc.c" 1
+ 726               	 ;  95 "adc.c" 1
  727 0574 5F93      		PUSH  R21
  728               	 ;  0 "" 2
- 729               	 ;  89 "adc.c" 1
+ 729               	 ;  95 "adc.c" 1
  730 0576 6F93      		PUSH  R22
  731               	 ;  0 "" 2
- 732               	 ;  89 "adc.c" 1
+ 732               	 ;  95 "adc.c" 1
  733 0578 7F93      		PUSH  R23
  734               	 ;  0 "" 2
- 735               	 ;  89 "adc.c" 1
+ 735               	 ;  95 "adc.c" 1
  736 057a 8F93      		PUSH  R24
  737               	 ;  0 "" 2
- 738               	 ;  89 "adc.c" 1
+ 738               	 ;  95 "adc.c" 1
  739 057c 9F93      		PUSH  R25
  740               	 ;  0 "" 2
- 741               	 ;  89 "adc.c" 1
+ 741               	 ;  95 "adc.c" 1
  742 057e AF93      		PUSH  R26
  743               	 ;  0 "" 2
- 744               	 ;  89 "adc.c" 1
+ 744               	 ;  95 "adc.c" 1
  745 0580 BF93      		PUSH  R27
  746               	 ;  0 "" 2
- 747               	 ;  89 "adc.c" 1
+ 747               	 ;  95 "adc.c" 1
  748 0582 EF93      		PUSH  R30
  749               	 ;  0 "" 2
- 750               	 ;  89 "adc.c" 1
+ 750               	 ;  95 "adc.c" 1
  751 0584 FF93      		PUSH  R31
  752               	 ;  0 "" 2
  753               	/* #NOAPP */
@@ -737,58 +737,58 @@
  755 058a 8823      		tst r24
  756 058c 01F4      		brne .L34
  757               	/* #APP */
- 758               	 ;  89 "adc.c" 1
+ 758               	 ;  95 "adc.c" 1
  759 058e 2F92      		PUSH  R2
  760               	 ;  0 "" 2
- 761               	 ;  89 "adc.c" 1
+ 761               	 ;  95 "adc.c" 1
  762 0590 3F92      		PUSH  R3
  763               	 ;  0 "" 2
- 764               	 ;  89 "adc.c" 1
+ 764               	 ;  95 "adc.c" 1
  765 0592 4F92      		PUSH  R4
  766               	 ;  0 "" 2
- 767               	 ;  89 "adc.c" 1
+ 767               	 ;  95 "adc.c" 1
  768 0594 5F92      		PUSH  R5
  769               	 ;  0 "" 2
- 770               	 ;  89 "adc.c" 1
+ 770               	 ;  95 "adc.c" 1
  771 0596 6F92      		PUSH  R6
  772               	 ;  0 "" 2
- 773               	 ;  89 "adc.c" 1
+ 773               	 ;  95 "adc.c" 1
  774 0598 7F92      		PUSH  R7
  775               	 ;  0 "" 2
- 776               	 ;  89 "adc.c" 1
+ 776               	 ;  95 "adc.c" 1
  777 059a 8F92      		PUSH  R8
  778               	 ;  0 "" 2
- 779               	 ;  89 "adc.c" 1
+ 779               	 ;  95 "adc.c" 1
  780 059c 9F92      		PUSH  R9
  781               	 ;  0 "" 2
- 782               	 ;  89 "adc.c" 1
+ 782               	 ;  95 "adc.c" 1
  783 059e AF92      		PUSH  R10
  784               	 ;  0 "" 2
- 785               	 ;  89 "adc.c" 1
+ 785               	 ;  95 "adc.c" 1
  786 05a0 BF92      		PUSH  R11
  787               	 ;  0 "" 2
- 788               	 ;  89 "adc.c" 1
+ 788               	 ;  95 "adc.c" 1
  789 05a2 CF92      		PUSH  R12
  790               	 ;  0 "" 2
- 791               	 ;  89 "adc.c" 1
+ 791               	 ;  95 "adc.c" 1
  792 05a4 DF92      		PUSH  R13
  793               	 ;  0 "" 2
- 794               	 ;  89 "adc.c" 1
+ 794               	 ;  95 "adc.c" 1
  795 05a6 EF92      		PUSH  R14
  796               	 ;  0 "" 2
- 797               	 ;  89 "adc.c" 1
+ 797               	 ;  95 "adc.c" 1
  798 05a8 FF92      		PUSH  R15
  799               	 ;  0 "" 2
- 800               	 ;  89 "adc.c" 1
+ 800               	 ;  95 "adc.c" 1
  801 05aa 0F93      		PUSH  R16
  802               	 ;  0 "" 2
- 803               	 ;  89 "adc.c" 1
+ 803               	 ;  95 "adc.c" 1
  804 05ac 1F93      		PUSH  R17
  805               	 ;  0 "" 2
- 806               	 ;  89 "adc.c" 1
+ 806               	 ;  95 "adc.c" 1
  807 05ae CF93      		PUSH  R28
  808               	 ;  0 "" 2
- 809               	 ;  89 "adc.c" 1
+ 809               	 ;  95 "adc.c" 1
  810 05b0 DF93      		PUSH  R29
  811               	 ;  0 "" 2
  812               	/* #NOAPP */
@@ -916,7 +916,7 @@
  934               	.L38:
  935               	.LM100:
  936               	/* #APP */
- 937               	 ;  105 "adc.c" 1
+ 937               	 ;  111 "adc.c" 1
  938 06d2 F894      		cli
  939               	 ;  0 "" 2
  940               	/* #NOAPP */
@@ -925,115 +925,115 @@
  943 06dc 8823      		tst r24
  944 06de 01F4      		brne .L41
  945               	/* #APP */
- 946               	 ;  105 "adc.c" 1
+ 946               	 ;  111 "adc.c" 1
  947 06e0 DF91      		POP  R29
  948               	 ;  0 "" 2
- 949               	 ;  105 "adc.c" 1
+ 949               	 ;  111 "adc.c" 1
  950 06e2 CF91      		POP  R28
  951               	 ;  0 "" 2
- 952               	 ;  105 "adc.c" 1
+ 952               	 ;  111 "adc.c" 1
  953 06e4 1F91      		POP  R17
  954               	 ;  0 "" 2
- 955               	 ;  105 "adc.c" 1
+ 955               	 ;  111 "adc.c" 1
  956 06e6 0F91      		POP  R16
  957               	 ;  0 "" 2
- 958               	 ;  105 "adc.c" 1
+ 958               	 ;  111 "adc.c" 1
  959 06e8 FF90      		POP  R15
  960               	 ;  0 "" 2
- 961               	 ;  105 "adc.c" 1
+ 961               	 ;  111 "adc.c" 1
  962 06ea EF90      		POP  R14
  963               	 ;  0 "" 2
- 964               	 ;  105 "adc.c" 1
+ 964               	 ;  111 "adc.c" 1
  965 06ec DF90      		POP  R13
  966               	 ;  0 "" 2
- 967               	 ;  105 "adc.c" 1
+ 967               	 ;  111 "adc.c" 1
  968 06ee CF90      		POP  R12
  969               	 ;  0 "" 2
- 970               	 ;  105 "adc.c" 1
+ 970               	 ;  111 "adc.c" 1
  971 06f0 BF90      		POP  R11
  972               	 ;  0 "" 2
- 973               	 ;  105 "adc.c" 1
+ 973               	 ;  111 "adc.c" 1
  974 06f2 AF90      		POP  R10
  975               	 ;  0 "" 2
- 976               	 ;  105 "adc.c" 1
+ 976               	 ;  111 "adc.c" 1
  977 06f4 9F90      		POP  R9
  978               	 ;  0 "" 2
- 979               	 ;  105 "adc.c" 1
+ 979               	 ;  111 "adc.c" 1
  980 06f6 8F90      		POP  R8
  981               	 ;  0 "" 2
- 982               	 ;  105 "adc.c" 1
+ 982               	 ;  111 "adc.c" 1
  983 06f8 7F90      		POP  R7
  984               	 ;  0 "" 2
- 985               	 ;  105 "adc.c" 1
+ 985               	 ;  111 "adc.c" 1
  986 06fa 6F90      		POP  R6
  987               	 ;  0 "" 2
- 988               	 ;  105 "adc.c" 1
+ 988               	 ;  111 "adc.c" 1
  989 06fc 5F90      		POP  R5
  990               	 ;  0 "" 2
- 991               	 ;  105 "adc.c" 1
+ 991               	 ;  111 "adc.c" 1
  992 06fe 4F90      		POP  R4
  993               	 ;  0 "" 2
- 994               	 ;  105 "adc.c" 1
+ 994               	 ;  111 "adc.c" 1
  995 0700 3F90      		POP  R3
  996               	 ;  0 "" 2
- 997               	 ;  105 "adc.c" 1
+ 997               	 ;  111 "adc.c" 1
  998 0702 2F90      		POP  R2
  999               	 ;  0 "" 2
  1000               	/* #NOAPP */
  1001               	.L41:
  1002               	/* #APP */
- 1003               	 ;  105 "adc.c" 1
+ 1003               	 ;  111 "adc.c" 1
  1004 0704 FF91      		POP  R31
  1005               	 ;  0 "" 2
- 1006               	 ;  105 "adc.c" 1
+ 1006               	 ;  111 "adc.c" 1
  1007 0706 EF91      		POP  R30
  1008               	 ;  0 "" 2
- 1009               	 ;  105 "adc.c" 1
+ 1009               	 ;  111 "adc.c" 1
  1010 0708 BF91      		POP  R27
  1011               	 ;  0 "" 2
- 1012               	 ;  105 "adc.c" 1
+ 1012               	 ;  111 "adc.c" 1
  1013 070a AF91      		POP  R26
  1014               	 ;  0 "" 2
- 1015               	 ;  105 "adc.c" 1
+ 1015               	 ;  111 "adc.c" 1
  1016 070c 9F91      		POP  R25
  1017               	 ;  0 "" 2
- 1018               	 ;  105 "adc.c" 1
+ 1018               	 ;  111 "adc.c" 1
  1019 070e 8F91      		POP  R24
  1020               	 ;  0 "" 2
- 1021               	 ;  105 "adc.c" 1
+ 1021               	 ;  111 "adc.c" 1
  1022 0710 7F91      		POP  R23
  1023               	 ;  0 "" 2
- 1024               	 ;  105 "adc.c" 1
+ 1024               	 ;  111 "adc.c" 1
  1025 0712 6F91      		POP  R22
  1026               	 ;  0 "" 2
- 1027               	 ;  105 "adc.c" 1
+ 1027               	 ;  111 "adc.c" 1
  1028 0714 5F91      		POP  R21
  1029               	 ;  0 "" 2
- 1030               	 ;  105 "adc.c" 1
+ 1030               	 ;  111 "adc.c" 1
  1031 0716 4F91      		POP  R20
  1032               	 ;  0 "" 2
- 1033               	 ;  105 "adc.c" 1
+ 1033               	 ;  111 "adc.c" 1
  1034 0718 1F90      		POP  R1
  1035               	 ;  0 "" 2
- 1036               	 ;  105 "adc.c" 1
+ 1036               	 ;  111 "adc.c" 1
  1037 071a 0F90      		POP  R0
  1038               	 ;  0 "" 2
- 1039               	 ;  105 "adc.c" 1
+ 1039               	 ;  111 "adc.c" 1
  1040 071c 2F91      		POP  R18
  1041               	 ;  0 "" 2
- 1042               	 ;  105 "adc.c" 1
+ 1042               	 ;  111 "adc.c" 1
  1043 071e 2F77      		ANDI R18,0x7F
  1044               	 ;  0 "" 2
- 1045               	 ;  105 "adc.c" 1
+ 1045               	 ;  111 "adc.c" 1
  1046 0720 2FBF      		OUT  0x3F,R18
  1047               	 ;  0 "" 2
- 1048               	 ;  105 "adc.c" 1
+ 1048               	 ;  111 "adc.c" 1
  1049 0722 3F91      		POP  R19
  1050               	 ;  0 "" 2
- 1051               	 ;  105 "adc.c" 1
+ 1051               	 ;  111 "adc.c" 1
  1052 0724 2F91      		POP  R18
  1053               	 ;  0 "" 2
- 1054               	 ;  105 "adc.c" 1
+ 1054               	 ;  111 "adc.c" 1
  1055 0726 1895      		RETI
  1056               	 ;  0 "" 2
  1057               	/* epilogue start */
@@ -1131,36 +1131,36 @@
  1250               	.Letext0:
 DEFINED SYMBOLS
                             *ABS*:00000000 adc.c
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:2      *ABS*:0000003f __SREG__
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:3      *ABS*:0000003e __SP_H__
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:4      *ABS*:0000003d __SP_L__
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:5      *ABS*:00000034 __CCP__
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:6      *ABS*:00000000 __tmp_reg__
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:7      *ABS*:00000001 __zero_reg__
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:20     .text:00000000 adcInit
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1067   .bss:00000000 adcMuxState
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:44     .text:00000014 adcStartConversion
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:58     .text:00000018 adcCalculateAvg
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1091   .bss:0000000d adcNbSamplesD
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1085   .bss:00000009 adcNbSamplesG
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1079   .bss:00000005 adcMoteurDAvg
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1073   .bss:00000001 adcMoteurGAvg
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1175   .bss:00000024 adcCalibMinValDM
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1181   .data:0000000c adcCalibMaxValDM
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1159   .bss:00000020 adcCalibMinValDP
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1165   .data:00000008 adcCalibMaxValDP
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1143   .bss:0000001c adcCalibMinValGM
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1149   .data:00000004 adcCalibMaxValGM
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1127   .bss:00000018 adcCalibMinValGP
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1133   .data:00000000 adcCalibMaxValGP
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:292    .text:00000224 adcReadCalibValue
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:409    .text:00000302 adcCalibSeq
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1115   .bss:00000016 adcMotMskVarD
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1121   .bss:00000017 adcMotMskVarG
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:695    .text:00000564 __vector_16
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1097   .bss:00000011 Mcounter
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1103   .bss:00000013 adcValue
-C:\Users\Jonathan\AppData\Local\Temp/ccdZDSjD.s:1109   .bss:00000015 adcUpdateSetting
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:2      *ABS*:0000003f __SREG__
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:3      *ABS*:0000003e __SP_H__
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:4      *ABS*:0000003d __SP_L__
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:5      *ABS*:00000034 __CCP__
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:20     .text:00000000 adcInit
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1067   .bss:00000000 adcMuxState
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:44     .text:00000014 adcStartConversion
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:58     .text:00000018 adcCalculateAvg
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1091   .bss:0000000d adcNbSamplesD
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1085   .bss:00000009 adcNbSamplesG
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1079   .bss:00000005 adcMoteurDAvg
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1073   .bss:00000001 adcMoteurGAvg
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1175   .bss:00000024 adcCalibMinValDM
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1181   .data:0000000c adcCalibMaxValDM
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1159   .bss:00000020 adcCalibMinValDP
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1165   .data:00000008 adcCalibMaxValDP
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1143   .bss:0000001c adcCalibMinValGM
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1149   .data:00000004 adcCalibMaxValGM
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1127   .bss:00000018 adcCalibMinValGP
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1133   .data:00000000 adcCalibMaxValGP
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:292    .text:00000224 adcReadCalibValue
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:409    .text:00000302 adcCalibSeq
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1115   .bss:00000016 adcMotMskVarD
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1121   .bss:00000017 adcMotMskVarG
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:695    .text:00000564 __vector_16
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1097   .bss:00000011 Mcounter
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1103   .bss:00000013 adcValue
+C:\Users\Charles\AppData\Local\Temp/ccQGw21r.s:1109   .bss:00000015 adcUpdateSetting
 
 UNDEFINED SYMBOLS
 __do_copy_data

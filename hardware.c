@@ -1,15 +1,18 @@
+///////////////////////////////////////////////////////////////////////////
 /*
- ELE542 
+	hardware.c
+ 	ELE542 - ÉTÉ2015
+ 	Jonathan Lapointe LAPJ05108303
+ 	Charles Trépanier TREC07029107
 
- Jonathan Lapointe LAPJ05108303
- Charles Trépanier 
+	Contains hardware related functions.
 */
-#include "hardware.h"
+///////////////////////////////////////////////////////////////////////////
 
+#include "hardware.h"
 
 #define HW_OUTPUT  1
 #define HW_INPUT   0
-
 
 /*
 	@fn  void hwInit(void)

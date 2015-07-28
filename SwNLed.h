@@ -1,9 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
 /*
- ELE542 
- Jonathan Lapointe LAPJ05108303
- Charles Trépanier 
-*/
+	SwNLed.h
+ 	ELE542 - ÉTÉ2015
+ 	Jonathan Lapointe LAPJ05108303
+ 	Charles Trépanier TREC07029107
 
+	Contains prototypes and definitions for SwNLed.c.
+*/
+///////////////////////////////////////////////////////////////////////////
 
 #ifndef SW_N_LED
 #define SW_N_LED
@@ -16,7 +20,6 @@
 */
 U8 SLCheckSwStatusStop(void);
 
-
 /*
 	U8 SLCheckSwStatusStart(void)
 	@des verifie le bouton start
@@ -24,16 +27,12 @@ U8 SLCheckSwStatusStop(void);
 */
 U8 SLCheckSwStatusStart(void);
 
-
 /*
 	void SLInit(void)
 	@des initialise les dels d'affichage
 	d'état du robot
 */
 void SLInit(void);
-
-
-
 
 #endif
 

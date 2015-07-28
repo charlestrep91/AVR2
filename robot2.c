@@ -1,15 +1,14 @@
+///////////////////////////////////////////////////////////////////////////
+/*
+	robot2.c
+ 	ELE542 - ÉTÉ2015
+ 	Jonathan Lapointe LAPJ05108303
+ 	Charles Trépanier TREC07029107
 
-
-
-
-
-
-
-
-
-
-
-
+	Contains system's main function, tasks and declarations, initializations, 
+	definitions	and ISRs.
+*/
+///////////////////////////////////////////////////////////////////////////
 
 #include "includes.h"
 #include <stdio.h>
@@ -20,8 +19,6 @@
 #include "hardware.h"
 #include "SwNLed.h"
 #include "Watchdog.h"
-
-
 
 #define Pi (3.1415926535897932384626433832795)
 
@@ -38,6 +35,10 @@ INT8U tpRx = 0;
 //definition Led qui clignote a la reception Uart
 #define UART_RX_LED   0x02
 
+//definition des etats du bouton start
+#define CHECK_FOR_START_BUTTON_STATE 0
+#define CHECK_FOR_STOP_BUTTON_STATE  1
+
 //definition stacks des taches
 OS_STK CmdTele_Stk[STANDARD_STACK_SIZE];
 OS_STK MoteurTask_Stk[MOTEUR_STACK_SIZE];
@@ -50,7 +51,6 @@ OS_EVENT	*UARTEchoSem;
 OS_EVENT	*MoteurUpdateSem;
 OS_EVENT    *CmdTeleSem;
 OS_EVENT    *InRunModeSem;
-
 
 extern void InitOSTimer(void);
 
@@ -149,8 +149,6 @@ static  void  CmdTeleTask(void *p_arg)
 
     (void)p_arg;          // Prevent compiler warnings
 	
-
-
     while (TRUE) 
 	{    // Task body, always written as an infinite loop.
         tp = *((INT8U *) OSMboxPend(UARTRxBox, 0, &err));
@@ -161,54 +159,49 @@ static  void  CmdTeleTask(void *p_arg)
 		//verifie l'integrité du Mbox
 		if (err == OS_NO_ERR) 
 		{		
- 				//Echo data
-				if (OSSemAccept(UARTEchoSem))
-				{		
-					OSSemPend(UARTTxSem, 0, &err);
-					UDR = tp ;					
-					OSSemPost(UARTEchoSem);
-				}
-				//traite les données si est en mode roulement
-				if (OSSemAccept(InRunModeSem))
+			//Echo data
+			if (OSSemAccept(UARTEchoSem))
+			{		
+				OSSemPend(UARTTxSem, 0, &err);
+				UDR = tp ;					
+				OSSemPost(UARTEchoSem);
+			}
+			//traite les données si est en mode roulement
+			if (OSSemAccept(InRunModeSem))
+			{
+				OSSemPost(InRunModeSem);
+				switch(Etat) 
 				{
-					OSSemPost(InRunModeSem);
-					switch(Etat) 
-					{
-						case 0 :	
-									if (tp  == 0xF0) 
-									{
-										VitesseD = 0;
-										moteurSetMode(M_ARRET);
-									}
-									else if (tp == 0xF1) 
-									{
-										Etat = 1;
-										
-									}
-									break;
+					case 0 :	
+						if (tp  == 0xF0) 
+						{
+							VitesseD = 0;
+							moteurSetMode(M_ARRET);
+						}
+						else if (tp == 0xF1) 
+						{
+							Etat = 1;
+						
+						}
+					break;
 
-						case 1 :	
-									VitesseD =tp;
-										Etat = 2;
-									break;
+					case 1 :	
+						VitesseD =tp;
+						Etat = 2;
+					break;
 
-						case 2 :	
-									AngleD   =tp;
-										Etat = 0;	
-									//assignation des valeurs au controle Moteur					
-										moteurControl(VitesseD,AngleD);
-										moteurSetMode(M_MARCHE);
-									break;
-					}
-					
+					case 2 :	
+						AngleD   =tp;
+						Etat = 0;	
+						//assignation des valeurs au controle Moteur					
+						moteurControl(VitesseD,AngleD);
+						moteurSetMode(M_MARCHE);
+					break;
 				}
+			}
 		}
-		
     }
 }
-
-#define CHECK_FOR_START_BUTTON_STATE 0
-#define CHECK_FOR_STOP_BUTTON_STATE  1
 
 /*
 	static  void  IOTask(void *p_arg)
@@ -223,8 +216,6 @@ static  void  IOTask(void *p_arg)
 	INT8U	err;
 	
     (void)p_arg;          // Prevent compiler warnings
-	
-	
 
     while (TRUE) 
 	{    // Task body, always written as an infinite loop.
@@ -238,7 +229,7 @@ static  void  IOTask(void *p_arg)
 					state=CHECK_FOR_STOP_BUTTON_STATE;
 					moteurSetMode(M_MARCHE);
 				}
-				break;
+			break;
 
 			case CHECK_FOR_STOP_BUTTON_STATE:
 				if(SLCheckSwStatusStop())
@@ -249,12 +240,11 @@ static  void  IOTask(void *p_arg)
 					AngleD	    = 0;
 				    VitesseD	= 0;
 				}
-			
-				break;
+			break;
+
 			default:
 				state=CHECK_FOR_START_BUTTON_STATE;
-				break;
-
+			break;
 		}
     }
 }

@@ -1,15 +1,14 @@
-/**
-	@file moteur.h
-	@brief Header pour le fichier moteur.c
-	@author Bruno De Kelper et Louis-Bernard Lagueux
-	@date 13 Octobre 2006
-*/
-
+///////////////////////////////////////////////////////////////////////////
 /*
- ELE542 
- Jonathan Lapointe LAPJ05108303
- Charles Trépanier 
+	moteur.h
+ 	ELE542 - ÉTÉ2015
+ 	Jonathan Lapointe LAPJ05108303
+ 	Charles Trépanier TREC07029107
+
+	Contains prototypes and definitions for moteur.c.
 */
+///////////////////////////////////////////////////////////////////////////
+
 #ifndef __MOTOR_H_
 #define __MOTOR_H_
 #include "hardware.h"

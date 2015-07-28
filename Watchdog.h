@@ -1,9 +1,13 @@
+///////////////////////////////////////////////////////////////////////////
 /*
- ELE542 
- Jonathan Lapointe LAPJ05108303
- Charles Trépanier 
-*/
+	Watchdog.h
+ 	ELE542 - ÉTÉ2015
+ 	Jonathan Lapointe LAPJ05108303
+ 	Charles Trépanier TREC07029107
 
+	Contains prototypes and definitions for the system's watchdog.
+*/
+///////////////////////////////////////////////////////////////////////////
 
 #ifndef WATCHDOG_H
 #define WATCHDOG_H

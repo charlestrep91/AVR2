@@ -17,13 +17,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   6 .debug_abbrev 00000af6  00000000  00000000  00008dff  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00002e9f  00000000  00000000  000098f5  2**0
+  7 .debug_line   00002e9d  00000000  00000000  000098f5  2**0
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  00000640  00000000  00000000  0000c794  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000ca1  00000000  00000000  0000cdd4  2**0
+  9 .debug_str    00000cb3  00000000  00000000  0000cdd4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00001bdd  00000000  00000000  0000da75  2**0
+ 10 .debug_loc    00001bdd  00000000  00000000  0000da87  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -309,7 +309,7 @@ static  void  IOTask(void *p_arg)
      2d4:	80 e0       	ldi	r24, 0x00	; 0
      2d6:	0e 94 ee 07 	call	0xfdc	; 0xfdc <moteurSetMode>
 				}
-				break;
+			break;
 
 			case CHECK_FOR_STOP_BUTTON_STATE:
 				if(SLCheckSwStatusStop())
@@ -353,9 +353,9 @@ static  void  CmdTeleTask(void *p_arg)
      316:	cd b7       	in	r28, 0x3d	; 61
      318:	de b7       	in	r29, 0x3e	; 62
      31a:	00 e0       	ldi	r16, 0x00	; 0
+
+    (void)p_arg;          // Prevent compiler warnings
 	
-
-
     while (TRUE) 
 	{    // Task body, always written as an infinite loop.
         tp = *((INT8U *) OSMboxPend(UARTRxBox, 0, &err));
@@ -371,9 +371,9 @@ static  void  CmdTeleTask(void *p_arg)
 static  void  CmdTeleTask(void *p_arg) 
 {
      326:	01 e0       	ldi	r16, 0x01	; 1
+
+    (void)p_arg;          // Prevent compiler warnings
 	
-
-
     while (TRUE) 
 	{    // Task body, always written as an infinite loop.
         tp = *((INT8U *) OSMboxPend(UARTRxBox, 0, &err));
@@ -399,41 +399,41 @@ static  void  CmdTeleTask(void *p_arg)
      34a:	88 23       	and	r24, r24
      34c:	69 f7       	brne	.-38     	; 0x328 <CmdTeleTask+0x20>
 		{		
- 				//Echo data
-				if (OSSemAccept(UARTEchoSem))
+			//Echo data
+			if (OSSemAccept(UARTEchoSem))
      34e:	80 91 bb 02 	lds	r24, 0x02BB
      352:	90 91 bc 02 	lds	r25, 0x02BC
      356:	0e 94 a8 10 	call	0x2150	; 0x2150 <OSSemAccept>
      35a:	89 2b       	or	r24, r25
      35c:	81 f0       	breq	.+32     	; 0x37e <CmdTeleTask+0x76>
-				{		
-					OSSemPend(UARTTxSem, 0, &err);
+			{		
+				OSSemPend(UARTTxSem, 0, &err);
      35e:	80 91 53 03 	lds	r24, 0x0353
      362:	90 91 54 03 	lds	r25, 0x0354
      366:	60 e0       	ldi	r22, 0x00	; 0
      368:	70 e0       	ldi	r23, 0x00	; 0
      36a:	a7 01       	movw	r20, r14
      36c:	0e 94 47 13 	call	0x268e	; 0x268e <OSSemPend>
-					UDR = tp ;					
+				UDR = tp ;					
      370:	1c b9       	out	0x0c, r17	; 12
-					OSSemPost(UARTEchoSem);
+				OSSemPost(UARTEchoSem);
      372:	80 91 bb 02 	lds	r24, 0x02BB
      376:	90 91 bc 02 	lds	r25, 0x02BC
      37a:	0e 94 1b 13 	call	0x2636	; 0x2636 <OSSemPost>
-				}
-				//traite les données si est en mode roulement
-				if (OSSemAccept(InRunModeSem))
+			}
+			//traite les données si est en mode roulement
+			if (OSSemAccept(InRunModeSem))
      37e:	80 91 b9 02 	lds	r24, 0x02B9
      382:	90 91 ba 02 	lds	r25, 0x02BA
      386:	0e 94 a8 10 	call	0x2150	; 0x2150 <OSSemAccept>
      38a:	89 2b       	or	r24, r25
      38c:	69 f2       	breq	.-102    	; 0x328 <CmdTeleTask+0x20>
-				{
-					OSSemPost(InRunModeSem);
+			{
+				OSSemPost(InRunModeSem);
      38e:	80 91 b9 02 	lds	r24, 0x02B9
      392:	90 91 ba 02 	lds	r25, 0x02BA
      396:	0e 94 1b 13 	call	0x2636	; 0x2636 <OSSemPost>
-					switch(Etat) 
+				switch(Etat) 
      39a:	01 30       	cpi	r16, 0x01	; 1
      39c:	89 f0       	breq	.+34     	; 0x3c0 <CmdTeleTask+0xb8>
      39e:	01 30       	cpi	r16, 0x01	; 1
@@ -441,46 +441,46 @@ static  void  CmdTeleTask(void *p_arg)
      3a2:	02 30       	cpi	r16, 0x02	; 2
      3a4:	09 f6       	brne	.-126    	; 0x328 <CmdTeleTask+0x20>
      3a6:	10 c0       	rjmp	.+32     	; 0x3c8 <CmdTeleTask+0xc0>
-					{
-						case 0 :	
-									if (tp  == 0xF0) 
+				{
+					case 0 :	
+						if (tp  == 0xF0) 
      3a8:	10 3f       	cpi	r17, 0xF0	; 240
      3aa:	31 f4       	brne	.+12     	; 0x3b8 <CmdTeleTask+0xb0>
-									{
-										VitesseD = 0;
+						{
+							VitesseD = 0;
      3ac:	10 92 7d 01 	sts	0x017D, r1
-										moteurSetMode(M_ARRET);
+							moteurSetMode(M_ARRET);
      3b0:	82 e0       	ldi	r24, 0x02	; 2
      3b2:	0e 94 ee 07 	call	0xfdc	; 0xfdc <moteurSetMode>
      3b6:	b8 cf       	rjmp	.-144    	; 0x328 <CmdTeleTask+0x20>
-									}
-									else if (tp == 0xF1) 
+						}
+						else if (tp == 0xF1) 
      3b8:	11 3f       	cpi	r17, 0xF1	; 241
      3ba:	09 f0       	breq	.+2      	; 0x3be <CmdTeleTask+0xb6>
      3bc:	b5 cf       	rjmp	.-150    	; 0x328 <CmdTeleTask+0x20>
      3be:	b3 cf       	rjmp	.-154    	; 0x326 <CmdTeleTask+0x1e>
-										
-									}
-									break;
+						
+						}
+					break;
 
-						case 1 :	
-									VitesseD =tp;
+					case 1 :	
+						VitesseD =tp;
      3c0:	10 93 7d 01 	sts	0x017D, r17
      3c4:	02 e0       	ldi	r16, 0x02	; 2
      3c6:	b0 cf       	rjmp	.-160    	; 0x328 <CmdTeleTask+0x20>
-										Etat = 2;
-									break;
+						Etat = 2;
+					break;
 
-						case 2 :	
-									AngleD   =tp;
+					case 2 :	
+						AngleD   =tp;
      3c8:	10 93 7c 01 	sts	0x017C, r17
-										Etat = 0;	
-									//assignation des valeurs au controle Moteur					
-										moteurControl(VitesseD,AngleD);
+						Etat = 0;	
+						//assignation des valeurs au controle Moteur					
+						moteurControl(VitesseD,AngleD);
      3cc:	80 91 7d 01 	lds	r24, 0x017D
      3d0:	61 2f       	mov	r22, r17
      3d2:	0e 94 9b 07 	call	0xf36	; 0xf36 <moteurControl>
-										moteurSetMode(M_MARCHE);
+						moteurSetMode(M_MARCHE);
      3d6:	80 e0       	ldi	r24, 0x00	; 0
      3d8:	0e 94 ee 07 	call	0xfdc	; 0xfdc <moteurSetMode>
      3dc:	00 e0       	ldi	r16, 0x00	; 0
@@ -1284,28 +1284,28 @@ SIGNAL (SIG_OUTPUT_COMPARE2) {
 */
 void pwmInit(void)
 {
-  //com1b1=1
-  TCCR1A=(1<<COM1A1)|(0<<COM1A0)|(1<<COM1B1)|(0<<COM1B0)|(0<<FOC1A)|(0<<FOC1B)|(1<<WGM11)|(0<<WGM10);
+	//com1b1=1
+	TCCR1A=(1<<COM1A1)|(0<<COM1A0)|(1<<COM1B1)|(0<<COM1B0)|(0<<FOC1A)|(0<<FOC1B)|(1<<WGM11)|(0<<WGM10);
      890:	82 ea       	ldi	r24, 0xA2	; 162
      892:	8f bd       	out	0x2f, r24	; 47
-  TCCR1B=(0<<ICNC1)|(0<<ICES1)|(1<<WGM13)|(1<<WGM12)|(0<<CS12)|(1<<CS11)|(0<<CS10);
+	TCCR1B=(0<<ICNC1)|(0<<ICES1)|(1<<WGM13)|(1<<WGM12)|(0<<CS12)|(1<<CS11)|(0<<CS10);
      894:	8a e1       	ldi	r24, 0x1A	; 26
      896:	8e bd       	out	0x2e, r24	; 46
-  //overflow interruption on
-  TIMSK=(0<<TICIE1)|(0<<OCIE1A)|(0<<OCIE1B)|(1<<TOIE1);
+	//overflow interruption on
+	TIMSK=(0<<TICIE1)|(0<<OCIE1A)|(0<<OCIE1B)|(1<<TOIE1);
      898:	84 e0       	ldi	r24, 0x04	; 4
      89a:	89 bf       	out	0x39, r24	; 57
 
-  //ajustement de la periode de 5mS
-  ICR1=0x2710;
+	//ajustement de la periode de 5mS
+	ICR1=0x2710;
      89c:	80 e1       	ldi	r24, 0x10	; 16
      89e:	97 e2       	ldi	r25, 0x27	; 39
      8a0:	97 bd       	out	0x27, r25	; 39
      8a2:	86 bd       	out	0x26, r24	; 38
-  OCR1A=0;
+	OCR1A=0;
      8a4:	1b bc       	out	0x2b, r1	; 43
      8a6:	1a bc       	out	0x2a, r1	; 42
-  OCR1B=0;
+	OCR1B=0;
      8a8:	19 bc       	out	0x29, r1	; 41
      8aa:	18 bc       	out	0x28, r1	; 40
 }
@@ -2137,7 +2137,7 @@ U8 moteurControl(U8 vitesse,U8 angle)
 	{ 
 		if(vitesse!=lastVitesse)
 		{
-			mVitesse_D=(float)(vitesse-100)/100;
+			mVitesse_D=(float)(vitesse-100)/100;	
      f5c:	60 2f       	mov	r22, r16
      f5e:	70 e0       	ldi	r23, 0x00	; 0
      f60:	64 56       	subi	r22, 0x64	; 100
@@ -2156,7 +2156,6 @@ U8 moteurControl(U8 vitesse,U8 angle)
      f80:	70 93 8c 01 	sts	0x018C, r23
      f84:	80 93 8d 01 	sts	0x018D, r24
      f88:	90 93 8e 01 	sts	0x018E, r25
-			
 		}
 
 		if(angle!=lastAngle)
@@ -2185,7 +2184,6 @@ U8 moteurControl(U8 vitesse,U8 angle)
      fc0:	80 93 91 01 	sts	0x0191, r24
      fc4:	90 93 92 01 	sts	0x0192, r25
 		}
-
 		lastVitesse=vitesse;
      fc8:	00 93 84 01 	sts	0x0184, r16
 		lastAngle=angle;
@@ -2228,39 +2226,38 @@ void CalculMoteur(void)
      ff0:	ff 92       	push	r15
      ff2:	0f 93       	push	r16
      ff4:	1f 93       	push	r17
-#define M_DIR_D1 mPortDREG.bit.b6
-#define M_DIR_D2 mPortDREG.bit.b7	  
+	#define M_DIR_G2 mPortDREG.bit.b3
+	#define M_DIR_D1 mPortDREG.bit.b6
+	#define M_DIR_D2 mPortDREG.bit.b7	  
  
-
-		//MODE AVANT
-		if(mMode!=M_MARCHE)
+	//MODE AVANT
+	if(mMode!=M_MARCHE)
      ff6:	80 91 8a 01 	lds	r24, 0x018A
      ffa:	88 23       	and	r24, r24
      ffc:	19 f1       	breq	.+70     	; 0x1044 <CalculMoteur+0x62>
-		{	
-			switch(mMode)
+	{	
+		switch(mMode)
      ffe:	81 30       	cpi	r24, 0x01	; 1
     1000:	11 f4       	brne	.+4      	; 0x1006 <CalculMoteur+0x24>
-			{
-				case M_NEUTRE:
+		{
+			case M_NEUTRE:
 				M_DIR_G1=0;
 				M_DIR_G2=0;
 				M_DIR_D1=0;
 				M_DIR_D2=0;
     1002:	dd 24       	eor	r13, r13
     1004:	02 c0       	rjmp	.+4      	; 0x100a <CalculMoteur+0x28>
-				//M_ARRET
-				default:  
+			//M_ARRET
+			default:  
 				M_DIR_G1=1;
 				M_DIR_G2=1;
 				M_DIR_D1=1;
 				M_DIR_D2=1;
     1006:	fc ec       	ldi	r31, 0xCC	; 204
     1008:	df 2e       	mov	r13, r31
-				break;
-				
-			}
-			mDuty_G=0;
+			break;	
+		}
+		mDuty_G=0;
     100a:	80 e0       	ldi	r24, 0x00	; 0
     100c:	90 e0       	ldi	r25, 0x00	; 0
     100e:	a0 e0       	ldi	r26, 0x00	; 0
@@ -2269,28 +2266,28 @@ void CalculMoteur(void)
     1016:	90 93 9c 01 	sts	0x019C, r25
     101a:	a0 93 9d 01 	sts	0x019D, r26
     101e:	b0 93 9e 01 	sts	0x019E, r27
-			mDuty_D=0;
+		mDuty_D=0;
     1022:	80 93 9f 01 	sts	0x019F, r24
     1026:	90 93 a0 01 	sts	0x01A0, r25
     102a:	a0 93 a1 01 	sts	0x01A1, r26
     102e:	b0 93 a2 01 	sts	0x01A2, r27
-			dutyValD=0;
+		dutyValD=0;
     1032:	10 92 ef 03 	sts	0x03EF, r1
     1036:	10 92 ee 03 	sts	0x03EE, r1
-			dutyValG=0;
+		dutyValG=0;
     103a:	10 92 ed 03 	sts	0x03ED, r1
     103e:	10 92 ec 03 	sts	0x03EC, r1
     1042:	a7 c0       	rjmp	.+334    	; 0x1192 <CalculMoteur+0x1b0>
-		}
-		else
-		{
-			adcCalculateAvg(&mVd,&mVg);	
+	}
+	else
+	{
+		adcCalculateAvg(&mVd,&mVg);	
     1044:	87 e9       	ldi	r24, 0x97	; 151
     1046:	91 e0       	ldi	r25, 0x01	; 1
     1048:	63 e9       	ldi	r22, 0x93	; 147
     104a:	71 e0       	ldi	r23, 0x01	; 1
     104c:	0e 94 eb 08 	call	0x11d6	; 0x11d6 <adcCalculateAvg>
-			CalculPWM(mVitesse_D,mAngle_D,mVg,mVd,&mDuty_G,&mDuty_D);
+		CalculPWM(mVitesse_D,mAngle_D,mVg,mVd,&mDuty_G,&mDuty_D);
     1050:	00 d0       	rcall	.+0      	; 0x1052 <CalculMoteur+0x70>
     1052:	60 91 8b 01 	lds	r22, 0x018B
     1056:	70 91 8c 01 	lds	r23, 0x018C
@@ -2321,8 +2318,8 @@ void CalculMoteur(void)
     10a6:	e1 e0       	ldi	r30, 0x01	; 1
     10a8:	9e 2e       	mov	r9, r30
     10aa:	0e 94 d6 04 	call	0x9ac	; 0x9ac <CalculPWM>
-			//MODE ARRIERE
-			if(mDuty_G<0)
+		//MODE ARRIERE
+		if(mDuty_G<0)
     10ae:	e0 90 9b 01 	lds	r14, 0x019B
     10b2:	f0 90 9c 01 	lds	r15, 0x019C
     10b6:	00 91 9d 01 	lds	r16, 0x019D
@@ -2338,12 +2335,12 @@ void CalculMoteur(void)
     10ce:	0e 94 51 26 	call	0x4ca2	; 0x4ca2 <__cmpsf2>
     10d2:	88 23       	and	r24, r24
     10d4:	74 f4       	brge	.+28     	; 0x10f2 <CalculMoteur+0x110>
-			{
-				M_DIR_G1=0;
-				M_DIR_G2=1;
+		{
+			M_DIR_G1=0;
+			M_DIR_G2=1;
     10d6:	98 e0       	ldi	r25, 0x08	; 8
     10d8:	d9 2e       	mov	r13, r25
-				mDuty_G=mDuty_G*(-1);
+			mDuty_G=mDuty_G*(-1);
     10da:	d8 01       	movw	r26, r16
     10dc:	c7 01       	movw	r24, r14
     10de:	b0 58       	subi	r27, 0x80	; 128
@@ -2352,18 +2349,18 @@ void CalculMoteur(void)
     10e8:	a0 93 9d 01 	sts	0x019D, r26
     10ec:	b0 93 9e 01 	sts	0x019E, r27
     10f0:	02 c0       	rjmp	.+4      	; 0x10f6 <CalculMoteur+0x114>
-			}
-			//MODE AVANT
-			else
-			{
-				M_DIR_G1=1;
-				M_DIR_G2=0;	
+		}
+		//MODE AVANT
+		else
+		{
+			M_DIR_G1=1;
+			M_DIR_G2=0;	
     10f2:	84 e0       	ldi	r24, 0x04	; 4
     10f4:	d8 2e       	mov	r13, r24
-			}	
+		}	
 
-			//MODE ARRIERE
-			if(mDuty_D<0)
+		//MODE ARRIERE
+		if(mDuty_D<0)
     10f6:	e0 90 9f 01 	lds	r14, 0x019F
     10fa:	f0 90 a0 01 	lds	r15, 0x01A0
     10fe:	00 91 a1 01 	lds	r16, 0x01A1
@@ -2377,14 +2374,14 @@ void CalculMoteur(void)
     1112:	0e 94 51 26 	call	0x4ca2	; 0x4ca2 <__cmpsf2>
     1116:	88 23       	and	r24, r24
     1118:	84 f4       	brge	.+32     	; 0x113a <CalculMoteur+0x158>
-			{
-				M_DIR_D1=0;
+		{
+			M_DIR_D1=0;
     111a:	bf eb       	ldi	r27, 0xBF	; 191
     111c:	db 22       	and	r13, r27
-				M_DIR_D2=1;
+			M_DIR_D2=1;
     111e:	80 e8       	ldi	r24, 0x80	; 128
     1120:	d8 2a       	or	r13, r24
-				mDuty_D=mDuty_D*(-1);
+			mDuty_D=mDuty_D*(-1);
     1122:	d8 01       	movw	r26, r16
     1124:	c7 01       	movw	r24, r14
     1126:	b0 58       	subi	r27, 0x80	; 128
@@ -2393,19 +2390,19 @@ void CalculMoteur(void)
     1130:	a0 93 a1 01 	sts	0x01A1, r26
     1134:	b0 93 a2 01 	sts	0x01A2, r27
     1138:	04 c0       	rjmp	.+8      	; 0x1142 <CalculMoteur+0x160>
-			}
-			//MODE AVANT
-			else
-			{
-				M_DIR_D1=1;
+		}
+		//MODE AVANT
+		else
+		{
+			M_DIR_D1=1;
     113a:	a0 e4       	ldi	r26, 0x40	; 64
     113c:	da 2a       	or	r13, r26
-				M_DIR_D2=0;	
+			M_DIR_D2=0;	
     113e:	bf e7       	ldi	r27, 0x7F	; 127
     1140:	db 22       	and	r13, r27
-			}
-			
-			dutyValD=(U16)(mDuty_D*10000);
+		}
+		
+		dutyValD=(U16)(mDuty_D*10000);
     1142:	60 91 9f 01 	lds	r22, 0x019F
     1146:	70 91 a0 01 	lds	r23, 0x01A0
     114a:	80 91 a1 01 	lds	r24, 0x01A1
@@ -2418,7 +2415,7 @@ void CalculMoteur(void)
     115e:	0e 94 bd 26 	call	0x4d7a	; 0x4d7a <__fixunssfsi>
     1162:	70 93 ef 03 	sts	0x03EF, r23
     1166:	60 93 ee 03 	sts	0x03EE, r22
-			dutyValG=(U16)(mDuty_G*10000);		
+		dutyValG=(U16)(mDuty_G*10000);		
     116a:	60 91 9b 01 	lds	r22, 0x019B
     116e:	70 91 9c 01 	lds	r23, 0x019C
     1172:	80 91 9d 01 	lds	r24, 0x019D
@@ -2431,15 +2428,14 @@ void CalculMoteur(void)
     1186:	0e 94 bd 26 	call	0x4d7a	; 0x4d7a <__fixunssfsi>
     118a:	70 93 ed 03 	sts	0x03ED, r23
     118e:	60 93 ec 03 	sts	0x03EC, r22
-		}
-		pwmSetDutyValue(dutyValD,dutyValG,mPortDREG.byte);	
+	}
+	pwmSetDutyValue(dutyValD,dutyValG,mPortDREG.byte);	
     1192:	60 91 ec 03 	lds	r22, 0x03EC
     1196:	70 91 ed 03 	lds	r23, 0x03ED
     119a:	80 91 ee 03 	lds	r24, 0x03EE
     119e:	90 91 ef 03 	lds	r25, 0x03EF
     11a2:	4d 2d       	mov	r20, r13
     11a4:	0e 94 57 04 	call	0x8ae	; 0x8ae <pwmSetDutyValue>
-
 }
     11a8:	1f 91       	pop	r17
     11aa:	0f 91       	pop	r16
@@ -3386,7 +3382,6 @@ U8 SLCheckSwStatusStart(void)
 	}
 	else
 		return 0;
-
 }
     1916:	08 95       	ret
 
@@ -3420,7 +3415,6 @@ U8 SLCheckSwStatusStop(void)
 	}
 	else 
 		return 0;
-	
 }
     1934:	08 95       	ret
 
